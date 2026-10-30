@@ -1,18 +1,42 @@
 "use client";
 
 import { useId, useState, type ReactNode } from "react";
+import { formatPrice } from "@/lib/currency";
+import { useCurrencyStore } from "@/store/useCurrencyStore";
 import { useNouraStore } from "@/store/useNouraStore";
 
-const prices: [string, string][] = [
-  ["Virtual counselling", "₦50,000"],
-  ["In-person counselling", "₦80,000"],
-  ["Genotype confirmation test", "₦30,000"],
-  ["IVF cycle", "₦2,900,000 est."],
-  ["Fertility medication", "₦1,600,000 est."],
-  ["Embryo testing (PGT-M)", "₦2,500,000 est."],
-  ["Frozen embryo transfer", "₦500,000 est."],
-  ["Full treatment package", "₦7,500,000"],
+// [name, amount in naira, is it an estimate]. Shown in the currency chosen in the nav.
+const prices: [string, number, boolean][] = [
+  ["Virtual counselling", 50_000, false],
+  ["In-person counselling", 80_000, false],
+  ["Genotype confirmation test", 30_000, false],
+  ["IVF cycle", 2_900_000, true],
+  ["Fertility medication", 1_600_000, true],
+  ["Embryo testing (PGT-M)", 2_500_000, true],
+  ["Frozen embryo transfer", 500_000, true],
+  ["Full treatment package", 7_500_000, false],
 ];
+
+function PriceList() {
+  const currency = useCurrencyStore((s) => s.currency);
+  return (
+    <dl className="divide-y divide-ink/10 rounded-[calc(16*var(--u))] border border-ink/10">
+      {prices.map(([name, ngn, estimate]) => {
+        const { symbol, digits } = formatPrice(ngn, currency);
+        return (
+          <div key={name} className="flex items-baseline justify-between gap-[calc(16*var(--u))] px-[calc(16*var(--u))] py-[calc(12*var(--u))]">
+            <dt>{name}</dt>
+            <dd className="shrink-0 font-semibold text-ink">
+              {symbol}
+              {digits}
+              {estimate ? " est." : ""}
+            </dd>
+          </div>
+        );
+      })}
+    </dl>
+  );
+}
 
 function Block({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -47,14 +71,7 @@ const items: { id: string; question: string; answer: ReactNode }[] = [
     question: "What does everything cost?",
     answer: (
       <div>
-        <dl className="divide-y divide-ink/10 rounded-[calc(16*var(--u))] border border-ink/10">
-          {prices.map(([name, price]) => (
-            <div key={name} className="flex items-baseline justify-between gap-[calc(16*var(--u))] px-[calc(16*var(--u))] py-[calc(12*var(--u))]">
-              <dt>{name}</dt>
-              <dd className="shrink-0 font-semibold text-ink">{price}</dd>
-            </div>
-          ))}
-        </dl>
+        <PriceList />
         <p className="mt-[calc(14*var(--u))]">
           Procedure prices are estimates until they are confirmed at your assessment. Some couples need more than one
           cycle.

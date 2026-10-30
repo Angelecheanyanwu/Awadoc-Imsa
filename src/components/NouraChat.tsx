@@ -88,7 +88,7 @@ export default function NouraChat() {
             <h2 id="noura-title" className="text-lead font-medium leading-tight">
               Noura
             </h2>
-            <p className="truncate text-label text-muted">AwaDoc&apos;s AI health assistant</p>
+            <p className="truncate text-hero-sub text-muted">AwaDoc&apos;s AI health assistant</p>
           </div>
           <button
             type="button"
@@ -111,7 +111,7 @@ export default function NouraChat() {
           {messages.map((m) => (
             <div
               key={m.id}
-              className={`noura-msg max-w-[85%] whitespace-pre-wrap rounded-[calc(20*var(--u))] px-[calc(18*var(--u))] py-[calc(12*var(--u))] text-body leading-relaxed ${
+              className={`noura-msg max-w-[85%] whitespace-pre-wrap rounded-[calc(20*var(--u))] px-[calc(18*var(--u))] py-[calc(12*var(--u))] text-hero-sub leading-relaxed ${
                 m.role === "user"
                   ? "self-end rounded-br-[calc(6*var(--u))] bg-brand font-medium text-[#07110c]"
                   : "self-start rounded-bl-[calc(6*var(--u))] border border-ink/10 bg-ink/4"
@@ -147,7 +147,7 @@ export default function NouraChat() {
                   key={q}
                   type="button"
                   onClick={() => submit(q)}
-                  className="flex min-h-11 cursor-pointer items-center justify-center rounded-full border border-ink/15 px-[1em] py-[0.5em] text-center text-label leading-snug font-medium transition-colors hover:border-brand hover:bg-brand/10 hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+                  className="flex min-h-11 cursor-pointer items-center justify-center rounded-full border border-ink/15 px-[1em] py-[0.5em] text-center text-hero-sub leading-snug font-medium transition-colors hover:border-brand hover:bg-brand/10 hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
                 >
                   {q}
                 </button>
@@ -169,7 +169,7 @@ export default function NouraChat() {
               placeholder="Ask Noura a question"
               aria-label="Ask Noura a question"
               maxLength={500}
-              className="min-h-12 min-w-0 flex-1 rounded-[calc(16*var(--u))] border border-ink/10 bg-ink/5 px-[calc(16*var(--u))] py-[calc(13*var(--u))] text-body outline-none transition-all duration-200 placeholder:font-semibold placeholder:text-muted/70 hover:border-ink/20 focus:border-brand focus:bg-transparent focus:ring-4 focus:ring-brand/15 focus:placeholder:text-muted motion-reduce:transition-none"
+              className="min-h-12 min-w-0 flex-1 rounded-[calc(16*var(--u))] border border-ink/10 bg-ink/5 px-[calc(16*var(--u))] py-[calc(13*var(--u))] text-hero-sub outline-none transition-all duration-200 placeholder:font-semibold placeholder:text-muted/70 hover:border-ink/20 focus:border-brand focus:bg-transparent focus:ring-4 focus:ring-brand/15 focus:placeholder:text-muted motion-reduce:transition-none"
             />
             <button
               type="submit"

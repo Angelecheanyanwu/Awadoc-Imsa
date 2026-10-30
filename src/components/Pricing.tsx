@@ -1,13 +1,21 @@
+"use client";
+
+import { formatPrice } from "@/lib/currency";
+import { useCurrencyStore } from "@/store/useCurrencyStore";
+
+// Amounts are in naira; they are converted for display when another currency is chosen.
 const plans = [
-  { price: "50,000", description: "Virtual counselling, any country", featured: false },
-  { price: "80,000", description: "In-person counselling", featured: false },
-  { price: "7,500,000", description: "Full treatment package", featured: true },
+  { ngn: 50_000, description: "Virtual counselling, any country", featured: false },
+  { ngn: 80_000, description: "In-person counselling", featured: false },
+  { ngn: 7_500_000, description: "Full treatment package", featured: true },
 ];
 
 const cardBase =
   "flex min-h-[calc(200*var(--u))] flex-col gap-[calc(10*var(--u))] rounded-[calc(24*var(--u))] p-card transition-transform duration-200 ease-out hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0";
 
 export default function Pricing() {
+  const currency = useCurrencyStore((s) => s.currency);
+
   return (
     <section
       aria-label="Pricing"
@@ -16,9 +24,11 @@ export default function Pricing() {
       {/* Frosted glass panel: the helix shows through the blur and fades out inside it. */}
       <div className="rounded-[calc(32*var(--u))] border border-ink/10 bg-linear-to-r from-bg/65 via-bg/35 to-bg/20 p-card shadow-[0_8px_40px_-12px_rgba(0,0,0,0.18)] backdrop-blur-[18px]">
         <div className="grid grid-cols-1 gap-[calc(16*var(--u))] sm:grid-cols-2 lg:grid-cols-3">
-          {plans.map(({ price, description, featured }) => (
+          {plans.map(({ ngn, description, featured }) => {
+            const { symbol, digits } = formatPrice(ngn, currency);
+            return (
             <article
-              key={price}
+              key={ngn}
               className={
                 featured
                   ? `${cardBase} sm:col-span-2 lg:col-span-1 bg-[#0f1a14] text-[#e8f3ec] shadow-[0_16px_36px_-14px_rgba(0,0,0,0.5)] ring-1 ring-white/10`
@@ -29,8 +39,8 @@ export default function Pricing() {
               <div className="flex flex-nowrap items-center justify-between gap-[calc(12*var(--u))]">
                 <p className="whitespace-nowrap font-heading text-price font-medium leading-none [-webkit-text-stroke:0.03em_currentColor]">
                   {/* Nohemi's naira sign is malformed (it renders as a dot), so the symbol uses Poppins. */}
-                  <span className="font-sans font-semibold [-webkit-text-stroke:0]">₦</span>
-                  {price}
+                  <span className="font-sans font-semibold [-webkit-text-stroke:0]">{symbol}</span>
+                  {digits}
                 </p>
                 {featured && (
                   <button
@@ -47,8 +57,15 @@ export default function Pricing() {
                 {description}
               </p>
             </article>
-          ))}
+            );
+          })}
         </div>
+
+        {currency !== "NGN" && (
+          <p className="mt-[calc(14*var(--u))] text-center text-micro text-muted">
+            Prices are set in naira (₦) and shown here converted at approximate rates.
+          </p>
+        )}
       </div>
     </section>
   );
