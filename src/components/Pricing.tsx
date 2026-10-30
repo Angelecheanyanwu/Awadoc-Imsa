@@ -1,7 +1,7 @@
 const plans = [
   { price: "50,000", description: "Virtual counselling, any country", featured: false },
   { price: "80,000", description: "In-person counselling", featured: false },
-  { price: "7,500,000", description: "Full treatment package, estimated", featured: true },
+  { price: "7,500,000", description: "Full treatment package", featured: true },
 ];
 
 const cardBase =
@@ -15,13 +15,13 @@ export default function Pricing() {
     >
       {/* Frosted glass panel: the helix shows through the blur and fades out inside it. */}
       <div className="rounded-[calc(32*var(--u))] border border-ink/10 bg-linear-to-r from-bg/65 via-bg/35 to-bg/20 p-card shadow-[0_8px_40px_-12px_rgba(0,0,0,0.18)] backdrop-blur-[18px]">
-        <div className="grid gap-[calc(16*var(--u))] md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-[calc(16*var(--u))] sm:grid-cols-2 lg:grid-cols-3">
           {plans.map(({ price, description, featured }) => (
             <article
               key={price}
               className={
                 featured
-                  ? `${cardBase} bg-[#0f1a14] text-[#e8f3ec] shadow-[0_16px_36px_-14px_rgba(0,0,0,0.5)] ring-1 ring-white/10`
+                  ? `${cardBase} sm:col-span-2 lg:col-span-1 bg-[#0f1a14] text-[#e8f3ec] shadow-[0_16px_36px_-14px_rgba(0,0,0,0.5)] ring-1 ring-white/10`
                   : `${cardBase} border border-ink/10 bg-bg/50 shadow-[0_1px_2px_rgba(0,0,0,0.04)]`
               }
             >

@@ -134,7 +134,7 @@ function buildGeometry(palette: Palette) {
 export default function HelixBackground({
   className,
   palette = GREEN,
-  cycle = 20,
+  cycle = 10,
   offsetX = 3.1,
 }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);

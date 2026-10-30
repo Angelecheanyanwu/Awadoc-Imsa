@@ -25,7 +25,7 @@ function Block({ title, children }: { title: string; children: ReactNode }) {
 const items: { id: string; question: string; answer: ReactNode }[] = [
   {
     id: "pgtm",
-    question: "About PGT-M: preimplantation genetic testing for monogenic conditions",
+    question: "About PGT-M",
     answer: (
       <div className="space-y-[calc(14*var(--u))]">
         <p>
