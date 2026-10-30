@@ -231,17 +231,16 @@ export default function HelixBackground({
     };
     window.addEventListener("pointermove", onMove);
 
-    const ease = (x: number) => x * x * (3 - 2 * x);
     // Bursts as soon as the page loads, then again every `cycle` seconds.
-    // Timeline (seconds): burst 0-0.7, drift 0.7-1, reform 1-2, formed until the next burst.
-    // The burst eases out (fast start) and the clock is nudged forward so particles
-    // are already flying on the very first frame.
-    const easeOut = (x: number) => 1 - (1 - x) * (1 - x);
+    // Timeline (seconds): burst 0-0.9, reform 0.9-2, formed until the next burst.
+    // Every move eases in and out, and the clock is nudged forward a touch so particles
+    // are already moving on the very first frame.
+    // Smootherstep: eases in and out with no sudden start, peak or stop.
+    const soft = (x: number) => x * x * x * (x * (x * 6 - 15) + 10);
     const progressAt = (t: number) => {
-      const s = (t + 0.3) % cycle;
-      if (s < 0.7) return easeOut(s / 0.7);
-      if (s < 1.0) return 1;
-      if (s < 2) return 1 - ease((s - 1.0) / 1.0);
+      const s = (t + 0.1) % cycle;
+      if (s < 0.9) return soft(s / 0.9);
+      if (s < 2) return 1 - soft((s - 0.9) / 1.1);
       return 0;
     };
 
