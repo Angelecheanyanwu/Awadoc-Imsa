@@ -41,13 +41,13 @@ export default function Home() {
       <div className="gutter relative z-10 flex flex-1 items-center py-6">
         {/* w-fit makes this block exactly as wide as "who you marry." at every screen size: line one is
             zero-width and overflows, and the paragraph and buttons fill the block, so the subtext
-            never goes past "marry.". Below 520px line one breaks after "genotype" (it can't fit on
+            never goes past "marry.". Below 780px line one breaks after "genotype" (it can't fit on
             one line any more), and "shouldn't decide" is only slightly wider than "marry.". */}
         <div className="w-fit">
           <h1 className="mb-[0.35em] text-display font-heading font-medium [-webkit-text-stroke:0.06em_currentColor] leading-[1.05] tracking-normal">
             <span className="block w-0 whitespace-nowrap">
               Your genotype{" "}
-              <br className="min-[520px]:hidden" />
+              <br className="min-[780px]:hidden" />
               shouldn&apos;t decide
             </span>
             <span className="block text-brand">who you marry.</span>
