@@ -134,22 +134,17 @@ h6 {
   }
 }
 
-/* On small screens the hero subtext is solid ink (near-black on the white theme) instead of the
-   softer grey, so it stays readable over the helix. The green theme keeps the soft colour. */
+/* On small screens the helix is dimmed further (in the shader, so the linking rungs stay bright) and the hero copy is solid ink with a soft halo
+   in the page colour, so "who you marry." and the subtext stay readable in both themes. */
 @media (max-width: 639px) {
   .hero-sub {
     color: var(--ink);
   }
-  :root[data-theme="dark"] .hero-sub {
-    color: var(--muted);
+  .hero-sub,
+  [data-hero] h1 {
+    text-shadow: 0 0 10px var(--bg), 0 0 4px var(--bg);
   }
 }
-@media (max-width: 639px) and (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .hero-sub {
-    color: var(--muted);
-  }
-}
-
 /* New chat messages ease in from slightly below. */
 @keyframes noura-in {
   from {

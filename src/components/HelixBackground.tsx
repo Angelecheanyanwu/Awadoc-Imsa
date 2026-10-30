@@ -30,8 +30,8 @@ const DENSITY = 0.7;
 const VIEW_HEIGHT = 8.19; // world units visible over one hero height (fov 35 at distance 13)
 
 const vertexShader =/* glsl */ `
-  uniform float uTime, uProgress, uPixelRatio;
-  attribute float aT, aSize, aKind;
+  uniform float uTime, uProgress, uPixelRatio, uDim;
+  attribute float aT, aSize, aKind, aU, aPhase;
   attribute vec3 aRand, aColor;
   varying vec3 vColor; varying float vAlpha;
   void main() {
@@ -53,7 +53,18 @@ const vertexShader =/* glsl */ `
     // Splash particles only exist while bursting. Rung particles sit in
     // straight rows, so they fade fast instead of lingering as faint lines.
     float vis = aKind > 1.5 ? d : (aKind > 0.5 ? 1.0 - smoothstep(0.0, 0.35, d) : 1.0);
-    vAlpha = vis * (0.85 - d * 0.3);
+    vAlpha = vis * (0.85 - d * 0.3) * uDim;
+    // Linking rungs: two halves reach out from the strands toward the middle in yellow,
+    // turn green once they meet, hold, then fade and start over.
+    if (aPhase >= 0.0) {
+      float c = fract(uTime / 5.0 + aPhase);
+      float grow = smoothstep(0.0, 0.5, c);
+      float reach = smoothstep(1.0 - grow - 0.04, 1.0 - grow + 0.04, abs(aU));
+      float joined = smoothstep(0.5, 0.58, c);
+      vColor = mix(vec3(0.961, 0.647, 0.141), vec3(0.13, 0.77, 0.37), joined);
+      vAlpha = vis * reach * (1.0 - smoothstep(0.85, 1.0, c)) * 0.95;
+      gl_PointSize *= 1.25;
+    }
   }
 `;
 
@@ -79,11 +90,14 @@ function buildGeometry(palette: Palette) {
   };
   const pos: number[] = [], tArr: number[] = [], rnd: number[] = [];
   const size: number[] = [], col: number[] = [], kind: number[] = [];
+  const uArr: number[] = [], phase: number[] = [];
   const tmp = new THREE.Color();
   const g = () => (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;
 
-  const push = (x: number, y: number, z: number, t: number, s: number, k: number, depth: number) => {
+  const push = (x: number, y: number, z: number, t: number, s: number, k: number, depth: number, u = 0, ph = -1) => {
     pos.push(x, y, z);
+    uArr.push(u);
+    phase.push(ph);
     tArr.push(t);
     rnd.push(Math.random(), Math.random(), Math.random());
     size.push(s);
@@ -108,9 +122,11 @@ function buildGeometry(palette: Palette) {
   for (let j = 0; j < RUNGS; j++) {
     const t = (j + 0.5) / RUNGS;
     const a = t * TURNS * Math.PI * 2;
+    const linking = j % 3 === 0; // every third rung is animated
+    const ph = Math.random();
     for (let i = 0; i < 160; i++) {
       const u = Math.random() * 2 - 1;
-      push(Math.cos(a) * R * u + g() * 0.03, (t - 0.5) * H + g() * 0.03, Math.sin(a) * R * u + g() * 0.03, t, 1.2 + Math.random(), 1, 0.2 + Math.random() * 0.3);
+      push(Math.cos(a) * R * u + g() * 0.03, (t - 0.5) * H + g() * 0.03, Math.sin(a) * R * u + g() * 0.03, t, 1.2 + Math.random(), 1, 0.2 + Math.random() * 0.3, u, linking ? ph : -1);
     }
   }
   // splash (only visible while dissolving)
@@ -128,13 +144,15 @@ function buildGeometry(palette: Palette) {
   geo.setAttribute("aSize", new THREE.Float32BufferAttribute(size, 1));
   geo.setAttribute("aColor", new THREE.Float32BufferAttribute(col, 3));
   geo.setAttribute("aKind", new THREE.Float32BufferAttribute(kind, 1));
+  geo.setAttribute("aU", new THREE.Float32BufferAttribute(uArr, 1));
+  geo.setAttribute("aPhase", new THREE.Float32BufferAttribute(phase, 1));
   return geo;
 }
 
 export default function HelixBackground({
   className,
   palette = GREEN,
-  cycle = 10,
+  cycle = 20,
   offsetX = 3.1,
 }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -166,6 +184,8 @@ export default function HelixBackground({
         uTime: { value: 0 },
         uProgress: { value: 0 },
         uPixelRatio: { value: renderer.getPixelRatio() },
+        // Phones dim the helix itself but not the linking rungs, so those stay visible.
+        uDim: { value: 1 },
       },
     });
 
@@ -180,6 +200,7 @@ export default function HelixBackground({
       const w = canvas.clientWidth, h = canvas.clientHeight;
       if (!w || !h) return;
       renderer.setSize(w, h, false);
+      mat.uniforms.uDim.value = w < 640 ? 0.5 : 1;
       // The canvas covers the hero plus the section below it. Everything is framed against
       // the hero's height, so the helix looks exactly as it did when the canvas was hero-sized
       // and simply carries on below it.
