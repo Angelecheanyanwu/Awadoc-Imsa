@@ -1,8 +1,9 @@
 "use client";
 
-import { useId, useState, type ReactNode } from "react";
+import { useId, type ReactNode } from "react";
 import { formatPrice } from "@/lib/currency";
 import { useCurrencyStore } from "@/store/useCurrencyStore";
+import { useFaqStore } from "@/store/useFaqStore";
 import { useNouraStore } from "@/store/useNouraStore";
 
 // [name, amount in naira, is it an estimate]. Shown in the currency chosen in the nav.
@@ -207,7 +208,8 @@ const items: { id: string; question: string; answer: ReactNode }[] = [
 export default function Faq() {
   const uid = useId();
   const openChat = useNouraStore((s) => s.openChat);
-  const [openId, setOpenId] = useState<string | null>(items[0].id);
+  const openId = useFaqStore((s) => s.openId);
+  const setOpenId = useFaqStore((s) => s.setOpenId);
 
   return (
     <section
@@ -242,7 +244,8 @@ export default function Faq() {
             return (
               <div
                 key={item.id}
-                className={`${i > 0 ? "border-t border-ink/10" : ""} transition-colors duration-200 ${open ? "bg-ink/4" : "hover:bg-ink/2"}`}
+                id={`faq-${item.id}`}
+                className={`scroll-mt-28 ${i > 0 ? "border-t border-ink/10" : ""} transition-colors duration-200 ${open ? "bg-ink/4" : "hover:bg-ink/2"}`}
               >
                 <h3 className="text-h3 font-medium leading-snug">
                   <button

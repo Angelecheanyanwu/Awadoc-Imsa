@@ -18,7 +18,7 @@ export default function Home() {
       <HelixBackground className="helix-bg helix-fade" />
 
     {/* min-h (not h): on very short screens the page grows and scrolls instead of clipping. */}
-    <main data-hero className="relative flex min-h-dvh flex-col">
+    <main data-hero className="relative flex min-h-svh flex-col">
 
       {/* Logo left, pills dead center, theme switch right. Always one row: on small screens
           the logo, links and switch just get smaller instead of wrapping. */}
@@ -34,10 +34,11 @@ export default function Home() {
         </div>
       </StickyNav>
 
-      {/* Fills the rest of the screen below the nav. From 640px up the copy is centered in it, so the
-          gap above the hero (from the nav) equals the gap below it. On phones the screen is tall and
-          narrow, so centering left a big empty gap under the nav: there the copy sits just below it. */}
-      <div className="gutter relative z-10 flex flex-1 items-start pb-6 pt-7 sm:items-center sm:py-6">
+      {/* Fills the rest of the screen below the nav and centers the copy in it, on every device, so
+          the gap above the hero (from the nav) equals the gap below it. The hero is exactly one
+          screen tall (svh = the visible height with the phone browser's toolbars showing), so the
+          centering follows the screen's height, not just its width. */}
+      <div className="gutter relative z-10 flex flex-1 items-center py-6">
         {/* w-fit makes this block exactly as wide as "who you marry." at every screen size: line one is
             zero-width and overflows, and the paragraph and buttons fill the block, so the subtext
             never goes past "marry.". Below 520px line one breaks after "genotype" (it can't fit on

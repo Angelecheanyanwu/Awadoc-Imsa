@@ -48,9 +48,9 @@ export default function MobileMenu() {
       >
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="size-5">
           {/* Three lines that turn into an X. */}
-          <path d="M4 7h16" className={`origin-center transition-transform duration-200 motion-reduce:transition-none ${open ? "translate-y-[5px] rotate-45" : ""}`} />
+          <path d="M4 7h16" className={`origin-center transition-transform duration-200 motion-reduce:transition-none ${open ? "translate-y-1.25 rotate-45" : ""}`} />
           <path d="M4 12h16" className={`transition-opacity duration-150 motion-reduce:transition-none ${open ? "opacity-0" : ""}`} />
-          <path d="M4 17h16" className={`origin-center transition-transform duration-200 motion-reduce:transition-none ${open ? "-translate-y-[5px] -rotate-45" : ""}`} />
+          <path d="M4 17h16" className={`origin-center transition-transform duration-200 motion-reduce:transition-none ${open ? "-translate-y-1.25 -rotate-45" : ""}`} />
         </svg>
       </button>
 

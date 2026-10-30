@@ -2,6 +2,7 @@
 
 import { formatPrice } from "@/lib/currency";
 import { useCurrencyStore } from "@/store/useCurrencyStore";
+import { useFaqStore } from "@/store/useFaqStore";
 
 // Amounts are in naira; they are converted for display when another currency is chosen.
 const plans = [
@@ -15,6 +16,7 @@ const cardBase =
 
 export default function Pricing() {
   const currency = useCurrencyStore((s) => s.currency);
+  const showQuestion = useFaqStore((s) => s.showQuestion);
 
   return (
     <section
@@ -45,6 +47,7 @@ export default function Pricing() {
                 {featured && (
                   <button
                     type="button"
+                    onClick={() => showQuestion("cost")}
                     className="shrink-0 cursor-pointer whitespace-nowrap min-h-11 rounded-[calc(14*var(--u))] bg-[#f5a524] px-[1em] py-[0.5em] text-label font-bold text-[#0f1a14] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#ffb73d] hover:shadow-[0_8px_22px_-8px_#f5a524] active:translate-y-0 active:scale-[0.97] motion-reduce:transition-none motion-reduce:hover:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-500"
                   >
                     Breakdown
