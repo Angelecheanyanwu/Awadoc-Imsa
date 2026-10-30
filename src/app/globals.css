@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+:root {
+  /* A shared length unit (1px at 1440px wide) for NON-text sizes only: logo heights, icon
+     and avatar sizes, widths. Text uses the fluid tokens in @theme below. */
+  --u: clamp(0.8px, 0.0694vw, 1.35px);
+  --bg: #ffffff;
+  --ink: #0f1a14;
+  --muted: #4a5a51;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #07110c;
+    --ink: #e8f3ec;
+    --muted: #9fb3a8;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #07110c;
+  --ink: #e8f3ec;
+  --muted: #9fb3a8;
+  color-scheme: dark;
+}
+
+/* Short screens (laptops with toolbars, phones in landscape): use `short:` in classes. */
+@custom-variant short (@media (max-height: 820px));
+
+/* Side padding that grows on wide screens and never sits under a notch. */
+.gutter {
+  padding-inline: max(1.25rem, env(safe-area-inset-left)) max(1.25rem, env(safe-area-inset-right));
+}
+@media (min-width: 640px) {
+  .gutter {
+    padding-inline: max(5vw, env(safe-area-inset-left)) max(5vw, env(safe-area-inset-right));
+  }
+}
+
+/* Same right edge as .gutter, for fixed elements that must line up with the nav. */
+.gutter-right {
+  right: max(1.25rem, env(safe-area-inset-right));
+}
+@media (min-width: 640px) {
+  .gutter-right {
+    right: max(5vw, env(safe-area-inset-right));
+  }
+}
+
+/* Fluid type and spacing tokens: clamp(min, rem + vw, max). Use these classes for ALL text
+   sizes (text-display, text-h2, text-h3, text-price, text-lead, text-body, text-btn,
+   text-nav, text-label, text-micro, text-store) and for section / card spacing
+   (py-section, p-card). Need a new size? Add a new clamp token here; don't override per breakpoint.
+   Targets: at 360px wide the hero heading is 28px and body text 15px. */
+@theme {
+  --text-display: clamp(1.75rem, 1.17rem + 2.59vw, 5.5rem);
+  --text-h2: clamp(2rem, 1.67rem + 1.48vw, 3.5rem);
+  --text-h3: clamp(1.0625rem, 1rem + 0.28vw, 1.5rem);
+  --text-price: clamp(1.5rem, 1.375rem + 0.56vw, 2.25rem);
+  --text-lead: clamp(1rem, 0.9rem + 0.35vw, 1.25rem);
+  --text-body: clamp(0.9375rem, 0.9rem + 0.12vw, 1.0625rem);
+  --text-btn: clamp(0.9375rem, 0.9rem + 0.1vw, 1.0625rem);
+  --text-nav: clamp(0.75rem, 0.7rem + 0.2vw, 0.9375rem);
+  --text-label: clamp(0.8125rem, 0.78rem + 0.1vw, 0.875rem);
+  --text-micro: clamp(0.5625rem, 0.52rem + 0.1vw, 0.6875rem);
+  --text-partner: clamp(1.125rem, 0.95rem + 0.6vw, 1.75rem);
+  --text-store: clamp(0.8125rem, 0.65rem + 0.55vw, 1.125rem);
+
+  --spacing-section: clamp(3rem, 2rem + 4vw, 7rem);
+  --spacing-card: clamp(1.25rem, 1rem + 1vw, 2rem);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-brand: #22bb9b;
+  --font-sans: var(--font-poppins), system-ui, sans-serif;
+  --font-heading: var(--font-nohemi), var(--font-poppins), system-ui, sans-serif;
+}
+
+/* Every heading uses Nohemi; everything else inherits Poppins from body. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+/* The helix is dimmed a little on the white theme and full strength on the green one. */
+.helix-bg {
+  opacity: 0.6;
+}
+:root[data-theme="dark"] .helix-bg {
+  opacity: 1;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .helix-bg {
+    opacity: 1;
+  }
+}
+
+/* Full strength through the hero (one screen tall), then fades out across the glass panel. */
+.helix-fade {
+  -webkit-mask-image: linear-gradient(to bottom, #000 100dvh, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 100dvh, transparent 100%);
+}
+
+/* The IMSA logo has dark text, so the green (dark) theme swaps in a light-text version
+   (imsa-logo-dark.png) instead of putting the logo on a white box. */
+.partner-logo-dark {
+  display: none;
+}
+:root[data-theme="dark"] .partner-logo-light {
+  display: none;
+}
+:root[data-theme="dark"] .partner-logo-dark {
+  display: block;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .partner-logo-light {
+    display: none;
+  }
+  :root:not([data-theme="light"]) .partner-logo-dark {
+    display: block;
+  }
+}
+
+/* New chat messages ease in from slightly below. */
+@keyframes noura-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.noura-msg {
+  animation: noura-in 0.32s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .noura-msg {
+    animation: none;
+  }
+}
+
+/* Hide the page scrollbar everywhere; scrolling still works. */
+html {
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
