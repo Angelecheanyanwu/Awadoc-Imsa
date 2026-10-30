@@ -17,7 +17,7 @@ const prices: [string, string][] = [
 function Block({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div>
-      <h4 className="mb-[calc(4*var(--u))] text-body font-medium text-ink">{title}</h4>
+      <h4 className="mb-[calc(4*var(--u))] text-hero-sub font-medium text-ink">{title}</h4>
       <p>{children}</p>
     </div>
   );
@@ -260,7 +260,7 @@ export default function Faq() {
                   className={`grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
                 >
                   <div className="overflow-hidden">
-                    <div className="px-card pb-card text-body leading-relaxed text-muted">
+                    <div className="px-card pb-card text-hero-sub leading-relaxed text-muted">
                       {item.answer}
                     </div>
                   </div>

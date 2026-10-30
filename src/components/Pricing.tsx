@@ -42,7 +42,7 @@ export default function Pricing() {
                 )}
               </div>
               <p
-                className={`mt-auto text-body leading-snug ${featured ? "text-[#e8f3ec]/70" : "text-muted"}`}
+                className={`mt-auto text-hero-sub leading-snug ${featured ? "text-[#e8f3ec]/70" : "text-muted"}`}
               >
                 {description}
               </p>

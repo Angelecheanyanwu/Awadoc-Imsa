@@ -62,13 +62,14 @@
   --text-lead: clamp(1rem, 0.9rem + 0.35vw, 1.25rem);
   --text-body: clamp(0.9375rem, 0.875rem + 0.278vw, 1.125rem); /* 15px -> 18px */
   --text-hero-sub: clamp(0.6875rem, 0.61rem + 0.37vw, 1.0625rem); /* 11px at 350 -> ~15px at 1440 */
-  --text-btn: clamp(0.875rem, 0.833rem + 0.185vw, 1rem); /* 14px -> 16px */
+  --text-btn: clamp(0.75rem, 0.66rem + 0.4vw, 1rem); /* 12px at 350 -> 16px at 1440 */
   --text-nav: clamp(0.75rem, 0.7rem + 0.2vw, 0.9375rem);
   --text-label: clamp(0.8125rem, 0.78rem + 0.1vw, 0.875rem);
   --text-micro: clamp(0.5625rem, 0.52rem + 0.1vw, 0.6875rem);
   --text-partner: clamp(1.125rem, 0.95rem + 0.6vw, 1.75rem);
   --text-store: clamp(0.8125rem, 0.65rem + 0.55vw, 1.125rem);
 
+  --spacing-btn: clamp(2.25rem, 1.9rem + 1.1vw, 2.75rem); /* button height: 36px at 350 -> 44px at 1440 */
   --spacing-section: clamp(2.5rem, 1rem + 6.667vw, 7rem); /* 40px -> 112px */
   --spacing-card: clamp(1rem, 0.75rem + 1.111vw, 1.75rem); /* 16px -> 28px */
 }
