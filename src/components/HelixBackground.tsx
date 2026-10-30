@@ -233,15 +233,15 @@ export default function HelixBackground({
 
     const ease = (x: number) => x * x * (3 - 2 * x);
     // Bursts as soon as the page loads, then again every `cycle` seconds.
-    // Timeline (seconds): burst 0-1.5, drift 1.5-2.8, reform 2.8-6, formed until the next burst.
+    // Timeline (seconds): burst 0-0.7, drift 0.7-1, reform 1-2, formed until the next burst.
     // The burst eases out (fast start) and the clock is nudged forward so particles
     // are already flying on the very first frame.
     const easeOut = (x: number) => 1 - (1 - x) * (1 - x);
     const progressAt = (t: number) => {
       const s = (t + 0.3) % cycle;
-      if (s < 1.5) return easeOut(s / 1.5);
-      if (s < 2.8) return 1;
-      if (s < 6) return 1 - ease((s - 2.8) / 3.2);
+      if (s < 0.7) return easeOut(s / 0.7);
+      if (s < 1.0) return 1;
+      if (s < 2) return 1 - ease((s - 1.0) / 1.0);
       return 0;
     };
 
