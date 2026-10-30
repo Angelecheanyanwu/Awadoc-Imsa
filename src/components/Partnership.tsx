@@ -11,7 +11,7 @@ export default function Partnership() {
       className="gutter relative z-10 flex flex-nowrap items-center justify-center gap-x-[min(calc(30*var(--u)),3vw)] gap-y-[calc(14*var(--u))] py-[calc(var(--spacing-section)/2)] max-[599px]:flex-wrap"
     >
       <Logo className="h-[min(calc(64*var(--u)),5.4vw)] w-auto shrink-0" />
-      <span className="shrink-0 whitespace-nowrap text-partner font-medium text-muted">
+      <span className="shrink-0 whitespace-nowrap text-hero-sub font-medium text-muted">
         in partnership with
       </span>
       <Image
