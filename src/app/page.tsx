@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import HelixBackground from "@/components/HelixBackground";
 import Pricing from "@/components/Pricing";
 import Logo from "@/components/Logo";
+import MobileMenu from "@/components/MobileMenu";
 import NavPills from "@/components/NavPills";
 import Partnership from "@/components/Partnership";
 import StickyNav from "@/components/StickyNav";
@@ -23,11 +24,13 @@ export default function Home() {
           the logo, links and switch just get smaller instead of wrapping. */}
       <StickyNav>
         <Logo className="h-8 w-auto max-sm:h-6" />
-        <div className="justify-self-center">
+        {/* Below 500px the links fold into the menu button on the right. */}
+        <div className="hidden justify-self-center min-[500px]:block">
           <NavPills />
         </div>
-        <div className="justify-self-end">
+        <div className="flex items-center gap-[calc(8*var(--u))] col-start-3 justify-self-end">
           <ThemeToggle />
+          <MobileMenu />
         </div>
       </StickyNav>
 
