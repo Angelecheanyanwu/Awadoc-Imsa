@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState, type ReactNode } from "react";
+import { useNouraStore } from "@/store/useNouraStore";
 
 const prices: [string, string][] = [
   ["Virtual counselling", "₦50,000"],
@@ -188,6 +189,7 @@ const items: { id: string; question: string; answer: ReactNode }[] = [
 
 export default function Faq() {
   const uid = useId();
+  const openChat = useNouraStore((s) => s.openChat);
   const [openId, setOpenId] = useState<string | null>(items[0].id);
 
   return (
@@ -205,9 +207,14 @@ export default function Faq() {
         </h2>
         <p className="mt-[calc(20*var(--u))] text-center text-body text-muted">
           Have more questions?{" "}
-          <a href="#" className="font-bold text-brand transition-opacity hover:opacity-80 focus-visible:underline">
+          <button
+            type="button"
+            onClick={openChat}
+            aria-haspopup="dialog"
+            className="cursor-pointer font-bold text-brand transition-opacity hover:opacity-80 focus-visible:underline"
+          >
             Ask Noura
-          </a>
+          </button>
         </p>
 
         <div className="mt-[calc(48*var(--u))] overflow-hidden rounded-[calc(28*var(--u))] border border-ink/10 bg-bg/60 backdrop-blur-sm">

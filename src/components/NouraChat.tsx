@@ -68,7 +68,7 @@ export default function NouraChat() {
 
   return (
     <div
-      className={`fixed inset-0 z-40 flex items-end justify-center bg-black/35 p-0 backdrop-blur-[2px] transition-opacity duration-300 ease-out motion-reduce:transition-none sm:items-center sm:p-[calc(24*var(--u))] ${shown ? "opacity-100" : "opacity-0"}`}
+      className={`fixed inset-0 z-40 flex items-end justify-center bg-black/35 p-[max(0.75rem,env(safe-area-inset-top))_max(0.75rem,env(safe-area-inset-right))_max(0.75rem,env(safe-area-inset-bottom))_max(0.75rem,env(safe-area-inset-left))] backdrop-blur-[2px] transition-opacity duration-300 ease-out motion-reduce:transition-none sm:items-center sm:p-[calc(24*var(--u))] ${shown ? "opacity-100" : "opacity-0"}`}
       onPointerDown={(e) => e.target === e.currentTarget && closeChat()}
     >
       <div
@@ -77,10 +77,10 @@ export default function NouraChat() {
         role="dialog"
         aria-modal="true"
         aria-labelledby="noura-title"
-        className={`flex outline-none h-[85dvh] w-full max-w-[calc(600*var(--u))] origin-bottom flex-col overflow-hidden rounded-t-[calc(28*var(--u))] border border-ink/10 bg-bg text-ink shadow-[0_24px_80px_-16px_rgba(0,0,0,0.5)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none sm:h-[min(86dvh,calc(720*var(--u)))] sm:rounded-[calc(28*var(--u))] ${shown ? "translate-y-0 scale-100 opacity-100" : "translate-y-6 scale-[0.97] opacity-0"}`}
+        className={`flex outline-none h-[85dvh] max-h-full w-full max-w-[calc(600*var(--u))] origin-bottom flex-col overflow-hidden rounded-[calc(28*var(--u))] border border-ink/10 bg-bg text-ink shadow-[0_24px_80px_-16px_rgba(0,0,0,0.5)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none sm:h-[min(86dvh,calc(720*var(--u)))] sm:rounded-[calc(28*var(--u))] ${shown ? "translate-y-0 scale-100 opacity-100" : "translate-y-6 scale-[0.97] opacity-0"}`}
       >
         {/* Header */}
-        <header className="flex shrink-0 items-center gap-[calc(14*var(--u))] border-b border-ink/10 px-[calc(24*var(--u))] py-[calc(18*var(--u))]">
+        <header className="flex shrink-0 items-center gap-[calc(14*var(--u))] border-b border-ink/10 px-card py-[calc(18*var(--u))]">
           <span className="flex h-[calc(48*var(--u))] w-[calc(48*var(--u))] shrink-0 items-center justify-center rounded-full bg-brand/15">
             <Image src="/noura-logo.png" alt="" width={828} height={754} className="h-[56%] w-auto" />
           </span>
@@ -106,7 +106,7 @@ export default function NouraChat() {
         <div
           role="log"
           aria-live="polite"
-          className="flex min-h-0 flex-1 flex-col gap-[calc(12*var(--u))] overflow-y-auto px-[calc(24*var(--u))] py-[calc(20*var(--u))] [-ms-overflow-style:none] scrollbar-none [&::-webkit-scrollbar]:hidden"
+          className="flex min-h-0 flex-1 flex-col gap-[calc(12*var(--u))] overflow-y-auto px-card py-[calc(20*var(--u))] [-ms-overflow-style:none] scrollbar-none [&::-webkit-scrollbar]:hidden"
         >
           {messages.map((m) => (
             <div
@@ -139,7 +139,7 @@ export default function NouraChat() {
         </div>
 
         {/* Suggestions, input, disclaimer */}
-        <footer className="shrink-0 border-t border-ink/10 px-[calc(24*var(--u))] pb-[max(calc(18*var(--u)),env(safe-area-inset-bottom))] pt-[calc(16*var(--u))]">
+        <footer className="shrink-0 border-t border-ink/10 px-card pb-[calc(18*var(--u))] pt-[calc(16*var(--u))]">
           {!started && (
             <div className="mb-[calc(14*var(--u))] grid grid-cols-2 gap-[calc(8*var(--u))]">
               {SUGGESTIONS.map((q) => (
