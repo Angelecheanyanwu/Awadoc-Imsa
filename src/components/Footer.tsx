@@ -11,7 +11,7 @@ export default function Footer() {
           <div>
             <Logo className="h-8 w-auto" />
           </div>
-          <p className="text-label leading-[1.75] text-muted">
+          <p className="text-hero-sub leading-[1.75] text-muted">
           AwaDoc is a digital health platform and does not provide medical advice, diagnosis, or treatment. All care is delivered by licensed professionals and authorised partners. Always consult a qualified healthcare provider about medical concerns. Nigerian services are provided by AwaDoc Health Technologies Ltd, 14b Imam Dauda Street, Surulere, Lagos.
             <span className="mt-2 block">© 2026 Awadoc Inc. All rights reserved.</span>
           </p>
