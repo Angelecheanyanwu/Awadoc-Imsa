@@ -39,7 +39,7 @@ export default function ThemeToggle() {
   const on = "bg-ink text-bg";
 
   return (
-    <div role="group" aria-label="Theme" className="flex h-11 items-center gap-1 rounded-full border border-ink p-1 [&_svg]:h-[calc(16*var(--u))] [&_svg]:w-[calc(16*var(--u))]">
+    <div role="group" aria-label="Theme" className="flex h-11 items-center gap-1 rounded-full border border-ink p-1 max-sm:h-9 max-sm:p-0.5 [&_svg]:h-[calc(16*var(--u))] [&_svg]:w-[calc(16*var(--u))]">
       <button
         onClick={() => select("light")}
         aria-label="Light theme"

@@ -50,6 +50,15 @@ const flagIcon = (country: string) =>
   ) : (
     <span aria-hidden="true" className="h-[14px] w-5 shrink-0 rounded-[2px] bg-ink/10" />
   );
+// The same flag files for the country-code list (+1 shows the US flag).
+const DIAL_FLAG: Record<string, string> = {
+  "+234": "ng", "+233": "gh", "+254": "ke", "+27": "za", "+44": "gb", "+1": "us", "+971": "ae", "+49": "de", "+33": "fr", "+353": "ie",
+};
+const dialFlagIcon = (code: string) =>
+  DIAL_FLAG[code] ? (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={`/flags/${DIAL_FLAG[code]}.svg`} alt="" width={20} height={14} className="h-[14px] w-5 shrink-0 rounded-[2px] object-cover shadow-[0_0_0_1px_rgba(0,0,0,0.12)]" />
+  ) : null;
 const COUNTRIES = [
   "Nigeria", "Ghana", "Kenya", "South Africa", "Cameroon", "Senegal", "Egypt", "United Kingdom", "Ireland",
   "United States", "Canada", "United Arab Emirates", "Germany", "France", "Netherlands", "Australia", "Other",
@@ -86,22 +95,22 @@ export function StepRegister() {
         </Field>
       </div>
       <div className="grid items-start gap-[calc(18*var(--u))] @min-[401px]:grid-cols-2">
-        <Field label="Email address" required>
-          <TextInput type="email" value={data.email} onChange={(e) => set({ email: e.target.value })} placeholder="you@example.com" autoComplete="email" />
-        </Field>
+        <div className="grid min-w-0 gap-[5px]">
+          <span className="text-micro text-muted">
+            WhatsApp number<span className="text-[#e5532d]"> *</span>
+          </span>
+          <div className="grid grid-cols-[116px_1fr] gap-2">
+            <SelectInput aria-label="Country code" value={data.dial} onChange={(v) => set({ dial: v })} options={DIAL_CODES} placeholder="+" className="w-[116px]" optionIcon={dialFlagIcon} />
+            <TextInput type="tel" inputMode="tel" value={data.phone} onChange={(e) => set({ phone: e.target.value })} placeholder="803 000 0000" autoComplete="tel-national" aria-label="WhatsApp number" />
+          </div>
+        </div>
         <Field label="Relationship" required>
           <SelectInput value={data.relationship} onChange={(v) => set({ relationship: v })} options={RELATIONSHIPS} placeholder="Select an option" />
         </Field>
       </div>
-      <div className="grid gap-[calc(8*var(--u))]">
-        <span className="text-micro text-muted">
-          WhatsApp number<span className="text-[#e5532d]"> *</span>
-        </span>
-        <div className="grid grid-cols-[84px_1fr] gap-2">
-          <SelectInput aria-label="Country code" value={data.dial} onChange={(v) => set({ dial: v })} options={DIAL_CODES} placeholder="+" className="w-[84px]" />
-          <TextInput type="tel" inputMode="tel" value={data.phone} onChange={(e) => set({ phone: e.target.value })} placeholder="803 000 0000" autoComplete="tel-national" aria-label="WhatsApp number" />
-        </div>
-      </div>
+      <Field label="Email address" required>
+        <TextInput type="email" value={data.email} onChange={(e) => set({ email: e.target.value })} placeholder="you@example.com" autoComplete="email" />
+      </Field>
     </div>
   );
 }
@@ -162,6 +171,11 @@ export function StepGenotypes() {
 
   return (
     <div className="grid gap-[calc(22*var(--u))]">
+
+      <div className="grid gap-3 @min-[401px]:grid-cols-2">
+        <GenotypePicker label="Your genotype" value={data.geno1} onPick={(g) => set({ geno1: g })} />
+        <GenotypePicker label="Your partner's genotype" value={data.geno2} onPick={(g) => set({ geno2: g })} />
+      </div>
       {result && (
         <div className="noura-msg rounded-[10px] border border-brand/40 bg-brand/8 p-[1em]">
           <div className="mb-[0.6em] text-hero-sub font-semibold">Odds for each pregnancy</div>
@@ -177,11 +191,6 @@ export function StepGenotypes() {
           </ul>
         </div>
       )}
-
-      <div className="grid gap-3 @min-[401px]:grid-cols-2">
-        <GenotypePicker label="Your genotype" value={data.geno1} onPick={(g) => set({ geno1: g })} />
-        <GenotypePicker label="Your partner's genotype" value={data.geno2} onPick={(g) => set({ geno2: g })} />
-      </div>
 
       <div className="grid gap-3 @min-[401px]:grid-cols-2">
         <Field label="Lab results" required>

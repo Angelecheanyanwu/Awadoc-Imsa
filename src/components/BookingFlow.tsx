@@ -61,6 +61,26 @@ export default function BookingFlow() {
   const payTimer = useRef<number | undefined>(undefined);
   useEffect(() => () => window.clearTimeout(payTimer.current), []);
 
+  // On phones the Continue button is exactly as wide and as tall as the Ask Noura button next to it. Ask Noura sizes itself
+  // by its content, so its width is measured and copied.
+  const [match, setMatch] = useState<{ w: number; h: number } | null>(null);
+  useEffect(() => {
+    const noura = document.querySelector<HTMLElement>('button[aria-label="Ask Noura"]');
+    if (!noura) return;
+    const measure = () => {
+      const r = noura.getBoundingClientRect();
+      setMatch(window.innerWidth < 640 ? { w: Math.round(r.width), h: Math.round(r.height) } : null);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(noura);
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
+
   // Each new step starts at the top of the page.
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -102,7 +122,7 @@ export default function BookingFlow() {
 
   return (
     <div
-      className="booking-scope flex min-h-dvh flex-col font-sans text-ink"
+      className="booking-scope book-fade flex min-h-dvh flex-col font-sans text-ink"
       style={{ background: "radial-gradient(120% 70% at 15% 0%, color-mix(in srgb, #22bb9b 20%, var(--bg)), var(--bg) 65%)" }}
     >
       {/* Top bar: logo (back to the home page) and the sun / moon switch. */}
@@ -113,7 +133,7 @@ export default function BookingFlow() {
         <ThemeToggle />
       </header>
 
-      <div className="gutter mx-auto w-full max-w-[1080px]">
+      <div className="gutter book-rise mx-auto w-full max-w-[1080px]" style={{ animationDelay: "80ms" }}>
         {/* Title, how far along, and the step count. */}
         <div className="flex items-end justify-between gap-4">
           <h1 className="min-w-0 font-heading text-h2 font-medium leading-tight">{cfg.title}</h1>
@@ -157,7 +177,7 @@ export default function BookingFlow() {
         )}
       </div>
 
-      <main className="gutter mx-auto flex w-full max-w-[1080px] flex-1 flex-col pb-8 pt-4">
+      <main className="gutter book-rise mx-auto flex w-full max-w-[1080px] flex-1 flex-col pb-8 pt-4" style={{ animationDelay: "180ms" }}>
         {/* `@container` lets fields go two-up based on the space they have, not the screen's width. */}
         <div className="@container flex w-full flex-1 flex-col">
           <div
@@ -165,8 +185,8 @@ export default function BookingFlow() {
             className={`book-page flex flex-1 flex-col gap-3.5 ${dir === "back" ? "back" : ""}`}
           >
             {cfg.sub && <p className="max-w-[44em] text-hero-sub leading-relaxed text-muted">{cfg.sub}</p>}
-            {/* The step's own rows spread out to use any spare height above the pinned bar. */}
-            <div className="flex flex-1 flex-col [&>*]:flex-1 [&>*]:content-between">
+            {/* Every step uses the same 24px gap between its rows. */}
+            <div className="flex flex-col [&>*]:gap-6!">
               <Body />
             </div>
           </div>
@@ -174,7 +194,7 @@ export default function BookingFlow() {
       </main>
 
       {/* Pinned to the bottom: what you have chosen so far on the left, Back and Continue on the right. */}
-      <div className="sticky bottom-0 z-10 bg-bg/80 backdrop-blur-md">
+      <div className="book-rise sticky bottom-0 z-10 bg-bg/80 backdrop-blur-md" style={{ animationDelay: "280ms" }}>
         <div className="gutter mx-auto flex w-full max-w-[1080px] items-center justify-end gap-3 py-3">
           {/* The floating Ask Noura pill sits at the left of this bar, so the summary is kept to the right of it
               and is left out on narrow screens. */}
@@ -183,13 +203,13 @@ export default function BookingFlow() {
               {summary}
             </span>
           )}
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex h-11 shrink-0 items-center gap-2">
             {!done && step > 1 && (
               <button
                 type="button"
                 onClick={back}
                 disabled={paying}
-                className="h-11 cursor-pointer rounded-full px-5 text-btn font-semibold text-muted transition-colors hover:text-ink disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+                className="h-11 cursor-pointer rounded-full px-5 text-btn font-semibold text-muted max-sm:px-3 transition-colors hover:text-ink disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
               >
                 Back
               </button>
@@ -198,7 +218,8 @@ export default function BookingFlow() {
               type="button"
               disabled={!ok || paying}
               onClick={onPrimary}
-              className="flex h-11 cursor-pointer items-center justify-center gap-2 rounded-full bg-ink px-6 text-btn font-semibold text-bg transition-all duration-200 hover:bg-brand hover:text-[#07110c] disabled:cursor-not-allowed disabled:bg-ink/10 disabled:text-muted/60 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+              style={match ? { width: match.w, height: match.h } : undefined}
+              className="flex h-11 cursor-pointer items-center justify-center gap-2 rounded-full bg-ink px-6 text-btn font-semibold text-bg max-sm:h-[clamp(2.25rem,1.9rem+1.1vw,2.75rem)] max-sm:px-2 transition-all duration-200 hover:bg-brand hover:text-[#07110c] disabled:cursor-not-allowed disabled:bg-ink/10 disabled:text-muted/60 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
             >
               {paying && (
                 <span aria-hidden="true" className="size-[1.1em] animate-spin rounded-full border-2 border-current/30 border-t-current motion-reduce:animate-none" />

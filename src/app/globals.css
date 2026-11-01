@@ -325,3 +325,16 @@ body {
   #story-p1, #story-p3 { left: max(1.25rem, 5vw); bottom: max(16svh, 10rem); }
   #story-p2 { left: auto; right: max(1.25rem, 8vw); bottom: max(18svh, 10rem); }
 }
+
+/* The booking page eases in when you open it: the page fades up, then the form and the bottom bar rise in after it. */
+@keyframes book-fade {
+  from { opacity: 0; }
+}
+@keyframes book-rise {
+  from { opacity: 0; transform: translateY(18px); }
+}
+.book-fade { animation: book-fade 450ms ease-out both; }
+.book-rise { animation: book-rise 650ms cubic-bezier(0.16, 0.8, 0.24, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .book-fade, .book-rise { animation: none; }
+}
