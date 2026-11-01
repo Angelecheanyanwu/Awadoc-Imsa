@@ -333,10 +333,14 @@ body {
 @keyframes book-rise {
   from { opacity: 0; transform: translateY(18px); }
 }
+@keyframes book-leave {
+  to { opacity: 0; transform: translateY(10px); }
+}
 .book-fade { animation: book-fade 450ms ease-out both; }
+.book-leave { animation: book-leave 320ms ease-in forwards; pointer-events: none; }
 .book-rise { animation: book-rise 650ms cubic-bezier(0.16, 0.8, 0.24, 1) both; }
 @media (prefers-reduced-motion: reduce) {
-  .book-fade, .book-rise { animation: none; }
+  .book-fade, .book-rise, .book-leave { animation: none; }
 }
 
 /* The root takes the page colour too, so the area the phone browser tints (its status bar) matches the page. */

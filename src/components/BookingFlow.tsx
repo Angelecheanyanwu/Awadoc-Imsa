@@ -54,7 +54,9 @@ function canContinue(step: number, d: BookingData) {
 // like the EHR's Enroll patient form (.booking-scope).
 // Mixes two #rrggbb colours: `amount` of `a`, the rest of `b`.
 function mixHex(a: string, b: string, amount: number) {
-  const n = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  // The page colour can be written as #fff, so short hex colours are widened to #ffffff first.
+  const full = (h: string) => (h.length === 4 ? `#${h[1]}${h[1]}${h[2]}${h[2]}${h[3]}${h[3]}` : h);
+  const n = (h: string) => [1, 3, 5].map((i) => parseInt(full(h).slice(i, i + 2), 16));
   const [pa, pb] = [n(a), n(b)];
   return `#${pa.map((v, i) => Math.round(v * amount + pb[i] * (1 - amount)).toString(16).padStart(2, "0")).join("")}`;
 }
@@ -73,6 +75,16 @@ export default function BookingFlow() {
   const router = useRouter();
   const { step, dir, data, next, back, goTo, reset } = useBookingStore();
   const currency = useCurrencyStore((s) => s.currency);
+  // Leaving for the home page: the page fades down and away first, then the home page loads and fades in.
+  const [leaving, setLeaving] = useState(false);
+  const goHome = (e?: { preventDefault: () => void }) => {
+    e?.preventDefault();
+    if (leaving) return;
+    setLeaving(true);
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.setTimeout(() => router.push("/"), reduce ? 0 : 300);
+  };
+
   // After Pay, the button shows a short "confirming" state before the confirmation screen.
   const [paying, setPaying] = useState(false);
   const payTimer = useRef<number | undefined>(undefined);
@@ -147,7 +159,7 @@ export default function BookingFlow() {
   const onPrimary = () => {
     if (done) {
       reset();
-      router.push("/");
+      goHome();
       return;
     }
     if (step === TOTAL_STEPS) {
@@ -164,17 +176,18 @@ export default function BookingFlow() {
 
   return (
     <div
-      className="booking-scope book-fade flex min-h-dvh flex-col font-sans text-ink"
+      className={`booking-scope flex min-h-dvh flex-col font-sans text-ink ${leaving ? "book-leave" : "book-fade"}`}
     >
       {/* Top bar: logo (back to the home page) and the sun / moon switch. */}
       <header className="gutter mx-auto flex w-full max-w-[1080px] items-center justify-between pb-10 pt-5">
-        <Link href="/" aria-label="AwaDoc home" className="-ml-1 flex items-center">
+        <Link href="/" onClick={goHome} aria-label="AwaDoc home" className="-ml-1 flex items-center">
           <Logo className="h-8 w-auto max-sm:h-6" />
         </Link>
         <div className="flex items-center gap-2">
           {/* A round home button: a house in a circle, back to the home page. Same size as the sun / moon switch. */}
           <Link
             href="/"
+            onClick={goHome}
             aria-label="Back to the home page"
             className="grid size-11 place-items-center rounded-full border border-ink transition-colors hover:border-brand hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 max-sm:size-9"
           >

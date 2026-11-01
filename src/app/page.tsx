@@ -12,7 +12,8 @@ import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Home() {
   return (
-    <>
+    // Fades in, so arriving from the booking page is a soft change rather than a cut.
+    <div className="book-fade">
     {/* The hero and the three booking steps share one pinned stage and one helix: scrolling glides the camera
         from the hero into the first step. The nav is fixed, so it sits outside. */}
     <StickyNav spacer={false}>
@@ -54,6 +55,6 @@ export default function Home() {
     <Faq />
 
     <Footer />
-    </>
+    </div>
   );
 }
