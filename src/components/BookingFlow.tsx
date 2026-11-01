@@ -137,7 +137,6 @@ export default function BookingFlow() {
   const total = totalNgn(data);
   const { symbol, digits } = formatPrice(total, currency);
   const money = `${symbol}${digits}`;
-  const percent = done ? 100 : Math.round(((step - 1) / TOTAL_STEPS) * 100);
 
   const label = done ? "Done" : paying ? "Confirming..." : step === TOTAL_STEPS ? `Pay ${money}` : "Continue";
 
@@ -168,8 +167,8 @@ export default function BookingFlow() {
       className="booking-scope book-fade flex min-h-dvh flex-col font-sans text-ink"
     >
       {/* Top bar: logo (back to the home page) and the sun / moon switch. */}
-      <header className="gutter flex items-center justify-between py-5">
-        <Link href="/" aria-label="AwaDoc home" className="flex items-center">
+      <header className="gutter mx-auto flex w-full max-w-[1080px] items-center justify-between pb-10 pt-5">
+        <Link href="/" aria-label="AwaDoc home" className="-ml-1 flex items-center">
           <Logo className="h-8 w-auto max-sm:h-6" />
         </Link>
         <div className="flex items-center gap-2">
@@ -194,7 +193,6 @@ export default function BookingFlow() {
           <h1 className="min-w-0 font-heading text-h2 font-medium leading-tight">{cfg.title}</h1>
           {!done && (
             <div className="flex shrink-0 items-baseline gap-4 pb-1">
-              <span className="hidden text-micro font-semibold uppercase tracking-[0.14em] text-accent sm:inline">{percent}% completed</span>
               <span className="text-hero-sub text-muted">
                 {step}/{TOTAL_STEPS}
               </span>
