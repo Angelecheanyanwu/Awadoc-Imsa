@@ -303,9 +303,18 @@ body {
 .story-link:hover::after {
   transform: translateX(4px);
 }
-#story-p1 { left: max(1.25rem, 5vw); bottom: max(16svh, 10rem); }
-#story-p2 { right: max(1.25rem, 8vw); bottom: max(18svh, 10rem); }
-#story-p3 { right: max(1.25rem, 8vw); top: 34svh; }
-@media (max-width: 760px) {
-  #story-p1, #story-p2, #story-p3 { left: 1.25rem; right: 1.25rem; top: auto; bottom: max(18svh, 10rem); max-width: none; }
+/* The step text sits in the middle of the screen, on every screen size. `translate` is separate from the
+   `transform` the script uses for the fade, so the two do not fight. */
+.story-panel {
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: min(32rem, calc(100% - 2.5rem));
+  text-align: center;
+}
+.story-panel p {
+  margin-inline: auto;
+}
+.story-eyebrow {
+  justify-content: center;
 }
