@@ -27,8 +27,8 @@ export default function StickyNav({ children, spacer = true }: { children: React
       )}
 
       <nav
-        className={`gutter fixed inset-x-0 top-0 z-30 grid grid-cols-[1fr_auto_1fr] items-center gap-x-[calc(8*var(--u))] text-nav transition-[background-color,backdrop-filter] duration-200 motion-reduce:transition-none ${padding} ${
-          scrolled ? "bg-bg/80 backdrop-blur-md" : ""
+        className={`gutter fixed inset-x-0 top-0 z-30 grid grid-cols-[1fr_auto_1fr] items-center gap-x-[calc(8*var(--u))] text-nav transition-opacity duration-200 motion-reduce:transition-none ${padding} ${
+          scrolled ? "bg-linear-to-b from-bg/90 via-bg/60 to-transparent" : ""
         }`}
       >
         {children}

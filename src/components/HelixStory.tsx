@@ -77,6 +77,11 @@ export default function HelixStory({ children }: { children: ReactNode }) {
     const gl = renderer;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(FOV, 1, 0.05, 100);
+    // The stage fills the whole screen (100lvh, the biggest the screen gets), but the hero was framed for 100svh (with
+    // the phone browser's toolbars showing). This invisible probe measures that height.
+    const probe = document.createElement("div");
+    probe.style.cssText = "position:fixed;left:0;top:0;width:0;height:100svh;visibility:hidden;pointer-events:none;";
+    document.body.appendChild(probe);
 
     // The very same helix as the hero used to be: same length, density, colours, burst and linking rungs.
     const geo = gl ? buildGeometry(GREEN) : new THREE.BufferGeometry();
@@ -105,10 +110,15 @@ export default function HelixStory({ children }: { children: ReactNode }) {
       mat.uniforms.uDim.value = w < 640 ? 0.5 : 1;
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
+      // Frame the hero as if the screen were svh tall, then keep it centred in that top part of the stage.
+      const baseH = Math.min(Math.max(probe.offsetHeight || h, 1), h);
+      camera.fov = (2 * Math.atan(((h / baseH) * 8.19) / 2 / CAMERA_Z) * 180) / Math.PI;
+      camera.updateProjectionMatrix();
       const bigScreenShift = clamp01((w - 1280) / 640) * 2.6;
-      const px = (HERO_TILT.offsetX * (w / h)) / 1.6 + bigScreenShift;
+      const px = (HERO_TILT.offsetX * (w / baseH)) / 1.6 + bigScreenShift;
+      const py = ((h - baseH) / 2) * (8.19 / baseH);
       const pose = new THREE.Matrix4().compose(
-        new THREE.Vector3(px, 0, 0),
+        new THREE.Vector3(px, py, 0),
         new THREE.Quaternion().setFromEuler(new THREE.Euler(HERO_TILT.x, 0, HERO_TILT.z, "XYZ")),
         new THREE.Vector3(HERO_TILT.scale, HERO_TILT.scale, HERO_TILT.scale),
       );
@@ -265,6 +275,7 @@ export default function HelixStory({ children }: { children: ReactNode }) {
       geo.dispose();
       mat.dispose();
       gl?.dispose();
+      probe.remove();
       canvas.remove();
     };
   }, []);
@@ -276,15 +287,15 @@ export default function HelixStory({ children }: { children: ReactNode }) {
       ref={trackRef}
       aria-label="Introduction and how it works"
       className="relative z-10 bg-bg"
-      style={{ height: `calc(100svh + ${STAGES * PER * 100}svh)` }}
+      style={{ height: `calc(100lvh + ${STAGES * PER * 100}svh)` }}
     >
-      <div ref={stageRef} className="sticky top-0 h-svh overflow-hidden">
+      <div ref={stageRef} className="sticky top-0 h-[100lvh] overflow-hidden">
         {/* The hero copy: centred in the space under the nav, like before. */}
         <div
           ref={(el) => {
             panelRefs.current[0] = el;
           }}
-          className="gutter absolute inset-0 z-10 flex items-center pb-6 pt-[calc(max(1.5rem,env(safe-area-inset-top))+1.5rem+2.75rem+1.5rem)] will-change-[opacity,transform]"
+          className="gutter absolute inset-0 z-10 flex items-center pb-[calc(100lvh-100svh+1.5rem)] pt-[calc(max(1.5rem,env(safe-area-inset-top))+1.5rem+2.75rem+1.5rem)] will-change-[opacity,transform]"
         >
           {children}
         </div>
