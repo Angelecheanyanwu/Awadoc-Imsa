@@ -4,6 +4,17 @@ import { useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
 
+// Tells the phone browser which colour to use for its status bar / top edge.
+function setBrowserColor(theme: Theme) {
+  let meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+  if (!meta) {
+    meta = document.createElement("meta");
+    meta.name = "theme-color";
+    document.head.appendChild(meta);
+  }
+  meta.content = theme === "dark" ? "#07110c" : "#ffffff";
+}
+
 // Sun = white version, moon = green (dark) version.
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<Theme | null>(null);
@@ -20,11 +31,13 @@ export default function ThemeToggle() {
           ? "dark"
           : "light";
     document.documentElement.dataset.theme = initial;
+    setBrowserColor(initial);
     setTheme(initial);
   }, []);
 
   function select(next: Theme) {
     document.documentElement.dataset.theme = next;
+    setBrowserColor(next);
     try {
       localStorage.setItem("theme", next);
     } catch {}

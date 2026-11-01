@@ -338,3 +338,8 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .book-fade, .book-rise { animation: none; }
 }
+
+/* The root takes the page colour too, so the area the phone browser tints (its status bar) matches the page. */
+html {
+  background: var(--bg);
+}

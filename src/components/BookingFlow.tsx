@@ -52,6 +52,23 @@ function canContinue(step: number, d: BookingData) {
 // progress bar, the step in the middle (the date and time step is a calendar beside the day's time slots),
 // and a bar pinned to the bottom with what you have chosen so far, Back, and Continue. Plain pixel sizes
 // like the EHR's Enroll patient form (.booking-scope).
+// Mixes two #rrggbb colours: `amount` of `a`, the rest of `b`.
+function mixHex(a: string, b: string, amount: number) {
+  const n = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const [pa, pb] = [n(a), n(b)];
+  return `#${pa.map((v, i) => Math.round(v * amount + pb[i] * (1 - amount)).toString(16).padStart(2, "0")).join("")}`;
+}
+
+function setThemeColorMeta(color: string) {
+  let meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+  if (!meta) {
+    meta = document.createElement("meta");
+    meta.name = "theme-color";
+    document.head.appendChild(meta);
+  }
+  meta.content = color;
+}
+
 export default function BookingFlow() {
   const router = useRouter();
   const { step, dir, data, next, back, goTo, reset } = useBookingStore();
@@ -78,6 +95,32 @@ export default function BookingFlow() {
     return () => {
       ro.disconnect();
       window.removeEventListener("resize", measure);
+    };
+  }, []);
+
+  // The phone browser colours its status bar / top edge from the page's background. The page's green glow is
+  // painted on <html> (not on an inner box), and the browser is told the same top colour, so the whole screen,
+  // right up under the clock, is one piece instead of a white strip above the glow.
+  useEffect(() => {
+    const root = document.documentElement;
+    const paint = () => {
+      const bg = getComputedStyle(root).getPropertyValue("--bg").trim() || "#ffffff";
+      const top = mixHex("#22bb9b", bg, 0.2);
+      root.style.background = `radial-gradient(120% 70% at 15% 0%, ${top}, ${bg} 65%) fixed, ${bg}`;
+      document.body.style.background = "transparent";
+      setThemeColorMeta(top);
+    };
+    paint();
+    const mo = new MutationObserver(paint);
+    mo.observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    mq.addEventListener("change", paint);
+    return () => {
+      mo.disconnect();
+      mq.removeEventListener("change", paint);
+      root.style.background = "";
+      document.body.style.background = "";
+      setThemeColorMeta(getComputedStyle(root).getPropertyValue("--bg").trim() || "#ffffff");
     };
   }, []);
 
@@ -123,14 +166,26 @@ export default function BookingFlow() {
   return (
     <div
       className="booking-scope book-fade flex min-h-dvh flex-col font-sans text-ink"
-      style={{ background: "radial-gradient(120% 70% at 15% 0%, color-mix(in srgb, #22bb9b 20%, var(--bg)), var(--bg) 65%)" }}
     >
       {/* Top bar: logo (back to the home page) and the sun / moon switch. */}
       <header className="gutter flex items-center justify-between py-5">
         <Link href="/" aria-label="AwaDoc home" className="flex items-center">
           <Logo className="h-8 w-auto max-sm:h-6" />
         </Link>
-        <ThemeToggle />
+        <div className="flex items-center gap-2">
+          {/* A round home button: a house in a circle, back to the home page. Same size as the sun / moon switch. */}
+          <Link
+            href="/"
+            aria-label="Back to the home page"
+            className="grid size-11 place-items-center rounded-full border border-ink transition-colors hover:border-brand hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 max-sm:size-9"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="size-[18px] max-sm:size-4" aria-hidden="true">
+              <path d="M3 10.5 12 3l9 7.5" />
+              <path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5" />
+            </svg>
+          </Link>
+          <ThemeToggle />
+        </div>
       </header>
 
       <div className="gutter book-rise mx-auto w-full max-w-[1080px]" style={{ animationDelay: "80ms" }}>
