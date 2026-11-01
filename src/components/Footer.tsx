@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="relative z-10 overflow-hidden bg-bg text-ink">
       <div className="gutter">
         {/* Hairline, then the logo on the left and the legal text on the right. */}
-        <div className="grid items-center gap-[calc(24*var(--u))] border-t border-ink/10 py-section md:grid-cols-[1fr_4fr] md:gap-x-[calc(32*var(--u))]">
+        <div className="grid items-center gap-[calc(24*var(--u))] border-t border-ink/10 pb-section pt-[clamp(1.5rem,1rem+2.2vw,2.5rem)] md:grid-cols-[1fr_4fr] md:gap-x-[calc(32*var(--u))]">
           <div>
             <Logo className="h-8 w-auto" />
           </div>

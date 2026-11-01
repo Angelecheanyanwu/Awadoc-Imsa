@@ -234,7 +234,8 @@ export default function HelixStory({ children }: { children: ReactNode }) {
         if (!p) return;
         const o = clamp01(1 - Math.abs(e - k) * 3) * keep;
         p.style.opacity = String(o);
-        p.style.transform = `translateY(${(1 - o) * (e < k ? 24 : -24)}px)`;
+        // Pay opens up from the middle (it grows a little as it fades in); the others slide in.
+        p.style.transform = k === 3 ? `scale(${0.88 + 0.12 * Math.min(o / Math.max(keep, 0.001), 1)})` : `translateY(${(1 - o) * (e < k ? 24 : -24)}px)`;
         p.style.pointerEvents = o > 0.5 ? "auto" : "none";
       });
       const c = controlsRef.current;

@@ -289,7 +289,6 @@ body {
   align-items: center;
   gap: 0.6rem;
 }
-.story-eyebrow::before,
 .story-eyebrow::after {
   content: "";
   width: 2rem;
@@ -304,18 +303,41 @@ body {
 .story-link:hover::after {
   transform: translateX(4px);
 }
-/* The step text sits in the middle of the screen, on every screen size. `translate` is separate from the
-   `transform` the script uses for the fade, so the two do not fight. */
+/* Step text placement. On phones the block fills the page width (a 20px margin each side), low on the screen, text
+   aligned to the left like the hero copy. From 761px up each step has its own place: 01 sits far left, in line with
+   the hero text, 02 bottom right, 03 in the middle. `translate` is separate from the `transform` the script uses
+   for the fade. */
 .story-panel {
   left: 50%;
-  top: 50%;
-  translate: -50% -50%;
+  translate: -50% 0;
   width: min(32rem, calc(100% - 2.5rem));
+  text-align: left;
+}
+#story-p1, #story-p2, #story-p3 { top: auto; bottom: max(18svh, 10rem); }
+@media (min-width: 761px) {
+  .story-panel { translate: none; }
+  #story-p1 { left: max(1.25rem, 5vw); bottom: max(16svh, 10rem); }
+  #story-p2 { left: auto; right: max(1.25rem, 8vw); bottom: max(18svh, 10rem); }
+}
+/* 03 (Pay) sits in the middle of the page, over the centre of the tunnel, with its text centred. */
+#story-p3 {
+  left: 50%;
+  right: auto;
+  top: 50%;
+  bottom: auto;
+  translate: -50% -50%;
   text-align: center;
 }
-.story-panel p {
+#story-p3 p {
   margin-inline: auto;
 }
-.story-eyebrow {
+#story-p3 .story-eyebrow {
   justify-content: center;
+}
+#story-p3 .story-eyebrow::before {
+  content: "";
+  width: 2rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
 }

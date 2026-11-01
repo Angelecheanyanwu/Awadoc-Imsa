@@ -22,7 +22,12 @@ export default function GetTheApp() {
         </p>
 
         <div className="mt-5 grid grid-cols-[repeat(2,minmax(0,calc(210*var(--u))))] gap-3">
-          <a href="#" className={storeButton}>
+          <a
+            href="https://apps.apple.com/ng/app/awadoc-your-health-assistant/id6769415874"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={storeButton}
+          >
             <FaApple aria-hidden="true" className={iconClass} />
             <span className="flex min-w-0 flex-col leading-tight">
               <span className="truncate text-label text-white/75">Download on the</span>
@@ -30,7 +35,12 @@ export default function GetTheApp() {
             </span>
           </a>
 
-          <a href="#" className={storeButton}>
+          <a
+            href="https://play.google.com/store/apps/details?id=com.awadoc.mobile"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={storeButton}
+          >
             <FaGooglePlay aria-hidden="true" className={iconClass} />
             <span className="flex min-w-0 flex-col leading-tight">
               <span className="truncate text-label text-white/75">Get it on</span>
