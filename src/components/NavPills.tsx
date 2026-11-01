@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { currencies, useCurrencyStore } from "@/store/useCurrencyStore";
+import { useInProgressStore } from "@/store/useInProgressStore";
 
 // Plain text links: no icon, no border, no background.
 const pill =
@@ -76,11 +76,12 @@ function CurrencyMenu() {
 }
 
 export default function NavPills() {
+  const show = useInProgressStore((s) => s.show);
   return (
     <div className="flex items-center gap-[calc(8*var(--u))]">
-      <Link href="/book" className={pill}>
+      <button type="button" onClick={show} aria-haspopup="dialog" className={pill}>
         Bookings
-      </Link>
+      </button>
 
       <a href="#faq" className={pill}>
         FAQ
