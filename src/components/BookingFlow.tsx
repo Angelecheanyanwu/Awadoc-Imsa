@@ -179,7 +179,7 @@ export default function BookingFlow() {
       className={`booking-scope flex min-h-dvh flex-col font-sans text-ink ${leaving ? "book-leave" : "book-fade"}`}
     >
       {/* Top bar: logo (back to the home page) and the sun / moon switch. */}
-      <header className="gutter mx-auto flex w-full max-w-[1080px] items-center justify-between pb-10 pt-5">
+      <header className="gutter flex w-full items-center justify-between pb-10 pt-5">
         <Link href="/" onClick={goHome} aria-label="AwaDoc home" className="-ml-1 flex items-center">
           <Logo className="h-8 w-auto max-sm:h-6" />
         </Link>
@@ -200,7 +200,7 @@ export default function BookingFlow() {
         </div>
       </header>
 
-      <div className="gutter book-rise mx-auto w-full max-w-[1080px]" style={{ animationDelay: "80ms" }}>
+      <div className="gutter book-rise w-full" style={{ animationDelay: "80ms" }}>
         {/* Title, how far along, and the step count. */}
         <div className="flex items-end justify-between gap-4">
           <h1 className="min-w-0 font-heading text-h2 font-medium leading-tight">{cfg.title}</h1>
@@ -243,7 +243,7 @@ export default function BookingFlow() {
         )}
       </div>
 
-      <main className="gutter book-rise mx-auto flex w-full max-w-[1080px] flex-1 flex-col pb-8 pt-4" style={{ animationDelay: "180ms" }}>
+      <main className="gutter book-rise flex w-full flex-1 flex-col pb-8 pt-4" style={{ animationDelay: "180ms" }}>
         {/* `@container` lets fields go two-up based on the space they have, not the screen's width. */}
         <div className="@container flex w-full flex-1 flex-col">
           <div
@@ -261,11 +261,11 @@ export default function BookingFlow() {
 
       {/* Pinned to the bottom: what you have chosen so far on the left, Back and Continue on the right. */}
       <div className="book-rise sticky bottom-0 z-10 bg-bg/80 backdrop-blur-md" style={{ animationDelay: "280ms" }}>
-        <div className="gutter mx-auto flex w-full max-w-[1080px] items-center justify-end gap-3 py-3">
+        <div className="gutter flex w-full items-center justify-end gap-3 py-3">
           {/* The floating Ask Noura pill sits at the left of this bar, so the summary is kept to the right of it
               and is left out on narrow screens. */}
           {summary && (
-            <span className="mr-auto hidden h-11 min-w-0 items-center truncate rounded-full border border-ink/15 bg-ink/6 px-4 text-hero-sub font-semibold md:ml-[max(0px,calc(12.5rem-max(0px,(100vw-1080px)/2)))] md:inline-flex">
+            <span className="mr-auto hidden h-11 min-w-0 items-center truncate rounded-full border border-ink/15 bg-ink/6 px-4 text-hero-sub font-semibold md:ml-[12.5rem] md:inline-flex">
               {summary}
             </span>
           )}

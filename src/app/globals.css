@@ -347,3 +347,30 @@ body {
 html {
   background: var(--bg);
 }
+
+/* The sun / moon switch is drawn from the page's data-theme (set by a tiny script before the page paints), not from
+   React state, so it is right on the very first frame and nothing jumps when the page loads. The chosen theme's
+   button is filled; on phones only the other button shows (tap it to switch). */
+:root[data-theme="light"] .tt-light,
+:root[data-theme="dark"] .tt-dark {
+  background: var(--ink);
+  color: var(--bg);
+}
+@media (max-width: 639px) {
+  :root[data-theme="light"] .tt-light,
+  :root[data-theme="dark"] .tt-dark {
+    display: none;
+  }
+}
+/* Before the theme script has run (the very first frame), follow the phone's own setting, so the switch is already
+   one button wide and does not jump when the saved theme is applied. */
+@media (max-width: 639px) and (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .tt-dark {
+    display: none;
+  }
+}
+@media (max-width: 639px) and (prefers-color-scheme: light) {
+  :root:not([data-theme]) .tt-light {
+    display: none;
+  }
+}
