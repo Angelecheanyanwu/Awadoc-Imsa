@@ -59,9 +59,6 @@ export default function InProgressModal() {
         <h2 id="in-progress-title" className="font-heading text-h2 font-medium leading-tight [-webkit-text-stroke:0.03em_currentColor]">
           Booking is in progress
         </h2>
-        <p className="mx-auto mt-3 max-w-[22em] text-hero-sub font-medium leading-relaxed text-muted">
-          We&apos;re still getting online booking ready. Please check back soon.
-        </p>
         <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-center">
           <button
             type="button"
