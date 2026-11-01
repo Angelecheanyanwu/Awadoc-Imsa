@@ -68,7 +68,7 @@ export default function NouraChat() {
 
   return (
     <div
-      className={`fixed inset-0 z-40 flex items-end justify-center bg-black/25 p-[max(0.75rem,env(safe-area-inset-top))_max(0.75rem,env(safe-area-inset-right))_max(0.75rem,env(safe-area-inset-bottom))_max(0.75rem,env(safe-area-inset-left))] backdrop-blur-[3px] transition-opacity duration-400 ease-out motion-reduce:transition-none sm:items-center sm:p-[calc(24*var(--u))] ${shown ? "opacity-100" : "opacity-0"}`}
+      className={`fixed inset-0 z-40 flex items-end justify-center bg-black/25 p-[max(0.75rem,env(safe-area-inset-top))_max(1.75rem,env(safe-area-inset-right))_max(0.75rem,env(safe-area-inset-bottom))_max(1.75rem,env(safe-area-inset-left))] backdrop-blur-[3px] transition-opacity duration-400 ease-out motion-reduce:transition-none sm:items-center sm:p-[calc(24*var(--u))] ${shown ? "opacity-100" : "opacity-0"}`}
       onPointerDown={(e) => e.target === e.currentTarget && closeChat()}
     >
       <div

@@ -35,7 +35,7 @@ export default function MobileMenu() {
   }, [open]);
 
   const row =
-    "flex min-h-11 w-full cursor-pointer items-center justify-between gap-3 px-card py-[0.6em] text-left text-body font-medium transition-colors hover:bg-ink/5 focus-visible:bg-ink/5 focus-visible:outline-none";
+    "flex min-h-11 w-full cursor-pointer items-center justify-between gap-3 px-card py-[0.6em] text-left text-hero-sub font-medium transition-colors hover:bg-ink/5 focus-visible:bg-ink/5 focus-visible:outline-none";
 
   return (
     <div ref={ref} className="min-[500px]:hidden">
@@ -59,7 +59,7 @@ export default function MobileMenu() {
           (and clear of notches). The grid-rows trick animates its height. */}
       <div
         id={panelId}
-        className={`absolute inset-x-0 top-[calc(100%-0.75rem)] mx-[max(1.25rem,env(safe-area-inset-left))] grid rounded-[calc(24*var(--u))] border-ink/10 bg-bg/95 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.35)] backdrop-blur-md transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none ${
+        className={`absolute inset-x-0 top-[calc(100%-0.75rem)] mx-auto w-[min(calc(100%-5rem),16.5rem)] grid rounded-[calc(24*var(--u))] border-white/40 bg-linear-to-br from-bg/90 via-bg/82 to-bg/75 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-[12px] transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none ${
           open ? "grid-rows-[1fr] border opacity-100" : "grid-rows-[0fr] border-0 opacity-0"
         }`}
         {...(open ? {} : { inert: true })}
@@ -83,7 +83,7 @@ export default function MobileMenu() {
               className={row}
             >
               <span>Currency</span>
-              <span className="flex items-center gap-2 text-label font-normal text-muted">
+              <span className="flex items-center gap-2 text-hero-sub font-normal text-muted">
                 {current.symbol} {current.code}
                 <svg
                   aria-hidden="true"
@@ -124,7 +124,7 @@ export default function MobileMenu() {
                         <span className="inline-block w-[1.4em]">{c.symbol}</span>
                         {c.code}
                       </span>
-                      <span className={`text-label font-normal ${c.code === currency ? "text-brand" : "text-muted"}`}>{c.name}</span>
+                      <span className={`text-hero-sub font-normal ${c.code === currency ? "text-brand" : "text-muted"}`}>{c.name}</span>
                     </button>
                   ))}
                 </div>
