@@ -28,7 +28,7 @@ export default function NouraChat() {
       };
     }
     setShown(false);
-    const t = setTimeout(() => setPresent(false), 280);
+    const t = setTimeout(() => setPresent(false), 380);
     return () => clearTimeout(t);
   }, [open]);
 
@@ -68,7 +68,7 @@ export default function NouraChat() {
 
   return (
     <div
-      className={`fixed inset-0 z-40 flex items-end justify-center bg-black/35 p-[max(0.75rem,env(safe-area-inset-top))_max(0.75rem,env(safe-area-inset-right))_max(0.75rem,env(safe-area-inset-bottom))_max(0.75rem,env(safe-area-inset-left))] backdrop-blur-[2px] transition-opacity duration-300 ease-out motion-reduce:transition-none sm:items-center sm:p-[calc(24*var(--u))] ${shown ? "opacity-100" : "opacity-0"}`}
+      className={`fixed inset-0 z-40 flex items-end justify-center bg-black/25 p-[max(0.75rem,env(safe-area-inset-top))_max(0.75rem,env(safe-area-inset-right))_max(0.75rem,env(safe-area-inset-bottom))_max(0.75rem,env(safe-area-inset-left))] backdrop-blur-[3px] transition-opacity duration-400 ease-out motion-reduce:transition-none sm:items-center sm:p-[calc(24*var(--u))] ${shown ? "opacity-100" : "opacity-0"}`}
       onPointerDown={(e) => e.target === e.currentTarget && closeChat()}
     >
       <div
@@ -77,10 +77,10 @@ export default function NouraChat() {
         role="dialog"
         aria-modal="true"
         aria-labelledby="noura-title"
-        className={`flex outline-none h-[85dvh] max-h-full w-full max-w-[calc(600*var(--u))] origin-bottom flex-col overflow-hidden rounded-[calc(28*var(--u))] border border-ink/10 bg-bg text-ink shadow-[0_24px_80px_-16px_rgba(0,0,0,0.5)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none sm:h-[min(86dvh,calc(720*var(--u)))] sm:rounded-[calc(28*var(--u))] ${shown ? "translate-y-0 scale-100 opacity-100" : "translate-y-6 scale-[0.97] opacity-0"}`}
+        className={`flex outline-none h-[85dvh] max-h-full w-full max-w-[calc(600*var(--u))] origin-center flex-col overflow-hidden rounded-[calc(28*var(--u))] border border-white/40 bg-linear-to-br from-bg/90 via-bg/82 to-bg/75 text-ink shadow-[0_24px_80px_-16px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-[12px] transition-[transform,opacity] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none sm:h-[min(86dvh,calc(720*var(--u)))] sm:rounded-[calc(28*var(--u))] ${shown ? "scale-100 opacity-100" : "scale-[0.94] opacity-0"}`}
       >
         {/* Header */}
-        <header className="flex shrink-0 items-center gap-[calc(14*var(--u))] border-b border-ink/10 px-card py-[calc(18*var(--u))]">
+        <header className="flex shrink-0 items-center gap-[calc(14*var(--u))] px-card py-[calc(18*var(--u))]">
           <span className="flex h-[calc(48*var(--u))] w-[calc(48*var(--u))] shrink-0 items-center justify-center rounded-full bg-brand/15">
             <Image src="/noura-logo.png" alt="" width={828} height={754} className="h-[56%] w-auto" />
           </span>
@@ -114,7 +114,7 @@ export default function NouraChat() {
               className={`noura-msg max-w-[85%] whitespace-pre-wrap rounded-[calc(20*var(--u))] px-[calc(18*var(--u))] py-[calc(12*var(--u))] text-hero-sub leading-relaxed ${
                 m.role === "user"
                   ? "self-end rounded-br-[calc(6*var(--u))] bg-brand font-medium text-[#07110c]"
-                  : "self-start rounded-bl-[calc(6*var(--u))] border border-ink/10 bg-ink/4"
+                  : "self-start rounded-bl-[calc(6*var(--u))] border border-ink/10 bg-bg/80 shadow-[0_4px_16px_-8px_rgba(0,0,0,0.15)]"
               }`}
             >
               {m.text}
@@ -124,7 +124,7 @@ export default function NouraChat() {
           {typing && (
             <div
               aria-label="Noura is typing"
-              className="flex w-fit items-center gap-[calc(5*var(--u))] self-start rounded-[calc(20*var(--u))] rounded-bl-[calc(6*var(--u))] border border-ink/10 bg-ink/4 px-[calc(18*var(--u))] py-[calc(16*var(--u))]"
+              className="flex w-fit items-center gap-[calc(5*var(--u))] self-start rounded-[calc(20*var(--u))] rounded-bl-[calc(6*var(--u))] border border-ink/10 bg-bg/80 px-[calc(18*var(--u))] py-[calc(16*var(--u))]"
             >
               {[0, 1, 2].map((i) => (
                 <span
@@ -139,7 +139,7 @@ export default function NouraChat() {
         </div>
 
         {/* Suggestions, input, disclaimer */}
-        <footer className="shrink-0 border-t border-ink/10 px-card pb-[calc(18*var(--u))] pt-[calc(16*var(--u))]">
+        <footer className="shrink-0 px-card pb-[calc(18*var(--u))] pt-[calc(16*var(--u))]">
           {!started && (
             <div className="mb-[calc(14*var(--u))] grid grid-cols-2 gap-[calc(8*var(--u))]">
               {SUGGESTIONS.map((q) => (
@@ -147,7 +147,7 @@ export default function NouraChat() {
                   key={q}
                   type="button"
                   onClick={() => submit(q)}
-                  className="flex min-h-11 cursor-pointer items-center justify-center rounded-full border border-ink/15 px-[1em] py-[0.5em] text-center text-hero-sub leading-snug font-medium transition-colors hover:border-brand hover:bg-brand/10 hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+                  className="flex min-h-11 cursor-pointer items-center justify-center rounded-[calc(16*var(--u))] border border-ink/15 bg-bg/70 px-[1em] py-[0.5em] text-center text-hero-sub leading-snug font-medium transition-colors hover:border-brand hover:bg-brand/10 hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
                 >
                   {q}
                 </button>
@@ -169,7 +169,7 @@ export default function NouraChat() {
               placeholder="Ask Noura a question"
               aria-label="Ask Noura a question"
               maxLength={500}
-              className="min-h-12 min-w-0 flex-1 rounded-[calc(16*var(--u))] border border-ink/10 bg-ink/5 px-[calc(16*var(--u))] py-[calc(13*var(--u))] text-hero-sub outline-none transition-all duration-200 placeholder:font-semibold placeholder:text-muted/70 hover:border-ink/20 focus:border-brand focus:bg-transparent focus:ring-4 focus:ring-brand/15 focus:placeholder:text-muted motion-reduce:transition-none"
+              className="min-h-12 min-w-0 flex-1 rounded-[calc(16*var(--u))] border border-ink/10 bg-bg/70 px-[calc(16*var(--u))] py-[calc(13*var(--u))] text-hero-sub outline-none transition-all duration-200 placeholder:font-semibold placeholder:text-muted/70 hover:border-ink/20 focus:border-brand focus:bg-bg/90 focus:ring-4 focus:ring-brand/15 focus:placeholder:text-muted motion-reduce:transition-none"
             />
             <button
               type="submit"

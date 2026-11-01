@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-type Palette = { bottom: string; mid: string; top: string; deep: string };
+export type Palette = { bottom: string; mid: string; top: string; deep: string };
 
 type Props = {
   className?: string;
@@ -15,7 +15,7 @@ type Props = {
   offsetX?: number;
 };
 
-const GREEN: Palette = {
+export const GREEN: Palette = {
   bottom: "#14b8a6", // teal
   mid: "#059669", // emerald
   top: "#84cc16", // lime
@@ -24,16 +24,16 @@ const GREEN: Palette = {
 
 // World units. The camera sees ~8 units for one screen height; the helix runs on past the
 // hero into the pricing section below it, so it needs to be a few screens long.
-const LENGTH = 28;
+export const LENGTH = 28;
 // Fewer particles per unit of length than the original, to keep the longer helix affordable.
 const DENSITY = 0.7;
 const VIEW_HEIGHT = 8.19; // world units visible over one hero height (fov 35 at distance 13)
 
-const vertexShader =/* glsl */ `
+export const vertexShader =/* glsl */ `
   uniform float uTime, uProgress, uPixelRatio, uDim;
   attribute float aT, aSize, aKind, aU, aPhase;
   attribute vec3 aRand, aColor;
-  varying vec3 vColor; varying float vAlpha;
+  varying vec3 vColor; varying float vAlpha; varying float vBlur;
   void main() {
     vec3 p = position;
     float d = clamp(uProgress * 1.8 - (1.0 - aT) * 0.8 - aRand.x * 0.2, 0.0, 1.0);
@@ -48,12 +48,15 @@ const vertexShader =/* glsl */ `
     p += 0.012 * vec3(sin(uTime * 2.0 + aRand.x * 40.0), cos(uTime * 1.7 + aRand.y * 40.0), sin(uTime * 2.3 + aRand.z * 40.0));
     vec4 mv = modelViewMatrix * vec4(p, 1.0);
     gl_Position = projectionMatrix * mv;
-    gl_PointSize = aSize * (1.0 + d * aRand.z * 0.5) * uPixelRatio * (16.0 / -mv.z);
+    float depth = -mv.z;
+    vBlur = 1.0 - smoothstep(0.5, 2.2, depth);
+    float nearFade = smoothstep(0.12, 0.7, depth);
+    gl_PointSize = min(aSize * (1.0 + d * aRand.z * 0.5) * (1.0 + vBlur * 0.9) * uPixelRatio * (16.0 / depth), 30.0 * uPixelRatio);
     vColor = aColor;
     // Splash particles only exist while bursting. Rung particles sit in
     // straight rows, so they fade fast instead of lingering as faint lines.
     float vis = aKind > 1.5 ? d : (aKind > 0.5 ? 1.0 - smoothstep(0.0, 0.35, d) : 1.0);
-    vAlpha = vis * (0.85 - d * 0.3) * uDim;
+    vAlpha = vis * (0.85 - d * 0.3) * uDim * nearFade * (1.0 - vBlur * 0.7);
     // Linking rungs: two halves reach out from the strands toward the middle in yellow,
     // turn green once they meet, hold, then fade and start over.
     if (aPhase >= 0.0) {
@@ -62,22 +65,22 @@ const vertexShader =/* glsl */ `
       float reach = smoothstep(1.0 - grow - 0.04, 1.0 - grow + 0.04, abs(aU));
       float joined = smoothstep(0.5, 0.58, c);
       vColor = mix(vec3(0.961, 0.647, 0.141), vec3(0.13, 0.77, 0.37), joined);
-      vAlpha = vis * reach * (1.0 - smoothstep(0.85, 1.0, c)) * 0.95;
+      vAlpha = vis * reach * (1.0 - smoothstep(0.85, 1.0, c)) * 0.95 * nearFade * (1.0 - vBlur * 0.7);
       gl_PointSize *= 1.25;
     }
   }
 `;
 
-const fragmentShader = /* glsl */ `
-  varying vec3 vColor; varying float vAlpha;
+export const fragmentShader = /* glsl */ `
+  varying vec3 vColor; varying float vAlpha; varying float vBlur;
   void main() {
     float r = length(gl_PointCoord - 0.5);
     if (r > 0.5) discard;
-    gl_FragColor = vec4(vColor, smoothstep(0.5, 0.35, r) * vAlpha);
+    gl_FragColor = vec4(vColor, smoothstep(0.5, 0.35 - 0.25 * vBlur, r) * vAlpha);
   }
 `;
 
-function buildGeometry(palette: Palette) {
+export function buildGeometry(palette: Palette) {
   // Long enough to run past the top and bottom of any viewport. Pitch and
   // particle density stay the same as the original 9-unit helix.
   const k = LENGTH / 9;

@@ -12,7 +12,7 @@ export const GREETING =
   "Hi, I'm Noura. Ask me anything about genotypes, IVF, embryo testing or booking here.";
 
 export const SUGGESTIONS = [
-  "What does AS + AS mean for our children?",
+  "AS + AS: Our kids’ risk",
   "What is PGT-M, simply?",
 ];
 

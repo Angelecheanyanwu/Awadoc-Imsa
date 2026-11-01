@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import { currencies, useCurrencyStore } from "@/store/useCurrencyStore";
 
@@ -66,9 +67,9 @@ export default function MobileMenu() {
         <div className="overflow-hidden rounded-[inherit]">
           {/* divide-y puts a line between every item, including above the Currency label. */}
           <nav aria-label="Menu" className="flex flex-col divide-y divide-ink/10">
-            <a href="#" onClick={() => setOpen(false)} className={row}>
+            <Link href="/book" onClick={() => setOpen(false)} className={row}>
               Bookings
-            </a>
+            </Link>
             <a href="#faq" onClick={() => setOpen(false)} className={row}>
               FAQ
             </a>

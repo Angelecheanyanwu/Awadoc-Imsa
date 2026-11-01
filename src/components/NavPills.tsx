@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { currencies, useCurrencyStore } from "@/store/useCurrencyStore";
 
@@ -77,9 +78,9 @@ function CurrencyMenu() {
 export default function NavPills() {
   return (
     <div className="flex items-center gap-[calc(8*var(--u))]">
-      <a href="#" className={pill}>
+      <Link href="/book" className={pill}>
         Bookings
-      </a>
+      </Link>
 
       <a href="#faq" className={pill}>
         FAQ
