@@ -303,7 +303,7 @@ body {
 .story-link:hover::after {
   transform: translateX(4px);
 }
-/* Step text placement. On phones the block fills the page width (a 20px margin each side), low on the screen, text
+/* Step text placement. On phones the block fills the page width (a 20px margin each side), in the middle of the screen, text
    aligned to the left like the hero copy. From 761px up each step has its own place: 01 sits far left, in line with
    the hero text, 02 bottom right, 03 back at the far left in the same place as 01. `translate` is separate from the `transform` the script uses
    for the fade. */
@@ -313,9 +313,15 @@ body {
   width: min(32rem, calc(100% - 2.5rem));
   text-align: left;
 }
-#story-p1, #story-p2, #story-p3 { top: auto; bottom: max(18svh, 10rem); }
+/* Phones: each step sits in the middle of the visible screen, worked out from the screen's height (100svh, with the
+   browser toolbars showing) between the bottom of the nav and the bottom margin, so the gaps above and below match. */
+#story-p1, #story-p2, #story-p3 {
+  top: calc((max(1.5rem, env(safe-area-inset-top)) + 4.25rem + 100svh) / 2);
+  bottom: auto;
+  translate: -50% -50%;
+}
 @media (min-width: 761px) {
-  .story-panel { translate: none; }
+  #story-p1, #story-p2, #story-p3 { top: auto; translate: none; }
   #story-p1, #story-p3 { left: max(1.25rem, 5vw); bottom: max(16svh, 10rem); }
   #story-p2 { left: auto; right: max(1.25rem, 8vw); bottom: max(18svh, 10rem); }
 }

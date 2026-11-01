@@ -59,7 +59,7 @@ export default function MobileMenu() {
           (and clear of notches). The grid-rows trick animates its height. */}
       <div
         id={panelId}
-        className={`absolute inset-x-0 top-[calc(100%-0.75rem)] mx-auto w-[min(calc(100%-5rem),16.5rem)] grid rounded-[calc(24*var(--u))] border-white/40 bg-linear-to-br from-bg/90 via-bg/82 to-bg/75 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-[12px] transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none ${
+        className={`absolute inset-x-0 top-[calc(100%-0.75rem)] mx-auto w-[min(calc(100%-4rem),18rem)] grid rounded-[calc(24*var(--u))] border-white/40 bg-linear-to-br from-bg/90 via-bg/82 to-bg/75 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-[12px] transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none ${
           open ? "grid-rows-[1fr] border opacity-100" : "grid-rows-[0fr] border-0 opacity-0"
         }`}
         {...(open ? {} : { inert: true })}
