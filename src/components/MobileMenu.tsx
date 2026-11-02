@@ -1,11 +1,15 @@
 "use client";
 
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { leaveTo } from "@/lib/leaveTo";
 import { useEffect, useId, useRef, useState } from "react";
 import { currencies, useCurrencyStore } from "@/store/useCurrencyStore";
 
 // Below 500px the nav links fold into this menu: a hamburger button that opens a panel under the
 // nav with About, FAQ and the currency choice. From 500px up the full links show instead.
 export default function MobileMenu() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const aboutId = useId();
@@ -60,7 +64,7 @@ export default function MobileMenu() {
           (and clear of notches). The grid-rows trick animates its height. */}
       <div
         id={panelId}
-        className={`absolute inset-x-0 top-[calc(100%-0.75rem)] mx-auto w-[min(calc(100%-4rem),18rem)] grid rounded-[calc(24*var(--u))] border-white/40 bg-linear-to-br from-bg/90 via-bg/82 to-bg/75 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-[12px] transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none ${
+        className={`absolute inset-x-0 top-[calc(100%-0.75rem)] mx-auto w-[min(calc(100%-4rem),18rem)] grid rounded-[calc(24*var(--u))] border-white/40 bg-linear-to-br from-bg/90 via-bg/82 to-bg/75 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-md transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none ${
           open ? "grid-rows-[1fr] border opacity-100" : "grid-rows-[0fr] border-0 opacity-0"
         }`}
         {...(open ? {} : { inert: true })}
@@ -96,9 +100,17 @@ export default function MobileMenu() {
                   >
                     AwaDoc
                   </a>
-                  <button type="button" onClick={() => setOpen(false)} className={row}>
+                  <Link
+                    href="/partnership"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpen(false);
+                      leaveTo(router, "/partnership");
+                    }}
+                    className={row}
+                  >
                     IMSA partnership
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

@@ -46,9 +46,9 @@ const FLAG: Record<string, string> = {
 const flagIcon = (country: string) =>
   FLAG[country] ? (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src={`/flags/${FLAG[country]}.svg`} alt="" width={20} height={14} className="h-[14px] w-5 shrink-0 rounded-[2px] object-cover shadow-[0_0_0_1px_rgba(0,0,0,0.12)]" />
+    <img src={`/flags/${FLAG[country]}.svg`} alt="" width={20} height={14} className="h-3.5 w-5 shrink-0 rounded-xs object-cover shadow-[0_0_0_1px_rgba(0,0,0,0.12)]" />
   ) : (
-    <span aria-hidden="true" className="h-[14px] w-5 shrink-0 rounded-[2px] bg-ink/10" />
+    <span aria-hidden="true" className="h-3.5 w-5 shrink-0 rounded-xs bg-ink/10" />
   );
 // The same flag files for the country-code list (+1 shows the US flag).
 const DIAL_FLAG: Record<string, string> = {
@@ -57,7 +57,7 @@ const DIAL_FLAG: Record<string, string> = {
 const dialFlagIcon = (code: string) =>
   DIAL_FLAG[code] ? (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src={`/flags/${DIAL_FLAG[code]}.svg`} alt="" width={20} height={14} className="h-[14px] w-5 shrink-0 rounded-[2px] object-cover shadow-[0_0_0_1px_rgba(0,0,0,0.12)]" />
+    <img src={`/flags/${DIAL_FLAG[code]}.svg`} alt="" width={20} height={14} className="h-3.5 w-5 shrink-0 rounded-xs object-cover shadow-[0_0_0_1px_rgba(0,0,0,0.12)]" />
   ) : null;
 const COUNTRIES = [
   "Nigeria", "Ghana", "Kenya", "South Africa", "Cameroon", "Senegal", "Egypt", "United Kingdom", "Ireland",
@@ -95,12 +95,12 @@ export function StepRegister() {
         </Field>
       </div>
       <div className="grid items-start gap-[calc(18*var(--u))] @min-[401px]:grid-cols-2">
-        <div className="grid min-w-0 gap-[5px]">
+        <div className="grid min-w-0 gap-1.25">
           <span className="text-micro text-muted">
             WhatsApp number<span className="text-[#e5532d]"> *</span>
           </span>
           <div className="grid grid-cols-[116px_1fr] gap-2">
-            <SelectInput aria-label="Country code" value={data.dial} onChange={(v) => set({ dial: v })} options={DIAL_CODES} placeholder="+" className="w-[116px]" optionIcon={dialFlagIcon} />
+            <SelectInput aria-label="Country code" value={data.dial} onChange={(v) => set({ dial: v })} options={DIAL_CODES} placeholder="+" className="w-29" optionIcon={dialFlagIcon} />
             <TextInput type="tel" inputMode="tel" value={data.phone} onChange={(e) => set({ phone: e.target.value })} placeholder="803 000 0000" autoComplete="tel-national" aria-label="WhatsApp number" />
           </div>
         </div>
@@ -217,7 +217,7 @@ export function StepGenotypes() {
 export function StepLocation() {
   const { data, set } = useBookingStore();
   return (
-    <div className="grid gap-[14px]">
+    <div className="grid gap-3.5">
       <Field label="Street address" required>
         <TextInput value={data.street} onChange={(e) => set({ street: e.target.value })} placeholder="House number and street name" autoComplete="street-address" />
       </Field>
@@ -533,7 +533,7 @@ export function StepBook() {
                   aria-checked={on}
                   disabled={locked}
                   onClick={() => toggleProcedure(p.id)}
-                  className={`flex w-full items-center gap-[0.9em] rounded-[12px] border p-[0.9em] text-left text-hero-sub transition-all duration-200 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 ${
+                  className={`flex w-full items-center gap-[0.9em] rounded-xl border p-[0.9em] text-left text-hero-sub transition-all duration-200 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 ${
                     locked ? "cursor-not-allowed border-ink/8 bg-bg opacity-45" : on ? `cursor-pointer ${chosen}` : "cursor-pointer border-ink/15 bg-bg hover:border-brand"
                   }`}
                 >
@@ -655,7 +655,7 @@ function UploadTile({ name, file, onPick }: { name: string; file: string; onPick
       />
       {file && info ? (
         <div className={`flex min-h-[calc(84*var(--u))] items-center gap-[0.9em] rounded-[10px] border p-[0.9em] text-hero-sub ${uploading ? "border-ink/15 bg-bg" : chosen}`}>
-          <span className={`flex size-[2.6em] shrink-0 items-center justify-center rounded-[8px] text-hero-sub font-bold ${isPdf ? "bg-[#fdecec] text-[#b23a3f]" : "bg-brand/15 text-accent"}`}>
+          <span className={`flex size-[2.6em] shrink-0 items-center justify-center rounded-lg text-hero-sub font-bold ${isPdf ? "bg-[#fdecec] text-[#b23a3f]" : "bg-brand/15 text-accent"}`}>
             {isPdf ? "PDF" : "IMG"}
           </span>
           <span className="min-w-0 flex-1">
@@ -812,7 +812,7 @@ export function StepPay() {
                 role="radio"
                 aria-checked={on}
                 onClick={() => set({ pay: o.id })}
-                className={`flex w-full cursor-pointer items-center gap-[0.9em] rounded-[12px] border p-[0.9em] text-left text-hero-sub transition-all duration-200 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 ${
+                className={`flex w-full cursor-pointer items-center gap-[0.9em] rounded-xl border p-[0.9em] text-left text-hero-sub transition-all duration-200 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 ${
                   on ? chosen : "border-ink/15 bg-bg hover:border-brand"
                 }`}
               >

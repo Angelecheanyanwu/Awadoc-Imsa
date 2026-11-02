@@ -1,5 +1,8 @@
 "use client";
 
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { leaveTo } from "@/lib/leaveTo";
 import { useEffect, useRef, useState } from "react";
 import { currencies, useCurrencyStore } from "@/store/useCurrencyStore";
 
@@ -49,7 +52,7 @@ function CurrencyMenu() {
         <ul
           role="listbox"
           aria-label="Choose currency"
-          className="absolute right-[max(1.25rem,env(safe-area-inset-right))] top-[calc(100%-1rem)] z-30 w-[calc(250*var(--u))] max-w-[calc(100vw-2.5rem)] lg:left-0 lg:right-auto lg:top-[calc(100%+8px)] lg:w-[calc(300*var(--u))] divide-y divide-ink/10 overflow-hidden rounded-[calc(18*var(--u))] border border-white/40 bg-linear-to-br from-bg/90 via-bg/82 to-bg/75 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-[12px]"
+          className="absolute right-[max(1.25rem,env(safe-area-inset-right))] top-[calc(100%-1rem)] z-30 w-[calc(250*var(--u))] max-w-[calc(100vw-2.5rem)] lg:left-0 lg:right-auto lg:top-[calc(100%+8px)] lg:w-[calc(300*var(--u))] divide-y divide-ink/10 overflow-hidden rounded-[calc(18*var(--u))] border border-white/40 bg-linear-to-br from-bg/90 via-bg/82 to-bg/75 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-md"
         >
           {currencies.map((c) => (
             <li key={c.code} role="option" aria-selected={c.code === currency}>
@@ -76,13 +79,14 @@ function CurrencyMenu() {
   );
 }
 
-const ABOUT_ITEMS: { label: string; href?: string }[] = [
+const ABOUT_ITEMS: { label: string; href?: string; internal?: boolean }[] = [
   { label: "AwaDoc", href: "https://www.awadoc.com/about-us" },
-  { label: "IMSA partnership" },
+  { label: "IMSA partnership", href: "/partnership", internal: true },
 ];
 
 // "About" opens a short list underneath it. The two choices do not go anywhere yet.
 function AboutMenu() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -110,15 +114,28 @@ function AboutMenu() {
         <ul
           role="menu"
           aria-label="About"
-          className="book-pop absolute left-0 top-[calc(100%+8px)] z-30 w-[calc(230*var(--u))] divide-y divide-ink/10 overflow-hidden rounded-[calc(18*var(--u))] border border-white/40 bg-linear-to-br from-bg/90 via-bg/82 to-bg/75 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-[12px]"
+          className="book-pop absolute left-0 top-[calc(100%+8px)] z-30 w-[calc(230*var(--u))] divide-y divide-ink/10 overflow-hidden rounded-[calc(18*var(--u))] border border-white/40 bg-linear-to-br from-bg/90 via-bg/82 to-bg/75 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-md"
         >
-          {ABOUT_ITEMS.map(({ label, href }) => (
+          {ABOUT_ITEMS.map(({ label, href, internal }) => (
             <li key={label} role="none">
-              {href ? (
+              {href && internal ? (
+                // Inside the site: a client side link, so the page changes without a full reload (and no flash).
+                <Link
+                  href={href}
+                  role="menuitem"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpen(false);
+                    leaveTo(router, href);
+                  }}
+                  className="flex min-h-11 w-full cursor-pointer items-center px-[1em] py-[0.7em] text-left text-label font-medium transition-colors hover:bg-ink/5 hover:text-brand"
+                >
+                  {label}
+                </Link>
+              ) : href ? (
                 <a
                   href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  {...(internal ? {} : { target: "_blank", rel: "noopener noreferrer" })}
                   role="menuitem"
                   onClick={() => setOpen(false)}
                   className="flex min-h-11 w-full cursor-pointer items-center px-[1em] py-[0.7em] text-left text-label font-medium transition-colors hover:bg-ink/5 hover:text-brand"

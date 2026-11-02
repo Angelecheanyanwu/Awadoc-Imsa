@@ -50,7 +50,7 @@ export default function StepsStory() {
           >
             <div
               aria-hidden="true"
-              className="mx-auto h-[0.62em] overflow-hidden font-heading text-[clamp(4rem,9vw,8.5rem)] font-medium leading-none text-ink/35 transition-colors duration-300 [mask-image:linear-gradient(to_bottom,#000_65%,transparent)] [-webkit-mask-image:linear-gradient(to_bottom,#000_65%,transparent)] group-hover:text-accent group-focus-visible:text-accent motion-reduce:transition-none"
+              className="mx-auto h-[0.62em] overflow-hidden font-heading text-[clamp(4rem,9vw,8.5rem)] font-medium leading-none text-ink/35 transition-colors duration-300 mask-[linear-gradient(to_bottom,#000_65%,transparent)] group-hover:text-accent group-focus-visible:text-accent motion-reduce:transition-none"
             >
               {String(i + 1).padStart(2, "0")}
             </div>

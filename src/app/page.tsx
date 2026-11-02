@@ -14,7 +14,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 export default function Home() {
   return (
     // Fades in, so arriving from the booking page is a soft change rather than a cut.
-    <div className="book-fade">
+    <div data-page className="book-fade">
       {/* The helix is pinned to the screen behind the hero and the slider box: it carries on down behind the
           glass box and scrolls away with it. */}
       <div className="relative">

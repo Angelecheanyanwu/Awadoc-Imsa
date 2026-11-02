@@ -240,7 +240,7 @@ export default function HelixStory({ children }: { children: ReactNode }) {
       className="relative z-10 bg-bg"
       style={{ height: `calc(100lvh + ${HOLD * 100}svh)` }}
     >
-      <div ref={stageRef} className="sticky top-0 h-[100lvh] overflow-hidden">
+      <div ref={stageRef} className="sticky top-0 h-lvh overflow-hidden">
         {/* The hero copy: centred in the space under the nav, like before. */}
         <div
           ref={heroRef}
