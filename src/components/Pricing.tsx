@@ -12,7 +12,7 @@ const plans = [
 ];
 
 const cardBase =
-  "flex min-h-[calc(200*var(--u))] flex-col gap-[calc(10*var(--u))] rounded-[calc(24*var(--u))] p-card transition-transform duration-200 ease-out hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0";
+  "flex min-h-[calc(200*var(--u))] max-sm:min-h-[calc(140*var(--u))] flex-col gap-[calc(10*var(--u))] rounded-[calc(24*var(--u))] p-card transition-transform duration-200 ease-out hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0";
 
 export default function Pricing() {
   const currency = useCurrencyStore((s) => s.currency);
@@ -24,7 +24,7 @@ export default function Pricing() {
       className="gutter relative z-10 pt-[calc(var(--spacing-section)*1.5)]"
     >
       <div>
-        <h2 className="mb-[calc(64*var(--u))] text-center font-heading text-h2 max-sm:text-[min(var(--text-h2),calc((100vw-4.2rem)/16.5))] font-medium leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]">
+        <h2 className="mb-[calc(64*var(--u))] max-sm:mb-[calc(24*var(--u))] text-center font-heading text-h2 max-sm:text-[min(var(--text-h2),calc((100vw-3.6rem)/16.5))] font-medium leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]">
           Clear prices, Zero surprises
         </h2>
         <div className="grid grid-cols-1 gap-[calc(16*var(--u))] sm:grid-cols-2 lg:grid-cols-3">

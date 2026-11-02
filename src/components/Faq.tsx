@@ -220,7 +220,7 @@ export default function Faq() {
       <div className="mx-auto max-w-[calc(1100*var(--u))]">
         <h2
           id={`${uid}-title`}
-          className="text-center font-heading text-h2 max-sm:text-[min(var(--text-h2),calc((100vw-4.2rem)/16.5))] font-medium leading-none [-webkit-text-stroke:0.03em_currentColor]"
+          className="text-center font-heading text-h2 max-sm:text-[min(var(--text-h2),calc((100vw-3.6rem)/16.5))] font-medium leading-none [-webkit-text-stroke:0.03em_currentColor]"
         >
           FAQs
         </h2>

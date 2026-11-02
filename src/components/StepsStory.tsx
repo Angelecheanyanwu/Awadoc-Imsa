@@ -35,7 +35,7 @@ const STEPS = [
 export default function StepsStory() {
   return (
     <section id="how-it-works" aria-label="How booking works" className="relative z-10 px-[max(1.25rem,5vw)] pt-[calc(var(--spacing-section)*1.5)]">
-      <h2 className="mb-[calc(40*var(--u))] text-center font-heading text-h2 max-sm:text-[min(var(--text-h2),calc((100vw-4.2rem)/16.5))] font-medium leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]">
+      <h2 className="mb-[calc(40*var(--u))] text-center font-heading text-h2 max-sm:text-[min(var(--text-h2),calc((100vw-3.6rem)/16.5))] font-medium leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]">
         Get started in seconds
       </h2>
 
