@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import HomeButton from "@/components/HomeButton";
 import Logo from "@/components/Logo";
 import StickyNav from "@/components/StickyNav";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -257,7 +258,8 @@ export default function PartnershipPage() {
           <Logo className="h-8 w-auto max-sm:h-6" />
         </Link>
         <div />
-        <div className="col-start-3 flex items-center justify-self-end">
+        <div className="col-start-3 flex items-center gap-[calc(8*var(--u))] justify-self-end">
+          <HomeButton />
           <ThemeToggle />
         </div>
       </StickyNav>
