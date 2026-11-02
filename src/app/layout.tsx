@@ -34,7 +34,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${poppins.variable} ${nohemi.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${poppins.variable} ${nohemi.variable}`} suppressHydrationWarning data-scroll-behavior="smooth">
       <body className="font-sans">
         {/* Sets the theme before the first paint: the saved choice, or the phone's light / dark setting. */}
         <Script
