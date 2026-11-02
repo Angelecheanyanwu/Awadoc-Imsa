@@ -1,26 +1,22 @@
 import GetTheApp from "@/components/GetTheApp";
-import Logo from "@/components/Logo";
+import Partnership from "@/components/Partnership";
 
 // The footer uses the page's own colors, so it follows the sun/moon switch.
 export default function Footer() {
   return (
     <footer className="relative z-10 overflow-hidden bg-bg text-ink">
+      {/* The hairline, then AwaDoc in partnership with IMSA (the AwaDoc logo here is the footer's logo), then the app buttons. */}
       <div className="gutter">
-        {/* Hairline, then the logo on the left and the legal text on the right. */}
-        <div className="grid items-center gap-[calc(24*var(--u))] border-t border-ink/10 pb-section pt-[clamp(1.5rem,1rem+2.2vw,2.5rem)] md:grid-cols-[1fr_4fr] md:gap-x-[calc(32*var(--u))]">
-          <div>
-            <Logo className="h-8 w-auto" />
-          </div>
-          <p className="text-hero-sub leading-[1.75] text-muted">
-          AwaDoc is a digital health platform and does not provide medical advice, diagnosis, or treatment. All care is delivered by licensed professionals and authorised partners. Always consult a qualified healthcare provider about medical concerns. Nigerian services are provided by AwaDoc Health Technologies Ltd, 14b Imam Dauda Street, Surulere, Lagos.
-            <span className="mt-2 block">© 2026 Awadoc Inc. All rights reserved.</span>
-          </p>
+        <div className="border-t border-ink/10" />
+      </div>
 
-          {/* Own grid row, in the right-hand column, so the logo above stays centered on the text. */}
-          <div className="md:col-start-2">
-            <GetTheApp />
-          </div>
-        </div>
+      {/* One line: AwaDoc in partnership with IMSA at the left edge, the app buttons at the right edge. When the screen is
+          too narrow for both they stack, centred. */}
+      {/* The same side margins as the rest of the page. From 798px up it is one line: the partnership on the left, the app
+          buttons on the right. Below that they stack, both centred, with the same gap above, between and below. */}
+      <div className="gutter flex flex-col items-center gap-y-[calc(var(--spacing-section)*0.7)] py-[calc(var(--spacing-section)*0.7)] min-[798px]:flex-row min-[798px]:justify-between min-[798px]:gap-x-[calc(28*var(--u))] min-[798px]:pb-[calc(var(--spacing-section)/6)] min-[798px]:pt-[calc(var(--spacing-section)/2)]">
+        <Partnership compact />
+        <GetTheApp />
       </div>
 
       {/* Wordmark stretched edge to edge (no side gap), with the bottom quarter cut off.

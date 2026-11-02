@@ -244,7 +244,7 @@ export function StepLocation() {
 // ---- Step 4 -------------------------------------------------------------------------------
 
 const PLANS: { id: Counselling; title: string; sub: string; points: string[] }[] = [
-  { id: "virtual", title: "Virtual", sub: "45-minute video call", points: ["From any country", "Written summary and plan"] },
+  { id: "virtual", title: "Virtual", sub: "45 minute video call", points: ["From any country", "Written summary and plan"] },
   { id: "inperson", title: "In person", sub: "60 minutes, face to face", points: ["Results review included", "Venue confirmed when we book you"] },
   { id: "none", title: "No counselling", sub: "Go straight to procedures", points: ["For couples who've already been counselled"] },
 ];
@@ -370,7 +370,7 @@ function Calendar({ value, onPick }: { value: string; onPick: (iso: string) => v
   );
 }
 
-// Half-hour slots: morning 8:00 to 12:00, afternoon 12:00 to 5:00.
+// Half hour slots: morning 8:00 to 12:00, afternoon 12:00 to 5:00.
 type Slot = { hour: number; minute: 0 | 30; ampm: "AM" | "PM" };
 const SLOT_GROUPS: { name: string; range: string; slots: Slot[] }[] = [
   {
@@ -752,12 +752,12 @@ export function StepLabs() {
 
 const PAY_OPTIONS: { id: PayMethod; title: string; sub: string; }[] = [
   { id: "card", title: "Debit or credit card", sub: "Visa, Mastercard, Verve, American Express" },
-  { id: "transfer", title: "Bank transfer", sub: "Pay into your own one-time account number" },
+  { id: "transfer", title: "Bank transfer", sub: "Pay into your own one time account number" },
   { id: "momo", title: "Mobile money", sub: "OPay, PalmPay, MoMo PSB (MTN)" },
 ];
 
 export function counsellingLabel(c: string) {
-  return c === "virtual" ? "Virtual counselling" : c === "inperson" ? "In-person counselling" : "";
+  return c === "virtual" ? "Virtual counselling" : c === "inperson" ? "In person counselling" : "";
 }
 
 export function StepPay() {

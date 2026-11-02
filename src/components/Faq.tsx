@@ -9,11 +9,11 @@ import { useNouraStore } from "@/store/useNouraStore";
 // [name, amount in naira, is it an estimate]. Shown in the currency chosen in the nav.
 const prices: [string, number, boolean][] = [
   ["Virtual counselling", 50_000, false],
-  ["In-person counselling", 80_000, false],
+  ["In person counselling", 80_000, false],
   ["Genotype confirmation test", 30_000, false],
   ["IVF cycle", 2_900_000, true],
   ["Fertility medication", 1_600_000, true],
-  ["Embryo testing (PGT-M)", 2_500_000, true],
+  ["Embryo testing (PGTM)", 2_500_000, true],
   ["Frozen embryo transfer", 500_000, true],
   ["Full treatment package", 7_500_000, false],
 ];
@@ -51,11 +51,11 @@ function Block({ title, children }: { title: string; children: ReactNode }) {
 const items: { id: string; question: string; answer: ReactNode }[] = [
   {
     id: "pgtm",
-    question: "About PGT-M",
+    question: "About PGTM",
     answer: (
       <div className="space-y-[calc(14*var(--u))]">
         <p>
-          PGT-M checks embryos made through IVF for one inherited condition, such as sickle cell disease. First, a
+          PGTM checks embryos made through IVF for one inherited condition, such as sickle cell disease. First, a
           custom test is built from the family&apos;s own DNA. Then a few cells are taken from each embryo on day 5 or 6
           and tested, and only embryos without the condition are transferred.
         </p>
@@ -108,7 +108,7 @@ const items: { id: string; question: string; answer: ReactNode }[] = [
     id: "skip",
     question: "Should we skip counselling?",
     answer:
-      "Only if you both have lab-confirmed genotypes, you understand the IVF process, and you're ready for the cost. If not, add counselling to your booking.",
+      "Only if you both have lab confirmed genotypes, you understand the IVF process, and you're ready for the cost. If not, add counselling to your booking.",
   },
   {
     id: "abroad",
@@ -193,7 +193,7 @@ const items: { id: string; question: string; answer: ReactNode }[] = [
         </Block>
         <Block title="How we protect it">
           Access is limited to the people caring for you. Genotypes are kept off receipts you share. We keep records only
-          as long as your care and medical-records rules require.
+          as long as your care and medical records rules require.
         </Block>
         <Block title="Your rights">
           You can ask to see, correct or delete your data, and withdraw consent at any time, by contacting
@@ -215,16 +215,16 @@ export default function Faq() {
     <section
       id="faq"
       aria-labelledby={`${uid}-title`}
-      className="gutter relative z-10 scroll-mt-28 py-section"
+      className="gutter relative z-10 scroll-mt-28 py-[calc(var(--spacing-section)*1.5)]"
     >
       <div className="mx-auto max-w-[calc(1100*var(--u))]">
         <h2
           id={`${uid}-title`}
-          className="text-center font-heading text-h2 font-medium leading-none [-webkit-text-stroke:0.03em_currentColor]"
+          className="text-center font-heading text-h2 max-sm:text-[min(var(--text-h2),calc((100vw-4.2rem)/16.5))] font-medium leading-none [-webkit-text-stroke:0.03em_currentColor]"
         >
           FAQs
         </h2>
-        <p className="mt-[calc(20*var(--u))] text-center text-body text-muted">
+        <p className="mt-[calc(20*var(--u))] text-center text-hero-sub font-medium leading-relaxed tracking-[-0.035em] text-muted">
           Have more questions?{" "}
           <button
             type="button"
@@ -247,7 +247,7 @@ export default function Faq() {
                 id={`faq-${item.id}`}
                 className={`scroll-mt-28 ${i > 0 ? "border-t border-ink/10" : ""} transition-colors duration-200 ${open ? "bg-ink/4" : "hover:bg-ink/2"}`}
               >
-                <h3 className="text-h3 font-medium leading-snug">
+                <h3 className="max-sm:text-[calc(var(--text-h3)*0.8)] text-h3 font-medium leading-snug">
                   <button
                     id={buttonId}
                     type="button"
@@ -280,7 +280,7 @@ export default function Faq() {
                   className={`grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
                 >
                   <div className="overflow-hidden">
-                    <div className="px-card pb-card text-hero-sub leading-relaxed text-muted">
+                    <div className="px-card pb-card text-hero-sub font-medium leading-relaxed tracking-[-0.035em] text-muted">
                       {item.answer}
                     </div>
                   </div>

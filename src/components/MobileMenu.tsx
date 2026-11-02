@@ -2,15 +2,15 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { currencies, useCurrencyStore } from "@/store/useCurrencyStore";
-import { useInProgressStore } from "@/store/useInProgressStore";
 
 // Below 500px the nav links fold into this menu: a hamburger button that opens a panel under the
-// nav with Bookings, FAQ and the currency choice. From 500px up the full links show instead.
+// nav with About, FAQ and the currency choice. From 500px up the full links show instead.
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const aboutId = useId();
   const [currencyOpen, setCurrencyOpen] = useState(false);
   const { currency, setCurrency } = useCurrencyStore();
-  const showInProgress = useInProgressStore((s) => s.show);
   const ref = useRef<HTMLDivElement>(null);
   const panelId = useId();
   const currencyId = useId();
@@ -68,16 +68,33 @@ export default function MobileMenu() {
         <div className="overflow-hidden rounded-[inherit]">
           {/* divide-y puts a line between every item, including above the Currency label. */}
           <nav aria-label="Menu" className="flex flex-col divide-y divide-ink/10">
+            {/* "About" is a row too: tap it and its two choices slide out below. They do not go anywhere yet. */}
             <button
               type="button"
-              onClick={() => {
-                setOpen(false);
-                showInProgress();
-              }}
+              aria-expanded={aboutOpen}
+              aria-controls={aboutId}
+              onClick={() => setAboutOpen((o) => !o)}
               className={row}
             >
-              Bookings
+              <span>About</span>
             </button>
+            <div
+              id={aboutId}
+              className={`grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none ${
+                aboutOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+              }`}
+              {...(aboutOpen ? {} : { inert: true })}
+            >
+              <div className="overflow-hidden">
+                <div className="flex flex-col divide-y divide-ink/10 border-t border-ink/10">
+                  {["About AwaDoc", "About partnership"].map((item) => (
+                    <button key={item} type="button" onClick={() => setOpen(false)} className={row}>
+                      {item}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
             <a href="#faq" onClick={() => setOpen(false)} className={row}>
               FAQ
             </a>

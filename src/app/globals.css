@@ -261,71 +261,6 @@ body {
   }
 }
 
-/* The three-step story (HelixStory): text panels fade in and out as you scroll, over a soft glow in the
-   page colour so they stay readable against the helix. */
-.story-panel {
-  position: absolute;
-  z-index: 2;
-  max-width: min(30rem, calc(100% - 2.5rem));
-  opacity: 0;
-  pointer-events: none;
-  will-change: opacity, transform;
-}
-.story-panel::before {
-  content: "";
-  position: absolute;
-  inset: -3.5rem -4.5rem;
-  z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(
-    closest-side,
-    color-mix(in srgb, var(--bg) 90%, transparent),
-    color-mix(in srgb, var(--bg) 60%, transparent) 60%,
-    transparent
-  );
-}
-.story-eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-.story-eyebrow::after {
-  content: "";
-  width: 2rem;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.6;
-}
-.story-link::after {
-  content: "\2192";
-  transition: transform 0.25s;
-}
-.story-link:hover::after {
-  transform: translateX(4px);
-}
-/* Step text placement. On phones the block fills the page width (a 20px margin each side), in the middle of the screen, text
-   aligned to the left like the hero copy. From 761px up each step has its own place: 01 sits far left, in line with
-   the hero text, 02 bottom right, 03 back at the far left in the same place as 01. `translate` is separate from the `transform` the script uses
-   for the fade. */
-.story-panel {
-  left: 50%;
-  translate: -50% 0;
-  width: min(32rem, calc(100% - 2.5rem));
-  text-align: left;
-}
-/* Phones: each step sits in the middle of the visible screen, worked out from the screen's height (100svh, with the
-   browser toolbars showing) between the bottom of the nav and the bottom margin, so the gaps above and below match. */
-#story-p1, #story-p2, #story-p3 {
-  top: calc((max(1.5rem, env(safe-area-inset-top)) + 4.25rem + 100svh) / 2);
-  bottom: auto;
-  translate: -50% -50%;
-}
-@media (min-width: 761px) {
-  #story-p1, #story-p2, #story-p3 { top: auto; translate: none; }
-  #story-p1, #story-p3 { left: max(1.25rem, 5vw); bottom: max(16svh, 10rem); }
-  #story-p2 { left: auto; right: max(1.25rem, 8vw); bottom: max(18svh, 10rem); }
-}
-
 /* The booking page eases in when you open it: the page fades up, then the form and the bottom bar rise in after it. */
 @keyframes book-fade {
   from { opacity: 0; }
@@ -373,4 +308,19 @@ html {
   :root:not([data-theme]) .tt-light {
     display: none;
   }
+}
+
+/* A soft glow in the page colour behind the three steps, so they stay readable over the helix. */
+.story-glow::before {
+  content: "";
+  position: absolute;
+  inset: -3.5rem -4.5rem;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--bg) 85%, transparent),
+    color-mix(in srgb, var(--bg) 55%, transparent) 65%,
+    transparent
+  );
 }

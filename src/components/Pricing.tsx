@@ -7,7 +7,7 @@ import { useFaqStore } from "@/store/useFaqStore";
 // Amounts are in naira; they are converted for display when another currency is chosen.
 const plans = [
   { ngn: 50_000, description: "Virtual counselling, any country", featured: false },
-  { ngn: 80_000, description: "In-person counselling", featured: false },
+  { ngn: 80_000, description: "In person counselling", featured: false },
   { ngn: 7_500_000, description: "Full treatment package", featured: true },
 ];
 
@@ -21,10 +21,12 @@ export default function Pricing() {
   return (
     <section
       aria-label="Pricing"
-      className="gutter relative z-10 pb-section pt-6"
+      className="gutter relative z-10 pt-[calc(var(--spacing-section)*1.5)]"
     >
-      {/* Frosted glass panel: the helix shows through the blur and fades out inside it. */}
-      <div className="rounded-[calc(32*var(--u))] border border-ink/10 bg-linear-to-r from-bg/65 via-bg/35 to-bg/20 p-card shadow-[0_8px_40px_-12px_rgba(0,0,0,0.18)] backdrop-blur-[18px]">
+      <div>
+        <h2 className="mb-[calc(64*var(--u))] text-center font-heading text-h2 max-sm:text-[min(var(--text-h2),calc((100vw-4.2rem)/16.5))] font-medium leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]">
+          Clear prices, Zero surprises
+        </h2>
         <div className="grid grid-cols-1 gap-[calc(16*var(--u))] sm:grid-cols-2 lg:grid-cols-3">
           {plans.map(({ ngn, description, featured }) => {
             const { symbol, digits } = formatPrice(ngn, currency);
@@ -55,7 +57,7 @@ export default function Pricing() {
                 )}
               </div>
               <p
-                className={`mt-auto text-hero-sub leading-snug ${featured ? "text-[#e8f3ec]/70" : "text-muted"}`}
+                className={`mt-auto text-hero-sub font-medium leading-snug tracking-[-0.035em] ${featured ? "text-[#e8f3ec]/70" : "text-muted"}`}
               >
                 {description}
               </p>
@@ -65,7 +67,7 @@ export default function Pricing() {
         </div>
 
         {currency !== "NGN" && (
-          <p className="mt-[calc(14*var(--u))] text-center text-micro text-muted">
+          <p className="mt-[calc(14*var(--u))] text-center text-hero-sub font-medium tracking-[-0.035em] text-muted">
             Prices are set in naira (₦) and shown here converted at approximate rates.
           </p>
         )}

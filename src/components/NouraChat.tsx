@@ -2,12 +2,10 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { SUGGESTIONS, useNouraStore } from "@/store/useNouraStore";
+import { QUESTIONS, useNouraStore } from "@/store/useNouraStore";
 
 export default function NouraChat() {
-  const { open, typing, messages, closeChat, send } = useNouraStore();
-  const [draft, setDraft] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
+  const { open, typing, messages, closeChat, ask } = useNouraStore();
   const endRef = useRef<HTMLDivElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
 
@@ -32,8 +30,6 @@ export default function NouraChat() {
     return () => clearTimeout(t);
   }, [open]);
 
-  // Suggestions are only useful before the conversation starts.
-  const started = messages.some((m) => m.role === "user");
 
   // Open: lock page scroll, focus the input, close on Escape.
   useEffect(() => {
@@ -58,13 +54,6 @@ export default function NouraChat() {
   }, [open, messages, typing]);
 
   if (!open && !present) return null;
-
-  function submit(text: string) {
-    if (!text.trim() || typing) return;
-    send(text);
-    setDraft("");
-    inputRef.current?.focus();
-  }
 
   return (
     <div
@@ -121,7 +110,7 @@ export default function NouraChat() {
             </div>
           ))}
 
-          {typing && (
+          {typing && messages[messages.length - 1]?.role === "user" && (
             <div
               aria-label="Noura is typing"
               className="flex w-fit items-center gap-[calc(5*var(--u))] self-start rounded-[calc(20*var(--u))] rounded-bl-[calc(6*var(--u))] border border-ink/10 bg-bg/80 px-[calc(18*var(--u))] py-[calc(16*var(--u))]"
@@ -138,51 +127,21 @@ export default function NouraChat() {
           <div ref={endRef} />
         </div>
 
-        {/* Suggestions, input, disclaimer */}
+        {/* The four questions, and the disclaimer. Tapping a question sends it and the answer types itself out. */}
         <footer className="shrink-0 px-card pb-[calc(18*var(--u))] pt-[calc(16*var(--u))]">
-          {!started && (
-            <div className="mb-[calc(14*var(--u))] grid grid-cols-2 gap-[calc(8*var(--u))]">
-              {SUGGESTIONS.map((q) => (
-                <button
-                  key={q}
-                  type="button"
-                  onClick={() => submit(q)}
-                  className="flex min-h-11 cursor-pointer items-center justify-center rounded-[calc(16*var(--u))] border border-ink/15 bg-bg/70 px-[1em] py-[0.5em] text-center text-hero-sub leading-snug font-medium transition-colors hover:border-brand hover:bg-brand/10 hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
-                >
-                  {q}
-                </button>
-              ))}
-            </div>
-          )}
-
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              submit(draft);
-            }}
-            className="flex items-center gap-[calc(10*var(--u))]"
-          >
-            <input
-              ref={inputRef}
-              value={draft}
-              onChange={(e) => setDraft(e.target.value)}
-              placeholder="Ask Noura a question"
-              aria-label="Ask Noura a question"
-              maxLength={500}
-              className="min-h-12 min-w-0 flex-1 rounded-[calc(16*var(--u))] border border-ink/10 bg-bg/70 px-[calc(16*var(--u))] py-[calc(13*var(--u))] text-hero-sub outline-none transition-all duration-200 placeholder:font-semibold placeholder:text-muted/70 hover:border-ink/20 focus:border-brand focus:bg-bg/90 focus:ring-4 focus:ring-brand/15 focus:placeholder:text-muted motion-reduce:transition-none"
-            />
-            <button
-              type="submit"
-              aria-label="Send message"
-              disabled={!draft.trim() || typing}
-              className="flex h-12 w-14 shrink-0 cursor-pointer items-center justify-center rounded-[calc(16*var(--u))] bg-brand text-[#07110c] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_22px_-8px_var(--color-brand)] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0 disabled:hover:shadow-none motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
-            >
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-[calc(20*var(--u))] w-[calc(20*var(--u))]">
-                <path d="M22 2 11 13" />
-                <path d="M22 2 15 22l-4-9-9-4z" />
-              </svg>
-            </button>
-          </form>
+          <div className="grid grid-cols-2 gap-[calc(8*var(--u))]">
+            {QUESTIONS.map((q, i) => (
+              <button
+                key={q.question}
+                type="button"
+                disabled={typing}
+                onClick={() => ask(i)}
+                className="flex min-h-11 cursor-pointer items-center justify-center rounded-[calc(16*var(--u))] border border-ink/15 bg-bg/70 px-[1em] py-[0.5em] text-center text-hero-sub font-medium leading-snug transition-colors hover:border-brand hover:bg-brand/10 hover:text-brand disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-ink/15 disabled:hover:bg-bg/70 disabled:hover:text-inherit focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+              >
+                {q.question}
+              </button>
+            ))}
+          </div>
 
           <p className="mt-[calc(12*var(--u))] text-center text-micro leading-snug text-muted">
             Noura gives general information, not medical advice. For decisions about your care, book counselling.

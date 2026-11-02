@@ -4,22 +4,25 @@ import { useEffect, useRef, type ReactNode } from "react";
 import * as THREE from "three";
 import { buildGeometry, fragmentShader, GREEN, vertexShader } from "@/components/HelixBackground";
 
-// The hero and the three booking steps share one pinned stage and ONE helix. The hero is the first stop; scrolling
-// glides the camera in a single move from the outside view (the hero) into the helix, one stop per step.
-// The helix itself never jumps or turns: every change is the camera moving.
+// The hero and the booking steps share one pinned stage and ONE helix. Scrolling glides the camera in a single move
+// from the outside view (the hero) into the helix. When it arrives the scene STOPS: the three steps are shown together,
+// still, with no step-by-step moves. Every change is the camera moving; the helix itself never jumps or turns.
 const STEPS = [
   {
-    eyebrow: "01",
+    number: "01",
+    place: "md:bottom-[max(14svh,6rem)] md:left-[max(1.25rem,5vw)]", // bottom left, in line with the hero text
     title: "Your details",
     text: "Add your names and contact details, then both genotypes and where you live. We show you the odds for every pregnancy.",
   },
   {
-    eyebrow: "02",
+    number: "02",
+    place: "md:left-1/2 md:top-[44%] md:-translate-x-1/2 md:-translate-y-1/2", // the middle of the screen
     title: "Book",
-    text: "Choose virtual or in-person counselling, add any procedures you need, and pick a date and time that suits you both.",
+    text: "Choose virtual or in person counselling, add any procedures you need, and pick a date and time that suits you both.",
   },
   {
-    eyebrow: "03",
+    number: "03",
+    place: "md:left-[max(1.25rem,5vw)] md:top-[22svh]", // far left, above 01
     title: "Pay",
     text: "Upload your lab reports if you have them, review everything in one place, and make one secure payment by card, bank transfer or mobile money. Your booking is confirmed straight away.",
   },
@@ -29,16 +32,11 @@ const CAMERA_Z = 13; // the hero's camera distance
 const FOV = (2 * Math.atan(8.19 / 2 / CAMERA_Z) * 180) / Math.PI; // the hero's field of view (about 35 degrees)
 const HERO_TILT = { x: 0.15, z: -0.62, scale: 1.15, offsetX: 3.1 }; // how the hero helix is posed
 
-// Camera stops after the hero: pressing against a strand (01), inside between the strands (02), deeper (03).
 type Shot = { cam: THREE.Vector3; look: THREE.Vector3; up: THREE.Vector3; spin: number };
 const V = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
-const INNER: Shot[] = [
-  { cam: V(3.0, 3.1, 2.6), look: V(-2.1, 1.7, -0.2), up: V(0, 1, 0), spin: 0.5 },
-  { cam: V(0.3, 0.7, 0.35), look: V(-0.9, -1.6, 0.9), up: V(0, 1, 0), spin: 1.1 },
-  { cam: V(-0.25, -1.4, 0.15), look: V(0.9, -3.8, -0.9), up: V(0, 1, 0), spin: 1.7 },
-];
-const STAGES = INNER.length; // 3
-const PER = 1.2; // screens of scrolling per stop
+// Where the glide ends: pressed up against a strand, with the helix running across the screen.
+const STORY_SHOT: Shot = { cam: V(3.0, 3.1, 2.6), look: V(-2.1, 1.7, -0.2), up: V(0, 1, 0), spin: 0.5 };
+const HOLD = 1.4; // screens of scrolling for the whole move: the glide, then a short rest on the finished scene
 
 const ease = (x: number) => x * x * (3 - 2 * x);
 const smoother = (x: number) => x * x * x * (x * (x * 6 - 15) + 10);
@@ -48,12 +46,8 @@ const lerp = (a: number, b: number, f: number) => a + (b - a) * f;
 export default function HelixStory({ children }: { children: ReactNode }) {
   const trackRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const fillRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const controlsRef = useRef<HTMLDivElement>(null);
-  const curRef = useRef<HTMLElement>(null);
-  const prevRef = useRef<HTMLButtonElement>(null);
-  const nextRef = useRef<HTMLButtonElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const storyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const track = trackRef.current, stage = stageRef.current;
@@ -64,8 +58,7 @@ export default function HelixStory({ children }: { children: ReactNode }) {
     canvas.style.cssText = "position:absolute;inset:0;width:100%;height:100%;display:block;";
     stage.prepend(canvas);
 
-    // If WebGL is unavailable (for example too many 3D tabs open) there is no helix, but the text panels,
-    // counter, arrows and progress bars still work, so the page stays readable.
+    // If WebGL is unavailable there is no helix, but the hero and the steps still show, so the page stays readable.
     let renderer: THREE.WebGLRenderer | null = null;
     try {
       renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
@@ -77,13 +70,13 @@ export default function HelixStory({ children }: { children: ReactNode }) {
     const gl = renderer;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(FOV, 1, 0.05, 100);
-    // The stage fills the whole screen (100lvh, the biggest the screen gets), but the hero was framed for 100svh (with
-    // the phone browser's toolbars showing). This invisible probe measures that height.
+    // The stage fills the whole screen (100lvh), but the hero was framed for 100svh (with the phone browser's toolbars
+    // showing). This invisible probe measures that height.
     const probe = document.createElement("div");
     probe.style.cssText = "position:fixed;left:0;top:0;width:0;height:100svh;visibility:hidden;pointer-events:none;";
     document.body.appendChild(probe);
 
-    // The very same helix as the hero used to be: same length, density, colours, burst and linking rungs.
+    // The very same helix as the hero: same length, density, colours, burst and linking rungs.
     const geo = gl ? buildGeometry(GREEN) : new THREE.BufferGeometry();
     const mat = new THREE.ShaderMaterial({
       transparent: true,
@@ -100,8 +93,8 @@ export default function HelixStory({ children }: { children: ReactNode }) {
     const helix = new THREE.Points(geo, mat);
     scene.add(helix);
 
-    // The hero stop is worked out from the old hero pose (tilt, offset and scale), so the first view looks exactly as before:
-    // the camera is placed where it would have to be to see the untilted helix the way the tilted one used to look.
+    // The hero stop is worked out from the old hero pose (tilt, offset and scale), so the first view looks exactly as
+    // before: the camera goes where it would have to be to see the untilted helix the way the tilted one looked.
     let heroShot: Shot = { cam: V(0, 0, CAMERA_Z), look: V(0, 0, 0), up: V(0, 1, 0), spin: 0 };
     const resize = () => {
       const w = canvas.clientWidth, h = canvas.clientHeight;
@@ -109,8 +102,6 @@ export default function HelixStory({ children }: { children: ReactNode }) {
       gl?.setSize(w, h, false);
       mat.uniforms.uDim.value = w < 640 ? 0.5 : 1;
       camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      // Frame the hero as if the screen were svh tall, then keep it centred in that top part of the stage.
       const baseH = Math.min(Math.max(probe.offsetHeight || h, 1), h);
       camera.fov = (2 * Math.atan(((h / baseH) * 8.19) / 2 / CAMERA_Z) * 180) / Math.PI;
       camera.updateProjectionMatrix();
@@ -141,40 +132,11 @@ export default function HelixStory({ children }: { children: ReactNode }) {
     };
     window.addEventListener("pointermove", onMove);
 
-    // Scroll distance of one stop, measured from the real track so phone toolbars don't matter.
-    const perPx = () => (track.offsetHeight - stage.offsetHeight) / STAGES;
-    const targetScroll = () => clamp01(-track.getBoundingClientRect().top / (perPx() * STAGES)) * STAGES;
-    const trackTop = () => track.getBoundingClientRect().top + window.scrollY;
-    const goTo = (k: number) => window.scrollTo({ top: trackTop() + k * perPx(), behavior: reduceMotion ? "auto" : "smooth" });
-    const current = () => Math.round(targetScroll());
-
-    const segs = Array.from(stage.querySelectorAll<HTMLButtonElement>("[data-go]"));
-    const segHandlers = segs.map((b) => {
-      const fn = () => goTo(Number(b.dataset.go));
-      b.addEventListener("click", fn);
-      return fn;
-    });
-    const onPrev = () => goTo(Math.max(current() - 1, 1));
-    // Past the last step the Next arrow scrolls on to the rest of the page.
-    const onNext = () =>
-      current() >= STAGES
-        ? window.scrollTo({ top: trackTop() + track.offsetHeight - window.innerHeight + 2, behavior: "smooth" })
-        : goTo(current() + 1);
-    prevRef.current?.addEventListener("click", onPrev);
-    nextRef.current?.addEventListener("click", onNext);
-    const onKey = (ev: KeyboardEvent) => {
-      const r = track.getBoundingClientRect();
-      if (!(r.top <= 1 && r.bottom >= window.innerHeight - 1 && targetScroll() > 0.5)) return;
-      if (ev.key === "ArrowRight") {
-        ev.preventDefault();
-        goTo(current() + 1);
-      }
-      if (ev.key === "ArrowLeft") {
-        ev.preventDefault();
-        goTo(Math.max(current() - 1, 0));
-      }
+    // 0 at the top of the section, 1 when the whole move is done.
+    const targetScroll = () => {
+      const travel = track.offsetHeight - stage.offsetHeight;
+      return travel > 0 ? clamp01(-track.getBoundingClientRect().top / travel) : 0;
     };
-    window.addEventListener("keydown", onKey);
 
     // The hero's burst: as the page loads, then every 20 seconds, while the hero is on screen.
     const CYCLE = 20;
@@ -203,34 +165,32 @@ export default function HelixStory({ children }: { children: ReactNode }) {
       s += (targetScroll() - s) * (reduceMotion ? 1 : 0.08); // inertia
       if (!Number.isFinite(s)) s = 0;
 
-      // Hero to 01 is one long continuous glide; between the steps the camera holds, then moves.
-      const i = Math.min(Math.floor(s), STAGES - 1), f = s - i;
-      const tf = i === 0 ? smoother(clamp01((f - 0.08) / 0.84)) : ease(clamp01((f - 0.3) / 0.4));
-      const e = i + tf;
-      const A = i === 0 ? heroShot : INNER[i - 1], B = INNER[i];
+      // One long continuous glide from the hero into the helix, then it rests.
+      const e = smoother(clamp01((s - 0.06) / 0.74));
       const heroAmt = 1 - clamp01(e * 1.5); // 1 on the hero, fading out as you glide in
+      const A = heroShot, B = STORY_SHOT;
 
-      // The camera path, with a slight arc on the first glide so it swoops in instead of sliding.
-      const arc = i === 0 ? Math.sin(Math.PI * tf) * 1.2 : 0;
+      // The camera path, with a slight arc so it swoops in instead of sliding.
+      const arc = Math.sin(Math.PI * e) * 1.2;
       const par = 0.12 + heroAmt * 0.25;
       camera.position.set(
-        lerp(A.cam.x, B.cam.x, tf) + arc + mx * par,
-        lerp(A.cam.y, B.cam.y, tf) - my * par,
-        lerp(A.cam.z, B.cam.z, tf) + arc * 0.6,
+        lerp(A.cam.x, B.cam.x, e) + arc + mx * par,
+        lerp(A.cam.y, B.cam.y, e) - my * par,
+        lerp(A.cam.z, B.cam.z, e) + arc * 0.6,
       );
-      camera.up.set(lerp(A.up.x, B.up.x, tf), lerp(A.up.y, B.up.y, tf), lerp(A.up.z, B.up.z, tf)).normalize();
-      camera.lookAt(lerp(A.look.x, B.look.x, tf), lerp(A.look.y, B.look.y, tf), lerp(A.look.z, B.look.z, tf));
+      camera.up.set(lerp(A.up.x, B.up.x, e), lerp(A.up.y, B.up.y, e), lerp(A.up.z, B.up.z, e)).normalize();
+      camera.lookAt(lerp(A.look.x, B.look.x, e), lerp(A.look.y, B.look.y, e), lerp(A.look.z, B.look.z, e));
 
       // A slow spin on the hero, a faint drift inside so it never feels frozen.
       if (!reduceMotion) spinAcc += dt * (0.25 * heroAmt + 0.03 * (1 - heroAmt));
-      helix.rotation.y = lerp(A.spin, B.spin, tf) + spinAcc;
+      helix.rotation.y = lerp(A.spin, B.spin, e) + spinAcc;
       mat.uniforms.uTime.value = elapsed;
       mat.uniforms.uProgress.value = reduceMotion ? 0 : progressAt(elapsed) * heroAmt; // the burst lives on the hero only
 
-      // How far the section has scrolled away after the last step (0 while pinned, 1 when gone).
+      // How far the section has scrolled away after the move (0 while pinned, 1 when gone).
       const out = clamp01(1 - track.getBoundingClientRect().bottom / window.innerHeight);
       const keep = 1 - clamp01(out * 1.6);
-      // The helix is dimmed a little on the white theme the whole way through, as on the hero.
+      // The helix is dimmed a little on the white theme, the whole way through, as on the hero.
       canvas.style.opacity = `calc(var(--helix-o) * ${keep.toFixed(3)})`;
       const wantMask = out > 0.001;
       if (wantMask !== masked) {
@@ -240,24 +200,20 @@ export default function HelixStory({ children }: { children: ReactNode }) {
         canvas.style.setProperty("mask-image", m);
       }
 
-      panelRefs.current.forEach((p, k) => {
-        if (!p) return;
-        const o = clamp01(1 - Math.abs(e - k) * 3) * keep;
-        p.style.opacity = String(o);
-        // Pay opens up from the middle (it grows a little as it fades in); the others slide in.
-        p.style.transform = k === 3 ? `scale(${0.88 + 0.12 * Math.min(o / Math.max(keep, 0.001), 1)})` : `translateY(${(1 - o) * (e < k ? 24 : -24)}px)`;
-        p.style.pointerEvents = o > 0.5 ? "auto" : "none";
-      });
-      const c = controlsRef.current;
-      if (c) {
-        c.style.opacity = e > 0.6 ? String(keep) : "0";
-        c.style.pointerEvents = e > 0.6 && keep > 0.5 ? "auto" : "none";
+      // The hero copy fades away as the camera leaves; the three steps fade in as it arrives, and then stay.
+      const hero = heroRef.current;
+      if (hero) {
+        const o = clamp01(1 - e * 3) * keep;
+        hero.style.opacity = String(o);
+        hero.style.transform = `translateY(${(1 - o) * -24}px)`;
+        hero.style.pointerEvents = o > 0.5 ? "auto" : "none";
       }
-      if (curRef.current) curRef.current.textContent = `0${Math.min(Math.max(Math.round(e), 1), 3)}`;
-      if (prevRef.current) prevRef.current.disabled = e < 1.5;
-      fillRefs.current.forEach((fl, k) => {
-        if (fl) fl.style.width = `${clamp01(e - k) * 100}%`;
-      });
+      const story = storyRef.current;
+      if (story) {
+        const o = clamp01((e - 0.7) / 0.3) * keep;
+        story.style.opacity = String(o);
+        story.style.transform = `translateY(${(1 - o) * 24}px)`;
+      }
 
       gl?.render(scene, camera);
     };
@@ -268,10 +224,6 @@ export default function HelixStory({ children }: { children: ReactNode }) {
       ro.disconnect();
       io.disconnect();
       window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("keydown", onKey);
-      segs.forEach((b, k) => b.removeEventListener("click", segHandlers[k]));
-      prevRef.current?.removeEventListener("click", onPrev);
-      nextRef.current?.removeEventListener("click", onNext);
       geo.dispose();
       mat.dispose();
       gl?.dispose();
@@ -280,40 +232,42 @@ export default function HelixStory({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  const heading = "font-heading font-medium leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]";
-
   return (
     <section
       ref={trackRef}
+      id="how-it-works"
       aria-label="Introduction and how it works"
       className="relative z-10 bg-bg"
-      style={{ height: `calc(100lvh + ${STAGES * PER * 100}svh)` }}
+      style={{ height: `calc(100lvh + ${HOLD * 100}svh)` }}
     >
       <div ref={stageRef} className="sticky top-0 h-[100lvh] overflow-hidden">
         {/* The hero copy: centred in the space under the nav, like before. */}
         <div
-          ref={(el) => {
-            panelRefs.current[0] = el;
-          }}
+          ref={heroRef}
           className="gutter absolute inset-0 z-10 flex items-center pb-[calc(100lvh-100svh+1.5rem)] pt-[calc(max(1.5rem,env(safe-area-inset-top))+1.5rem+2.75rem+1.5rem)] will-change-[opacity,transform]"
         >
           {children}
         </div>
 
-        {STEPS.map((step, i) => (
-          <div
-            key={step.title}
-            ref={(el) => {
-              panelRefs.current[i + 1] = el;
-            }}
-            id={`story-p${i + 1}`}
-            className="story-panel"
-          >
-            <div className="story-eyebrow mb-[1.1em] text-label font-medium uppercase tracking-[0.18em] text-accent">{step.eyebrow}</div>
-            <h2 className={`${heading} mb-[0.5em] text-h2`}>{step.title}</h2>
-            <p className="max-w-[26em] text-hero-sub font-semibold leading-relaxed text-muted">{step.text}</p>
-          </div>
-        ))}
+        {/* The finished scene: all three steps together, still. */}
+        <div
+          ref={storyRef}
+          className="gutter pointer-events-none absolute inset-0 z-10 flex items-center pb-[calc(100lvh-100svh+1.5rem)] pt-[calc(max(1.5rem,env(safe-area-inset-top))+1.5rem+2.75rem+1.5rem)] opacity-0 will-change-[opacity,transform]"
+        >
+          <ol className="grid w-full gap-[calc(36*var(--u))] md:contents">
+            {STEPS.map((step) => (
+              <li key={step.title} className={`story-glow relative md:absolute md:w-[min(26rem,30vw)] ${step.place}`}>
+                <div className="mb-[1.1em] flex items-center gap-[0.6rem] text-label font-medium uppercase tracking-[0.18em] text-accent after:block after:h-px after:w-8 after:bg-current after:opacity-60 after:content-['']">
+                  {step.number}
+                </div>
+                <h2 className="mb-[0.5em] font-heading text-h2 font-medium leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]">
+                  {step.title}
+                </h2>
+                <p className="max-w-[26em] text-hero-sub font-semibold leading-relaxed text-muted">{step.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
   );

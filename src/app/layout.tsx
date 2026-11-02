@@ -3,7 +3,6 @@ import { Poppins } from "next/font/google";
 import localFont from "next/font/local";
 import Script from "next/script";
 import AskNoura from "@/components/AskNoura";
-import InProgressModal from "@/components/InProgressModal";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -49,7 +48,6 @@ export default function RootLayout({
         {children}
         {/* Outside any page wrapper so it stays pinned to the viewport on every page. */}
         <AskNoura />
-        <InProgressModal />
       </body>
     </html>
   );
