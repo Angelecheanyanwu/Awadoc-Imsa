@@ -87,11 +87,18 @@ export default function MobileMenu() {
             >
               <div className="overflow-hidden">
                 <div className="flex flex-col divide-y divide-ink/10 border-t border-ink/10">
-                  {["AwaDoc", "IMSA partnership"].map((item) => (
-                    <button key={item} type="button" onClick={() => setOpen(false)} className={row}>
-                      {item}
-                    </button>
-                  ))}
+                  <a
+                    href="https://www.awadoc.com/about-us"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setOpen(false)}
+                    className={row}
+                  >
+                    AwaDoc
+                  </a>
+                  <button type="button" onClick={() => setOpen(false)} className={row}>
+                    IMSA partnership
+                  </button>
                 </div>
               </div>
             </div>

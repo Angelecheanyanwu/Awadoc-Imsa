@@ -76,7 +76,10 @@ function CurrencyMenu() {
   );
 }
 
-const ABOUT_ITEMS = ["AwaDoc", "IMSA partnership"];
+const ABOUT_ITEMS: { label: string; href?: string }[] = [
+  { label: "AwaDoc", href: "https://www.awadoc.com/about-us" },
+  { label: "IMSA partnership" },
+];
 
 // "About" opens a short list underneath it. The two choices do not go anywhere yet.
 function AboutMenu() {
@@ -109,16 +112,29 @@ function AboutMenu() {
           aria-label="About"
           className="book-pop absolute left-0 top-[calc(100%+8px)] z-30 w-[calc(230*var(--u))] divide-y divide-ink/10 overflow-hidden rounded-[calc(18*var(--u))] border border-white/40 bg-linear-to-br from-bg/90 via-bg/82 to-bg/75 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-[12px]"
         >
-          {ABOUT_ITEMS.map((item) => (
-            <li key={item} role="none">
-              <button
-                type="button"
-                role="menuitem"
-                onClick={() => setOpen(false)}
-                className="flex min-h-11 w-full cursor-pointer items-center px-[1em] py-[0.7em] text-left text-label font-medium transition-colors hover:bg-ink/5 hover:text-brand"
-              >
-                {item}
-              </button>
+          {ABOUT_ITEMS.map(({ label, href }) => (
+            <li key={label} role="none">
+              {href ? (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  role="menuitem"
+                  onClick={() => setOpen(false)}
+                  className="flex min-h-11 w-full cursor-pointer items-center px-[1em] py-[0.7em] text-left text-label font-medium transition-colors hover:bg-ink/5 hover:text-brand"
+                >
+                  {label}
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  role="menuitem"
+                  onClick={() => setOpen(false)}
+                  className="flex min-h-11 w-full cursor-pointer items-center px-[1em] py-[0.7em] text-left text-label font-medium transition-colors hover:bg-ink/5 hover:text-brand"
+                >
+                  {label}
+                </button>
+              )}
             </li>
           ))}
         </ul>
