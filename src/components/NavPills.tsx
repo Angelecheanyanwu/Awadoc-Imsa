@@ -76,7 +76,7 @@ function CurrencyMenu() {
   );
 }
 
-const ABOUT_ITEMS = ["About AwaDoc", "About partnership"];
+const ABOUT_ITEMS = ["AwaDoc", "IMSA partnership"];
 
 // "About" opens a short list underneath it. The two choices do not go anywhere yet.
 function AboutMenu() {
