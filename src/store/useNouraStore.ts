@@ -16,12 +16,12 @@ export const QUESTIONS: { question: string; answer: string }[] = [
   {
     question: "AS + AS: Our kids’ risk",
     answer:
-      "When both partners are AS, each pregnancy has a 25% chance of a child with sickle cell disease (SS), a 50% chance of a child with the trait (AS), and a 25% chance of a child with no sickle cell gene (AA). IVF with embryo testing (PGTM) can check each embryo first, so only embryos without sickle cell disease are transferred.",
+      "When both partners are AS, each pregnancy has a 25% chance of a child with sickle cell disease (SS), a 50% chance of a child with the trait (AS), and a 25% chance of a child with no sickle cell gene (AA). IVF with embryo testing (PGT-M) can check each embryo first, so only embryos without sickle cell disease are transferred.",
   },
   {
-    question: "What is PGTM, simply?",
+    question: "What is PGT-M, simply?",
     answer:
-      "PGTM checks embryos made through IVF for one inherited condition, such as sickle cell disease. A custom test is built from your family's own DNA. A few cells are taken from each embryo on day 5 or 6 and tested, and only embryos without the condition are transferred. It doesn't change an embryo's genes. It is very accurate but not perfect, so a confirmatory test during pregnancy is still advised.",
+      "PGT-M checks embryos made through IVF for one inherited condition, such as sickle cell disease. A custom test is built from your family's own DNA. A few cells are taken from each embryo on day 5 or 6 and tested, and only embryos without the condition are transferred. It doesn't change an embryo's genes. It is very accurate but not perfect, so a confirmatory test during pregnancy is still advised.",
   },
   {
     question: "How long does treatment take?",

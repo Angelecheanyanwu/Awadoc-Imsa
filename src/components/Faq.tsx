@@ -13,7 +13,7 @@ const prices: [string, number, boolean][] = [
   ["Genotype confirmation test", 30_000, false],
   ["IVF cycle", 2_900_000, true],
   ["Fertility medication", 1_600_000, true],
-  ["Embryo testing (PGTM)", 2_500_000, true],
+  ["Embryo testing (PGT-M)", 2_500_000, true],
   ["Frozen embryo transfer", 500_000, true],
   ["Full treatment package", 7_500_000, false],
 ];
@@ -51,11 +51,11 @@ function Block({ title, children }: { title: string; children: ReactNode }) {
 const items: { id: string; question: string; answer: ReactNode }[] = [
   {
     id: "pgtm",
-    question: "About PGTM",
+    question: "About PGT-M",
     answer: (
       <div className="space-y-[calc(14*var(--u))]">
         <p>
-          PGTM checks embryos made through IVF for one inherited condition, such as sickle cell disease. First, a
+          PGT-M checks embryos made through IVF for one inherited condition, such as sickle cell disease. First, a
           custom test is built from the family&apos;s own DNA. Then a few cells are taken from each embryo on day 5 or 6
           and tested, and only embryos without the condition are transferred.
         </p>

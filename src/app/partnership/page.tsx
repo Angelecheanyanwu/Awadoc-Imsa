@@ -25,7 +25,7 @@ const SECTIONS: { title: string; blocks: Block[] }[] = [
     title: "Introduction",
     blocks: [
       {
-        p: "AwaDoc and the Institute of Medical Sciences Africa (IMSA) have formed a partnership to prevent sickle cell disease in the next generation of African children. Through the Genotype Match Programme, couples who both carry the sickle cell gene can have biological children free of the disease, using in vitro fertilisation (IVF) combined with preimplantation genetic testing for monogenic disorders (PGTM).",
+        p: "AwaDoc and the Institute of Medical Sciences Africa (IMSA) have formed a partnership to prevent sickle cell disease in the next generation of African children. Through the Genotype Match Programme, couples who both carry the sickle cell gene can have biological children free of the disease, using in vitro fertilisation (IVF) combined with preimplantation genetic testing for monogenic disorders (PGT-M).",
       },
       {
         p: "The programme was developed by the AwaDoc Research Team together with IMSA and released in November 2026. It brings together two complementary strengths. AwaDoc is a digital health company building AI powered care across Africa, from patient facing tools to clinical decision support for hospitals. IMSA is an Abuja based medical institution with specialised expertise in reproductive health, fertility care and medical training.",
@@ -93,10 +93,10 @@ const SECTIONS: { title: string; blocks: Block[] }[] = [
     ],
   },
   {
-    title: "The intervention: IVF with PGTM",
+    title: "The intervention: IVF with PGT-M",
     blocks: [
       {
-        p: "Preimplantation genetic testing for monogenic disorders (PGTM) tests embryos created through IVF for a specific inherited condition before they are transferred to the womb. It has been used for sickle cell disease since the late 1990s and is now an established technique in fertility centres worldwide. The Genotype Match Programme brings this technique within reach of African couples.",
+        p: "Preimplantation genetic testing for monogenic disorders (PGT-M) tests embryos created through IVF for a specific inherited condition before they are transferred to the womb. It has been used for sickle cell disease since the late 1990s and is now an established technique in fertility centres worldwide. The Genotype Match Programme brings this technique within reach of African couples.",
       },
       { h3: "The treatment process" },
       {
@@ -119,11 +119,11 @@ const SECTIONS: { title: string; blocks: Block[] }[] = [
       },
       { h3: "Accuracy and confirmation" },
       {
-        p: "PGTM is highly accurate, but no laboratory test is 100% certain. In line with international practice, couples are advised to have confirmatory prenatal testing during pregnancy, by chorionic villus sampling (around 11 to 14 weeks) or amniocentesis (from about 15 weeks).",
+        p: "PGT-M is highly accurate, but no laboratory test is 100% certain. In line with international practice, couples are advised to have confirmatory prenatal testing during pregnancy, by chorionic villus sampling (around 11 to 14 weeks) or amniocentesis (from about 15 weeks).",
       },
       { h3: "Limits of the intervention" },
       {
-        p: "PGTM prevents sickle cell disease in future children. It does not treat anyone already living with the condition. It also cannot help couples where both partners are SS, because every embryo they create will also be SS.",
+        p: "PGT-M prevents sickle cell disease in future children. It does not treat anyone already living with the condition. It also cannot help couples where both partners are SS, because every embryo they create will also be SS.",
       },
     ],
   },
@@ -163,7 +163,7 @@ const SECTIONS: { title: string; blocks: Block[] }[] = [
         ol: [
           ["Registration.", "Both partners register together and share their genotype results."],
           ["Genotype confirmation.", "Because misdiagnosis is common, both partners may be asked to repeat their genotype test at an accredited laboratory, preferably by high performance liquid chromatography (HPLC) or DNA testing."],
-          ["Genetic counselling.", "A specialist explains the results, the options, what IVF and PGTM involve, and realistic outcomes. Counselling is available virtually or in person."],
+          ["Genetic counselling.", "A specialist explains the results, the options, what IVF and PGT-M involve, and realistic outcomes. Counselling is available virtually or in person."],
           ["Medical assessment.", "Both partners complete fertility and health assessments, including hormone tests and an ultrasound for the female partner and a semen analysis for the male partner."],
           ["IVF and embryo testing.", "Treatment takes place at IMSA’s facility in Abuja."],
           ["Embryo transfer.", "Only embryos free of sickle cell disease are transferred."],
@@ -197,7 +197,7 @@ const SECTIONS: { title: string; blocks: Block[] }[] = [
         ul: [
           ["For families.", "Every child born through the programme is spared a lifetime of pain crises, hospital stays and the risk of early death. Parents are spared years of emotional and financial strain, and couples no longer have to choose between each other and a healthy family."],
           ["For the health system.", "Each prevented case removes decades of emergency admissions, blood transfusions, specialist care and long term treatment costs from an already stretched health system."],
-          ["For prevention in Africa.", "The programme adds a new tool to Africa’s sickle cell prevention efforts, alongside genotype screening and public education. By making PGTM available within Africa, it reduces dependence on overseas treatment and builds local capacity in reproductive genetics."],
+          ["For prevention in Africa.", "The programme adds a new tool to Africa’s sickle cell prevention efforts, alongside genotype screening and public education. By making PGT-M available within Africa, it reduces dependence on overseas treatment and builds local capacity in reproductive genetics."],
           ["For public awareness.", "Every couple who registers receives accurate genotype confirmation and genetic counselling. This helps correct misdiagnosis and spreads reliable knowledge about how sickle cell is inherited."],
         ],
       },
@@ -221,21 +221,6 @@ const SECTIONS: { title: string; blocks: Block[] }[] = [
       },
     ],
   },
-  {
-    title: "Sources",
-    blocks: [
-      {
-        ul: [
-          ["BusinessDay:", "Nigeria’s sickle cell burden"],
-          ["Dataphyte:", "Nigeria faces sickle cell management crisis"],
-          ["The Guardian Nigeria:", "50 million Nigerians are sickle cell carriers"],
-          ["Leadership:", "150,000 Nigerian children born with sickle cell annually"],
-          ["Daily Trust:", "NEDC, IMSA train IVF nurses"],
-          ["Medical World Nigeria:", "University of Abuja IRH and IMSA programmes"],
-        ],
-      },
-    ],
-  },
 ];
 
 const slug = (t: string) => t.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim().replace(/ /g, "");
@@ -245,7 +230,7 @@ const body = "text-hero-sub font-medium leading-relaxed tracking-[-0.035em] text
 function Lead({ item }: { item: Item }) {
   return (
     <>
-      <strong className="font-semibold text-ink">{item[0]}</strong> {item[1]}
+      <strong className="font-semibold capitalize text-ink">{item[0].replace(/[.:]$/, "")}:</strong> {item[1]}
     </>
   );
 }
@@ -274,7 +259,7 @@ export default function PartnershipPage() {
                 <li key={section.title}>
                   <a
                     href={`#${slug(section.title)}`}
-                    className="-ml-px block border-l border-transparent py-[0.35em] pl-[1em] text-muted transition-colors hover:border-brand hover:text-brand focus-visible:border-brand focus-visible:text-brand focus-visible:outline-none"
+                    className="-ml-px block border-l border-transparent capitalize py-[0.35em] pl-[1em] text-muted transition-colors hover:border-brand hover:text-brand focus-visible:border-brand focus-visible:text-brand focus-visible:outline-none"
                   >
                     {section.title}
                   </a>
@@ -289,19 +274,18 @@ export default function PartnershipPage() {
           <h1 className="mt-[0.8em] font-heading text-display font-medium leading-[1.05] [-webkit-text-stroke:0.06em_currentColor]">
             AwaDoc × IMSA Genotype Match Programme
           </h1>
-          <p className={`mt-[1em] ${body}`}>Nov 2, 2026</p>
           </div>
           <div className="book-rise" style={{ animationDelay: "300ms" }}>
 
           {SECTIONS.map((section) => (
             <section id={slug(section.title)} key={section.title} className="mt-[calc(var(--spacing-section)*0.9)] scroll-mt-28">
-              <h2 className="font-heading text-h2 font-medium leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]">
+              <h2 className="font-heading capitalize text-h2 font-medium leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]">
                 {section.title}
               </h2>
               {section.blocks.map((block, i) => {
                 if ("h3" in block)
                   return (
-                    <h3 key={i} className="mt-[1.8em] text-h3 font-semibold">
+                    <h3 key={i} className="mt-[1.8em] text-h3 font-semibold capitalize">
                       {block.h3}
                     </h3>
                   );

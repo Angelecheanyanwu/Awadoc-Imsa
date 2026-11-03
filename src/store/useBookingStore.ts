@@ -22,7 +22,7 @@ export const PROCEDURES: Procedure[] = [
   { id: "genotype", name: "Genotype confirmation test", description: "Lab test for both partners, before any treatment", time: "Results in 2–5 days", ngn: 30_000, estimate: false },
   { id: "ivf", name: "IVF cycle", description: "Monitoring scans, egg collection, ICSI and embryo culture", time: "2–3 weeks", ngn: 2_900_000, estimate: true },
   { id: "meds", name: "Fertility medication", description: "Hormone injections for one cycle (typical cost)", time: "10–14 days · needs IVF cycle", ngn: 1_600_000, estimate: true, needs: "ivf" },
-  { id: "pgtm", name: "Embryo testing (PGTM)", description: "Custom test from your DNA, embryo biopsy and sickle cell test", time: "1–3 weeks · needs IVF cycle", ngn: 2_500_000, estimate: true, needs: "ivf" },
+  { id: "pgtm", name: "Embryo testing (PGT-M)", description: "Custom test from your DNA, embryo biopsy and sickle cell test", time: "1–3 weeks · needs IVF cycle", ngn: 2_500_000, estimate: true, needs: "ivf" },
   { id: "fet", name: "Frozen embryo transfer", description: "Transfer of an unaffected embryo, then a pregnancy test", time: "One cycle · needs embryo testing", ngn: 500_000, estimate: true, needs: "pgtm" },
 ];
 

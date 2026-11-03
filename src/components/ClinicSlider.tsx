@@ -43,7 +43,7 @@ export default function ClinicSlider() {
   return (
     <section id="about" aria-label="About AwaDoc" className="relative z-10 mt-[calc(var(--spacing-section)*1.5)] px-3 sm:px-[2.5vw]">
       <div className="rounded-[calc(32*var(--u))] border border-white/40 bg-linear-to-br from-bg/55 via-bg/40 to-bg/28 p-[calc(20*var(--u))] shadow-[0_24px_60px_-16px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-[16px] md:p-[calc(48*var(--u))]">
-        <div className="grid items-center gap-[calc(32*var(--u))] md:grid-cols-2 md:gap-x-[calc(56*var(--u))]">
+        <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-[calc(32*var(--u))] md:grid-cols-2 md:gap-x-[calc(56*var(--u))]">
         <div className="@container">
           <h2 className="whitespace-nowrap text-center font-heading md:text-left text-[min(var(--text-h2),calc(100cqw/16.5))] font-medium leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]">
             First clinical research lab in Africa
@@ -61,6 +61,29 @@ export default function ClinicSlider() {
           onFocus={() => setPaused(true)}
           onBlur={() => setPaused(false)}
         >
+          {/* Phones: a row of photos drifting from right to left, the next one always peeking in at the edge. */}
+          <div className="overflow-hidden rounded-[calc(22*var(--u))] md:hidden">
+            <ul aria-label="Photos from the lab" className="photo-drift flex w-max">
+              {[...SLIDES, ...SLIDES].map((s, i) => (
+                <li
+                  key={i}
+                  aria-hidden={i >= SLIDES.length}
+                  className="relative mr-3 aspect-[4/3] w-[54vw] shrink-0 overflow-hidden rounded-[calc(22*var(--u))] bg-ink/5"
+                >
+                  <Image
+                    src={s.src}
+                    alt={i >= SLIDES.length ? "" : s.alt}
+                    width={s.width}
+                    height={s.height}
+                    sizes="54vw"
+                    draggable={false}
+                    className="absolute inset-0 size-full object-cover"
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+
           <ul
             aria-label="Photos from the lab"
             onPointerDown={(e) => (startX.current = e.clientX)}
@@ -71,7 +94,7 @@ export default function ClinicSlider() {
               if (Math.abs(dx) > 40) goTo(index + (dx < 0 ? 1 : -1));
             }}
             onClick={() => goTo(index + 1)}
-            className="relative aspect-[4/3] w-full cursor-pointer touch-pan-y select-none overflow-hidden rounded-[calc(22*var(--u))] bg-ink/5"
+            className="relative aspect-[4/3] w-full cursor-pointer max-md:hidden touch-pan-y select-none overflow-hidden rounded-[calc(22*var(--u))] bg-ink/5"
           >
             {/* One photo at a time: they sit on top of each other and the current one fades in. */}
             {SLIDES.map((s, i) => (
@@ -81,12 +104,14 @@ export default function ClinicSlider() {
                 aria-hidden={i !== index}
                 // Only the photo coming in is animated. The one just left stays put underneath until it is covered,
                 // and the rest wait out of sight, so nothing flickers or zooms while it is still visible.
+                // Wide screens fade one photo into the next. On phones they slide: the next photo comes in from the
+                // right while the current one leaves to the left, then waits out of sight on the right (no animation).
                 className={`absolute inset-0 ${
                   i === index
-                    ? "z-10 scale-100 opacity-100 transition-[opacity,transform] duration-[1400ms] ease-in-out motion-reduce:transition-none"
+                    ? "z-10 translate-x-0 transition-[opacity,transform] duration-[1400ms] ease-in-out motion-reduce:transition-none max-md:duration-700 md:scale-100 md:opacity-100"
                     : i === prev
-                      ? "z-[5] scale-100 opacity-100"
-                      : "z-0 scale-[1.06] opacity-0"
+                      ? "z-[5] transition-transform duration-700 ease-in-out motion-reduce:transition-none max-md:-translate-x-full md:scale-100 md:opacity-100 md:transition-none"
+                      : "z-0 max-md:translate-x-full md:scale-[1.06] md:opacity-0"
                 }`}
               >
                 <Image

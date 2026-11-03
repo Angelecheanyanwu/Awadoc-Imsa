@@ -278,6 +278,21 @@ body {
   .book-fade, .book-rise, .book-leave { animation: none; }
 }
 
+/* A row of photos that drifts from right to left forever. The photos are listed twice, so moving by half the
+   row's width puts the second copy exactly where the first started and the loop has no join. */
+@keyframes photo-drift {
+  to { transform: translateX(-50%); }
+}
+.photo-drift {
+  animation: photo-drift 36s linear infinite;
+}
+.photo-drift:active {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .photo-drift { animation: none; }
+}
+
 /* The root takes the page colour too, so the area the phone browser tints (its status bar) matches the page. */
 html {
   background: var(--bg);
