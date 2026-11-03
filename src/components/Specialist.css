@@ -98,7 +98,13 @@
   position: relative;
   z-index: 4;
   width: 61%;
-  padding: 88px 42px 96px 72px;
+  /* As tall as the panel and centred in it, so the text sits level with the middle of his photo. */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 680px;
+  padding: 40px 42px 40px 72px;
 }
 
 .showcase-kicker {

@@ -1,15 +1,19 @@
+"use client";
+
 import Image from "next/image";
+import { useCallback, useState } from "react";
+import SpecialistProfileModal from "./SpecialistProfileModal";
 import "./Specialist.css";
 
 // Under the photo box: the specialist who leads the care. A portrait led feature: his name huge on the left, his cut out photo
-// on the right, and his numbers along the bottom. The look lives in Specialist.css.
+// on the right. "View full profile" opens his full profile in a modal. The look lives in Specialist.css.
 export default function Specialist() {
+  const [profileOpen, setProfileOpen] = useState(false);
+  const closeProfile = useCallback(() => setProfileOpen(false), []);
+
   return (
     <section className="expert-showcase" id="specialist" aria-labelledby="expert-title">
       <div className="expert-showcase-inner">
-        <div className="showcase-orbit showcase-orbit-one" aria-hidden="true" />
-        <div className="showcase-orbit showcase-orbit-two" aria-hidden="true" />
-
         <div className="showcase-copy">
           <p className="showcase-kicker">Nigeria’s IVF pioneer in your corner</p>
           <h3 id="expert-title">
@@ -22,7 +26,7 @@ export default function Specialist() {
             reported one of the country’s first sickle cell free births following embryo testing.
           </p>
 
-          <button type="button" className="showcase-action">
+          <button type="button" className="showcase-action" aria-haspopup="dialog" onClick={() => setProfileOpen(true)}>
             View full profile
           </button>
         </div>
@@ -38,6 +42,8 @@ export default function Specialist() {
           />
         </div>
       </div>
+
+      <SpecialistProfileModal open={profileOpen} onClose={closeProfile} />
     </section>
   );
 }
