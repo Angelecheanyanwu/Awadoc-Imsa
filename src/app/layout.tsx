@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import localFont from "next/font/local";
 import Script from "next/script";
+import InProgressModal from "@/components/InProgressModal";
 import AskNoura from "@/components/AskNoura";
 import "./globals.css";
 
@@ -48,6 +49,7 @@ export default function RootLayout({
         {children}
         {/* Outside any page wrapper so it stays pinned to the viewport on every page. */}
         <AskNoura />
+        <InProgressModal />
       </body>
     </html>
   );
