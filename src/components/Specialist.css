@@ -1,0 +1,511 @@
+
+/* The specialist feature: a portrait led panel (his name huge on the left, the cut out photo on the right, his numbers along the bottom). */
+.expert-showcase {
+  position: relative;
+  z-index: 4;
+  /* The same gap as every other section: 1.5 times the standard section spacing, above (here) and below (the next section's top). */
+  margin-top: calc(var(--spacing-section) * 1.5);
+  padding: 0 max(4.75vw, calc((100vw - 1240px) / 2));
+}
+
+/* The soft coloured band sits behind the panel and fades out above and below it, so it never ends in a hard line
+   and never adds to the gaps. */
+.expert-showcase::before {
+  position: absolute;
+  inset: -90px 0;
+  z-index: -1;
+  background: #f3f8f5;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 90px, #000 calc(100% - 90px), transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 90px, #000 calc(100% - 90px), transparent 100%);
+  content: '';
+  pointer-events: none;
+}
+
+.expert-showcase-title {
+  position: relative;
+  z-index: 5;
+  max-width: 1240px;
+  margin: 0 auto 56px;
+  text-align: center;
+  color: #102019;
+  white-space: nowrap;
+  font-family: var(--font-heading);
+  font-size: var(--text-h2);
+  font-weight: 500;
+  line-height: 1.06;
+  -webkit-text-stroke: 0.03em currentColor;
+}
+
+.expert-showcase-inner {
+  position: relative;
+  min-height: 680px;
+  max-width: 1240px;
+  margin-inline: auto;
+  overflow: hidden;
+  color: #102019;
+  background: transparent;
+}
+
+.expert-showcase-inner::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, #f3f8f5 0%, rgb(243 248 245 / 92%) 47%, transparent 76%),
+    linear-gradient(0deg, rgb(243 248 245 / 70%) 0%, transparent 32%);
+  content: '';
+  pointer-events: none;
+}
+
+.showcase-orbit {
+  position: absolute;
+  z-index: 0;
+  border: 1px solid rgb(86 215 180 / 12%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.showcase-orbit-one {
+  top: -215px;
+  right: 5%;
+  width: 650px;
+  height: 650px;
+  box-shadow:
+    0 0 0 72px rgb(50 192 155 / 3%),
+    0 0 0 144px rgb(50 192 155 / 2%);
+}
+
+.showcase-orbit-two {
+  right: -105px;
+  bottom: -315px;
+  width: 570px;
+  height: 570px;
+}
+
+.showcase-quote-mark {
+  position: absolute;
+  z-index: 1;
+  top: -68px;
+  left: 37%;
+  color: rgb(8 65 49 / 5%);
+  font-family: Georgia, serif;
+  font-size: 28rem;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.showcase-copy {
+  position: relative;
+  z-index: 4;
+  width: 61%;
+  padding: 88px 42px 96px 72px;
+}
+
+.showcase-kicker {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 28px;
+  color: #159879;
+  font-size: 0.69rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.showcase-copy h3 {
+  max-width: 610px;
+  font-family: var(--font-heading);
+  font-size: clamp(3.4rem, 5.1vw, 5rem);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  -webkit-text-stroke: 0.03em currentColor;
+}
+
+.showcase-copy h3 > span {
+  display: block;
+  color: #22b999;
+}
+
+.showcase-credentials {
+  margin-top: 20px;
+  color: #102019;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.showcase-bio {
+  max-width: 555px;
+  text-align: justify;
+  text-justify: inter-word;
+  margin-top: 25px;
+  color: #52665e;
+  font-size: 0.92rem;
+  line-height: 1.72;
+}
+
+.showcase-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 25px;
+}
+
+.showcase-tags span {
+  padding: 8px 12px;
+  border: 1px solid rgb(28 133 105 / 20%);
+  border-radius: 999px;
+  color: #36594d;
+  background: rgb(255 255 255 / 46%);
+  font-size: 0.66rem;
+  font-weight: 700;
+  backdrop-filter: blur(8px);
+}
+
+.showcase-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 50px;
+  margin-top: 31px;
+  padding: 0 21px;
+  border: 1px solid #17856a;
+  border-radius: calc(14 * var(--u));
+  color: #0b6f59;
+  background: rgb(45 191 154 / 7%);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 800;
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.showcase-action:hover {
+  transform: translateY(-2px);
+  color: #07130e;
+  background: #58d4b3;
+}
+
+.showcase-action svg {
+  width: 18px;
+  height: 18px;
+}
+
+.showcase-portrait {
+  --img-right: 4cqw;
+  container-type: size;
+  position: absolute;
+  z-index: 2;
+  right: 10%;
+  bottom: 0;
+  width: 51%;
+  height: 96%;
+  pointer-events: none;
+}
+
+/* His photo fades out softly at the bottom instead of ending in a hard edge with a grey shadow under it. */
+.showcase-portrait img {
+  -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+}
+
+/* The ring is centred on the photo itself (not on the box around it): the photo stands --img-right from the box's right edge and is
+   as wide as 0.5425 of its height, so its middle is half of that width in from there. */
+.portrait-halo {
+  position: absolute;
+  top: 13%;
+  right: calc(var(--img-right) + min(93cqh, 620px) * 0.27125 - 180px);
+  width: 360px;
+  height: 360px;
+  border: 1px solid rgb(85 211 176 / 15%);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 38px rgb(51 180 146 / 3%),
+    0 0 90px rgb(38 192 151 / 11%);
+}
+
+.showcase-portrait img {
+  position: absolute;
+  z-index: 2;
+  right: 4%;
+  bottom: -1px;
+  width: auto;
+  max-width: none;
+  height: min(93%, 620px);
+  object-fit: contain;
+  object-position: right bottom;
+}
+
+.portrait-caption {
+  position: absolute;
+  z-index: 3;
+  top: 45%;
+  right: 3%;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  padding: 10px 13px;
+  border-right: 2px solid #59d6b4;
+  color: #102019;
+  background: linear-gradient(90deg, transparent, rgb(243 248 245 / 85%));
+  text-align: right;
+}
+
+.portrait-caption span {
+  color: #3fae93;
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.portrait-caption strong {
+  margin-top: 3px;
+  font-size: 0.68rem;
+}
+
+.showcase-metrics {
+  position: absolute;
+  z-index: 5;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 61%;
+  min-height: 112px;
+  border-top: 1px solid rgb(17 82 63 / 13%);
+  background: rgb(255 255 255 / 42%);
+  backdrop-filter: blur(16px);
+  /* The strip fades away on its right side, so there is no hard edge. */
+  -webkit-mask-image: linear-gradient(to right, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to right, #000 62%, transparent 100%);
+}
+
+.showcase-metrics > div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px 22px;
+}
+
+.showcase-metrics > div + div {
+  border-left: 1px solid rgb(17 82 63 / 11%);
+}
+
+.showcase-metrics strong {
+  color: #102019;
+  font-family: var(--font-heading);
+  font-size: 1.52rem;
+  font-weight: 500;
+  line-height: 1;
+  -webkit-text-stroke: 0.03em currentColor;
+}
+
+.showcase-metrics span {
+  max-width: 130px;
+  margin-top: 7px;
+  color: #647970;
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+@media (max-width: 970px) {
+  .expert-showcase { padding-inline: 20px; }
+  .showcase-copy { width: 68%; padding-left: 48px; }
+  .showcase-copy h3 { font-size: clamp(3.1rem, 7vw, 4.2rem); }
+  .showcase-portrait { right: -10%; width: 58%; }
+  .showcase-portrait { --img-right: 0cqw; }
+  .showcase-portrait img { right: 0; }
+  .portrait-caption { display: none; }
+  .showcase-metrics { width: 68%; }
+}
+
+/* Phones: his photo comes first with his name over the bottom of it, then the text, the tags, the button and a small row of figures. */
+@media (max-width: 700px) {
+  .expert-showcase { padding-inline: 16px; }
+  .expert-showcase-inner {
+    --name-size: clamp(2.5rem, 12.5vw, 3.6rem);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-height: auto;
+  }
+  .expert-showcase-inner::before { display: none; }
+  .showcase-orbit { display: none; }
+  .showcase-quote-mark { display: none; }
+
+  /* The copy's pieces become items of the grid, so the name can sit over the photo. */
+  .showcase-copy { display: contents; }
+
+  .showcase-portrait {
+    position: relative;
+    grid-area: 1 / 1;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    height: 400px;
+    margin: 0;
+  }
+  .showcase-portrait img { right: 50%; height: 100%; transform: translateX(50%); -webkit-mask-image: none; mask-image: none; }
+  .portrait-halo {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    top: 10%;
+    width: 250px;
+    height: 250px;
+    border: 1px solid rgb(16 32 25 / 16%);
+    box-shadow:
+      0 0 0 26px rgb(16 32 25 / 4%),
+      0 0 0 54px rgb(16 32 25 / 2.5%),
+      0 0 70px rgb(16 32 25 / 6%);
+  }
+  /* A fade at the bottom of the photo, so his name over it stays easy to read. */
+  .showcase-portrait::after {
+    position: absolute;
+    inset: auto 0 -2px 0;
+    z-index: 3;
+    height: 52%;
+    background: linear-gradient(to top, #f3f8f5 8%, rgb(243 248 245 / 0%) 100%);
+    content: '';
+  }
+
+  .showcase-kicker { white-space: nowrap; letter-spacing: 0.1em; }
+
+  /* The label sits just above his name (two lines of the name's size, plus its padding), both at the bottom of the photo. */
+  .showcase-kicker {
+    position: relative;
+    z-index: 6;
+    grid-area: 1 / 1;
+    align-self: end;
+    margin: 0 0 calc(var(--name-size) * 1.9 + 12px);
+    padding: 0 4px;
+    font-size: 0.58rem;
+    color: #102019;
+  }
+  .showcase-copy h3 {
+    position: relative;
+    z-index: 6;
+    grid-area: 1 / 1;
+    align-self: end;
+    max-width: none;
+    padding: 0 4px 6px;
+    font-size: var(--name-size);
+  }
+  .showcase-credentials { grid-row: 2; margin: 14px 4px 0; font-size: 0.66rem; }
+  /* Same size as the other subtexts on the page (the hero line, the lab paragraph). */
+  .showcase-bio {
+    grid-row: 3;
+    max-width: none;
+    margin: 10px 4px 0;
+    text-align: justify;
+    font-size: var(--text-hero-sub);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 1.62;
+  }
+  .showcase-tags {
+    grid-row: 4;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 14px 4px 0;
+  }
+  .showcase-tags span { padding: 6px 10px; font-size: 0.6rem; }
+  .showcase-action { grid-row: 4; justify-self: start; min-height: 44px; margin: 18px 4px 0; padding: 0 18px; font-size: 0.74rem; }
+}
+
+/* Dark theme: set by the toggle, or by the device when the toggle has not been used. */
+:root[data-theme="dark"] .expert-showcase::before {
+  background: #07130e;
+}
+:root[data-theme="dark"] .expert-showcase-title { color: #edf8f4; }
+:root[data-theme="dark"] .expert-showcase-inner { color: #edf8f4; }
+:root[data-theme="dark"] .expert-showcase-inner::before {
+  background:
+    linear-gradient(90deg, rgb(7 19 14 / 98%) 0%, rgb(7 19 14 / 80%) 45%, transparent 74%),
+    linear-gradient(0deg, rgb(4 12 8 / 62%) 0%, transparent 32%);
+}
+:root[data-theme="dark"] .showcase-kicker { color: #6addbb; }
+:root[data-theme="dark"] .showcase-copy h3 > span { color: #51ceb0; }
+:root[data-theme="dark"] .showcase-credentials { color: #edf8f4; }
+:root[data-theme="dark"] .showcase-bio { color: #aebdb7; }
+:root[data-theme="dark"] .showcase-tags span {
+  border-color: rgb(111 210 183 / 22%);
+  color: #c9d8d2;
+  background: rgb(255 255 255 / 4%);
+}
+:root[data-theme="dark"] .showcase-action {
+  border-color: rgb(101 220 188 / 55%);
+  color: #edf8f4;
+  background: rgb(45 191 154 / 8%);
+}
+:root[data-theme="dark"] .portrait-caption {
+  color: white;
+  background: linear-gradient(90deg, transparent, rgb(7 19 14 / 72%));
+}
+:root[data-theme="dark"] .portrait-caption span { color: #80cbb7; }
+:root[data-theme="dark"] .showcase-metrics {
+  border-color: rgb(255 255 255 / 10%);
+  background: rgb(4 13 9 / 55%);
+}
+:root[data-theme="dark"] .showcase-metrics > div + div { border-color: rgb(255 255 255 / 9%); }
+:root[data-theme="dark"] .showcase-metrics strong { color: #eff9f5; }
+:root[data-theme="dark"] .showcase-metrics span { color: #82978e; }
+@media (max-width: 700px) {
+:root[data-theme="dark"] .showcase-portrait::after { background: linear-gradient(to top, #07130e 8%, rgb(7 19 14 / 0%) 100%); }
+:root[data-theme="dark"] .portrait-halo {
+  border: 1px solid rgb(85 211 176 / 15%);
+  box-shadow: 0 0 0 38px rgb(51 180 146 / 3%), 0 0 90px rgb(38 192 151 / 11%);
+}
+}
+@media (prefers-color-scheme: dark) {
+:root:not([data-theme="light"]) .expert-showcase::before {
+  background: #07130e;
+}
+:root:not([data-theme="light"]) .expert-showcase-title { color: #edf8f4; }
+:root:not([data-theme="light"]) .expert-showcase-inner { color: #edf8f4; }
+:root:not([data-theme="light"]) .expert-showcase-inner::before {
+  background:
+    linear-gradient(90deg, rgb(7 19 14 / 98%) 0%, rgb(7 19 14 / 80%) 45%, transparent 74%),
+    linear-gradient(0deg, rgb(4 12 8 / 62%) 0%, transparent 32%);
+}
+:root:not([data-theme="light"]) .showcase-kicker { color: #6addbb; }
+:root:not([data-theme="light"]) .showcase-copy h3 > span { color: #51ceb0; }
+:root:not([data-theme="light"]) .showcase-credentials { color: #d3e1dc; }
+:root:not([data-theme="light"]) .showcase-bio { color: #aebdb7; }
+:root:not([data-theme="light"]) .showcase-tags span {
+  border-color: rgb(111 210 183 / 22%);
+  color: #c9d8d2;
+  background: rgb(255 255 255 / 4%);
+}
+:root:not([data-theme="light"]) .showcase-action {
+  border-color: rgb(101 220 188 / 55%);
+  color: #edf8f4;
+  background: rgb(45 191 154 / 8%);
+}
+:root:not([data-theme="light"]) .portrait-caption {
+  color: white;
+  background: linear-gradient(90deg, transparent, rgb(7 19 14 / 72%));
+}
+:root:not([data-theme="light"]) .portrait-caption span { color: #80cbb7; }
+:root:not([data-theme="light"]) .showcase-metrics {
+  border-color: rgb(255 255 255 / 10%);
+  background: rgb(4 13 9 / 55%);
+}
+:root:not([data-theme="light"]) .showcase-metrics > div + div { border-color: rgb(255 255 255 / 9%); }
+:root:not([data-theme="light"]) .showcase-metrics strong { color: #eff9f5; }
+:root:not([data-theme="light"]) .showcase-metrics span { color: #82978e; }
+}
+@media (prefers-color-scheme: dark) and (max-width: 700px) {
+:root:not([data-theme="light"]) .showcase-portrait::after { background: linear-gradient(to top, #07130e 8%, rgb(7 19 14 / 0%) 100%); }
+:root:not([data-theme="light"]) .portrait-halo {
+  border: 1px solid rgb(85 211 176 / 15%);
+  box-shadow: 0 0 0 38px rgb(51 180 146 / 3%), 0 0 90px rgb(38 192 151 / 11%);
+}
+}

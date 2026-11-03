@@ -6,7 +6,9 @@ import Pricing from "@/components/Pricing";
 import Logo from "@/components/Logo";
 import MobileMenu from "@/components/MobileMenu";
 import NavPills from "@/components/NavPills";
+import ReadMorePgtmButton from "@/components/ReadMorePgtmButton";
 import StartBookingButton from "@/components/StartBookingButton";
+import Specialist from "@/components/Specialist";
 import StepsStory from "@/components/StepsStory";
 import StickyNav from "@/components/StickyNav";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -63,6 +65,7 @@ export default function Home() {
               </p>
               <div className="flex w-0 min-w-full flex-wrap gap-3">
                 <StartBookingButton />
+                <ReadMorePgtmButton />
               </div>
             </div>
           </div>
@@ -72,9 +75,12 @@ export default function Home() {
 
       </div>
 
+      <Specialist />
+
       <StepsStory />
 
       <Pricing />
+
 
       <Faq />
 
