@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { useInProgressStore } from "@/store/useInProgressStore";
 
 const HIGHLIGHTS = [
   {
@@ -36,6 +38,7 @@ const CAREER = [
 // and the page behind it stops scrolling while it is open.
 export default function SpecialistProfileModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const dialogRef = useRef<HTMLDivElement>(null);
+  const showInProgress = useInProgressStore((s) => s.show);
 
   // `shown` drives the fade and grow; `present` keeps the modal mounted while it animates out.
   const [shown, setShown] = useState(false);
@@ -70,11 +73,12 @@ export default function SpecialistProfileModal({ open, onClose }: { open: boolea
     };
   }, [open, onClose]);
 
-  if (!open && !present) return null;
+  if ((!open && !present) || typeof document === "undefined") return null;
 
-  return (
+  // Drawn on the page itself (not inside the section), so it is above the nav bar and the rest of the page.
+  return createPortal(
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-black/35 p-[max(0.75rem,env(safe-area-inset-top))_max(0.75rem,env(safe-area-inset-right))_max(0.75rem,env(safe-area-inset-bottom))_max(0.75rem,env(safe-area-inset-left))] backdrop-blur-[3px] transition-opacity duration-400 ease-out motion-reduce:transition-none ${shown ? "opacity-100" : "opacity-0"}`}
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-black/35 p-[max(0.75rem,env(safe-area-inset-top))_max(0.75rem,env(safe-area-inset-right))_max(0.75rem,env(safe-area-inset-bottom))_max(0.75rem,env(safe-area-inset-left))] backdrop-blur-[3px] transition-opacity duration-500 ease-out motion-reduce:transition-none ${shown ? "opacity-100" : "opacity-0"}`}
       onPointerDown={(e) => e.target === e.currentTarget && onClose()}
     >
       <div
@@ -83,7 +87,7 @@ export default function SpecialistProfileModal({ open, onClose }: { open: boolea
         role="dialog"
         aria-modal="true"
         aria-labelledby="profile-title"
-        className={`[scrollbar-width:none] [&::-webkit-scrollbar]:hidden relative max-h-[min(88dvh,60rem)] w-full max-w-[44rem] origin-center overflow-y-auto rounded-[28px] border border-white/40 bg-linear-to-br from-bg/95 via-bg/92 to-bg/88 p-6 text-ink shadow-[0_24px_80px_-16px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.5)] outline-none backdrop-blur-md transition-[transform,opacity] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none sm:p-9 ${shown ? "scale-100 opacity-100" : "scale-[0.94] opacity-0"}`}
+        className={`[scrollbar-width:none] [&::-webkit-scrollbar]:hidden relative max-h-[min(88dvh,60rem)] w-full max-w-[44rem] origin-center overflow-y-auto rounded-[28px] border border-white/40 bg-linear-to-br from-bg/95 via-bg/92 to-bg/88 p-6 text-ink shadow-[0_24px_80px_-16px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.5)] outline-none backdrop-blur-md transition-[transform,opacity] duration-[650ms] ease-[cubic-bezier(0.16,0.8,0.24,1)] motion-reduce:transition-none sm:p-9 ${shown ? "translate-y-0 scale-100 opacity-100" : "translate-y-5 scale-[0.95] opacity-0"}`}
       >
         <button
           type="button"
@@ -96,24 +100,24 @@ export default function SpecialistProfileModal({ open, onClose }: { open: boolea
           </svg>
         </button>
 
-        <div className="flex items-center gap-4 pr-12">
+        <div className="book-rise flex items-center gap-4 pr-12" style={{ animationDelay: "180ms" }}>
           <div className="relative size-16 shrink-0 overflow-hidden rounded-full bg-brand/20 sm:size-20">
             <Image src="/team/wada-portrait.png" alt="" width={1072} height={1976} sizes="80px" className="absolute left-1/2 top-[6%] h-[190%] w-auto max-w-none -translate-x-1/2 object-cover object-top" />
           </div>
-          <div className="min-w-0">
+          <div className="@container min-w-0 flex-1">
             <h2 id="profile-title" className="font-heading text-h2 font-medium leading-[1.08] [-webkit-text-stroke:0.03em_currentColor]">
               Dr Ibrahim Wada, OON
             </h2>
-            <p className="mt-[0.4em] text-label font-semibold uppercase tracking-[0.1em] text-accent">MBBS · FRCOG · FWACS · MBA</p>
+            <p className="mt-[0.4em] text-label font-semibold uppercase tracking-[0.1em] text-accent max-sm:whitespace-nowrap max-sm:text-[min(var(--text-label),calc(100cqw/23))]">MBBS · FRCOG · FWACS · MBA</p>
           </div>
         </div>
 
-        <p className="mt-[1.4em] text-hero-sub font-medium leading-relaxed tracking-[-0.035em] text-muted">
+        <p className="book-rise mt-[1.4em] text-hero-sub font-medium leading-relaxed tracking-[-0.035em] text-muted" style={{ animationDelay: "280ms" }}>
           Dr Wada is one of Nigeria’s pioneers of in vitro fertilisation. He has practised reproductive medicine for over 35 years and has
           championed embryo testing (PGT-M) so that couples who carry the sickle cell gene can have children free of the disease.
         </p>
 
-        <div className="mt-[1.6em] grid gap-3 sm:grid-cols-2">
+        <div className="book-rise mt-[1.6em] grid gap-3 sm:grid-cols-2" style={{ animationDelay: "380ms" }}>
           {HIGHLIGHTS.map((h) => (
             <section key={h.title} className="rounded-[20px] bg-ink/5 p-4">
               <h3 className="text-hero-sub font-semibold leading-snug">{h.title}</h3>
@@ -122,8 +126,8 @@ export default function SpecialistProfileModal({ open, onClose }: { open: boolea
           ))}
         </div>
 
-        <h3 className="mt-[1.8em] font-heading text-h3 font-medium [-webkit-text-stroke:0.03em_currentColor]">Training and career</h3>
-        <ul className="mt-[0.8em] space-y-[0.7em]">
+        <h3 style={{ animationDelay: "480ms" }} className="book-rise mt-[1.8em] font-heading text-h3 font-medium [-webkit-text-stroke:0.03em_currentColor]">Training and career</h3>
+        <ul className="book-rise mt-[0.8em] space-y-[0.7em]" style={{ animationDelay: "540ms" }}>
           {CAREER.map((line) => (
             <li key={line} className="flex gap-3 text-[calc(var(--text-hero-sub)*0.95)] font-medium leading-relaxed tracking-[-0.03em] text-muted">
               <span aria-hidden="true" className="mt-[0.6em] size-1.5 shrink-0 rounded-full bg-brand" />
@@ -131,7 +135,21 @@ export default function SpecialistProfileModal({ open, onClose }: { open: boolea
             </li>
           ))}
         </ul>
+
+        {/* Booking is not open yet, so, like "Start booking", this closes the profile and shows the in progress notice. */}
+        <button
+          type="button"
+          onClick={() => {
+            onClose();
+            showInProgress();
+          }}
+          style={{ animationDelay: "620ms" }}
+          className="book-rise mx-auto mt-[1.8em] flex min-h-btn w-full cursor-pointer items-center justify-center rounded-[calc(14*var(--u))] border border-ink bg-ink px-[1.4em] py-[0.7em] text-btn font-bold text-bg transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-brand hover:bg-brand hover:text-[#07110c] hover:shadow-[0_10px_28px_-8px_var(--color-brand)] active:translate-y-0 active:scale-[0.97] motion-reduce:transition-none motion-reduce:hover:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-500 sm:w-fit"
+        >
+          Book Counselling
+        </button>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

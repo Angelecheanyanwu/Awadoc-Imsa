@@ -34,14 +34,20 @@ function Segs({ s }: { s: Seg[] }) {
   );
 }
 
-// A reference, with any web address turned into a link.
-function Reference({ t }: { t: string }) {
-  const parts = t.split(/(https?:\/\/\S+)/g);
+// Text in which any web address (with or without "https://") is a link that opens in a new tab.
+function Linked({ t }: { t: string }) {
+  const parts = t.split(/((?:https?:\/\/|www\.)\S*[^\s.,;)])/g);
   return (
     <>
       {parts.map((p, i) =>
-        /^https?:\/\//.test(p) ? (
-          <a key={i} href={p} target="_blank" rel="noopener noreferrer" className="break-all text-accent underline-offset-2 hover:underline">
+        /^(?:https?:\/\/|www\.)/.test(p) ? (
+          <a
+            key={i}
+            href={p.startsWith("www.") ? `https://${p}` : p}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="break-all text-accent underline-offset-2 hover:underline"
+          >
             {p}
           </a>
         ) : (
@@ -50,6 +56,11 @@ function Reference({ t }: { t: string }) {
       )}
     </>
   );
+}
+
+// A reference, with any web address turned into a link.
+function Reference({ t }: { t: string }) {
+  return <Linked t={t} />;
 }
 
 // "Background: Sickle cell..." : the word before the first colon is the bold label.
@@ -107,7 +118,7 @@ export default function PgtmPage() {
               <div className="mt-[1.2em] space-y-[0.3em]">
                 {REVIEW.by.map((line, i) => (
                   <p key={i} className={i === 0 ? "text-hero-sub font-semibold text-ink" : body}>
-                    {line}
+                    <Linked t={line} />
                   </p>
                 ))}
               </div>
