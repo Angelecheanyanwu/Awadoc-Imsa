@@ -51,7 +51,7 @@ const ICONS = {
 // One way to reach us: a round icon, a small title and what to do.
 function Way({ icon, title, children }: { icon: keyof typeof ICONS; title: string; children: ReactNode }) {
   return (
-    <li className="flex min-w-0 items-start gap-[1em] max-lg:flex-col max-lg:gap-[0.6em]">
+    <li className="flex min-w-0 items-start gap-[1em] max-lg:flex-col max-lg:items-center max-lg:gap-[0.6em]">
       <span className="grid size-12 shrink-0 place-items-center rounded-full bg-ink/8 text-ink">
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="size-5">
           {ICONS[icon]}
@@ -85,8 +85,8 @@ export default function ContactPage() {
           Contact us
         </h1>
         <div className="mt-[calc(var(--spacing-section)*0.2)] grid flex-1 gap-x-[calc(80*var(--u))] gap-y-[calc(48*var(--u))] lg:grid-cols-2">
-          <div className="book-rise max-lg:order-2 lg:flex lg:flex-col lg:justify-center" style={{ animationDelay: "200ms" }}>
-            <p className={`max-w-[30em] ${small}`}>
+          <div className="book-rise max-lg:order-2 max-lg:text-center lg:flex lg:flex-col lg:justify-center" style={{ animationDelay: "200ms" }}>
+            <p className={`max-w-[30em] max-lg:mx-auto ${small}`}>
               Questions about PGT-M, partnerships, research or support? Send us a message and the right AwaDoc team will reply within 2 working days.
             </p>
 
