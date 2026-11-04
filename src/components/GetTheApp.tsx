@@ -14,8 +14,9 @@ const iconClass = "size-[1.5em] shrink-0";
 
 export default function GetTheApp() {
   return (
-    // Lives inside the footer, centred under the partnership line.
-    <section aria-labelledby="get-the-app">
+    // Lives inside the footer. On a wide screen the stack of buttons takes no height of its own, so the footer row is as tall as the
+    // link columns (and the partnership logos beside it spread over that height).
+    <section aria-labelledby="get-the-app" className="min-[1100px]:h-0 min-[1100px]:overflow-visible">
       <div className="relative">
         {/* A <p>, not a heading: headings are Nohemi everywhere, and this label should use
             the same Poppins as the footer text around it. */}

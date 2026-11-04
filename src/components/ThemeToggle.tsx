@@ -24,12 +24,8 @@ export default function ThemeToggle() {
     try {
       saved = localStorage.getItem("theme");
     } catch {}
-    const initial: Theme =
-      saved === "light" || saved === "dark"
-        ? saved
-        : window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
+    // A first visit opens in the dark green theme, whatever the device's own setting is.
+    const initial: Theme = saved === "light" ? "light" : "dark";
     document.documentElement.dataset.theme = initial;
     setBrowserColor(initial);
     setTheme(initial);

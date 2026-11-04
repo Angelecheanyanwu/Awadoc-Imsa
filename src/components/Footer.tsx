@@ -61,7 +61,7 @@ export default function Footer() {
           too narrow for both they stack, centred. */}
       {/* The same side margins as the rest of the page. From 798px up it is one line: the partnership on the left, the app
           buttons on the right. Below that they stack, both centred, with the same gap above, between and below. */}
-      <div className="gutter flex flex-col items-center [--s:min(var(--text-hero-sub),calc((100vw-2.5rem)/25.8))] [--m:calc((100vw-2.5rem-9.62*var(--s))/14.98)] gap-y-[calc(var(--spacing-section)*0.7)] py-[calc(var(--spacing-section)*0.7)] min-[798px]:flex-row min-[798px]:flex-wrap min-[1100px]:flex-nowrap min-[1100px]:items-start min-[798px]:justify-between min-[798px]:gap-x-[calc(28*var(--u))] min-[798px]:pb-[calc(var(--spacing-section)/6)] min-[798px]:pt-[calc(var(--spacing-section)/2)]">
+      <div className="gutter flex flex-col items-center [--s:min(var(--text-hero-sub),calc((100vw-2.5rem)/25.8))] [--m:calc((100vw-2.5rem-9.62*var(--s))/14.98)] gap-y-[calc(var(--spacing-section)*0.7)] py-[calc(var(--spacing-section)*0.7)] min-[798px]:flex-row min-[798px]:flex-wrap min-[1100px]:flex-nowrap min-[1100px]:items-stretch min-[798px]:justify-between min-[798px]:gap-x-[calc(28*var(--u))] min-[798px]:pb-[calc(var(--spacing-section)/6)] min-[798px]:pt-[calc(var(--spacing-section)/2)]">
         <Partnership compact />
         {/* The links, like Rise: two columns on a phone (up to 797px the second column starts under the IMSA logo, the first under the AwaDoc logo), a row of four on a wide screen: above the partnership and the app buttons, and from 1100px between them (the partnership stacked on the left, the app buttons on the right). */}
         <nav
@@ -73,7 +73,7 @@ export default function Footer() {
             <div key={col.title} className={i % 2 === 0 ? "max-[797px]:w-[calc(6.57*var(--m))]" : ""}>
               <div className={i % 2 === 0 ? "max-[797px]:mx-auto max-[797px]:w-[calc(7.6*var(--pw))]" : ""}>
               <h2 className="font-heading text-[length:var(--pw)] font-medium [-webkit-text-stroke:0.03em_currentColor]">{col.title}</h2>
-              <ul className="mt-[0.8em] space-y-[0.55em]">
+              <ul className="mt-[0.8em] space-y-[0.55em] min-[1100px]:space-y-[0.95em]">
                 {col.links.map((l) => (
                   <li key={l.label}>
                     {l.trust ? (
