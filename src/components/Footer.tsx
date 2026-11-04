@@ -4,7 +4,7 @@ import FooterWhyTrust from "@/components/FooterWhyTrust";
 import GetTheApp from "@/components/GetTheApp";
 import Partnership from "@/components/Partnership";
 
-const TERMS = "https://www.awadoc.com/terms";
+const TERMS = "/terms";
 const PRIVACY = "/privacy";
 
 // A link with no `href` is shown as plain text until its page exists. `noura` opens the Noura chat, `trust` the "Why trust us" modal.
@@ -30,7 +30,7 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
   },
   {
     title: "Legal",
-    links: [{ label: "Terms of service", href: TERMS, external: true }, { label: "Privacy policy", href: PRIVACY }],
+    links: [{ label: "Terms of service", href: TERMS }, { label: "Privacy policy", href: PRIVACY }],
   },
 ];
 
