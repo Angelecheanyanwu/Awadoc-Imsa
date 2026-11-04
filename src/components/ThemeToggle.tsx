@@ -22,9 +22,9 @@ export default function ThemeToggle() {
   useEffect(() => {
     let saved: string | null = null;
     try {
-      saved = localStorage.getItem("theme");
+      saved = sessionStorage.getItem("theme");
     } catch {}
-    // A first visit opens in the dark green theme, whatever the device's own setting is.
+    // Landing on the site always opens in the dark green theme, whatever the device's own setting is. Only a choice made during this visit is kept.
     const initial: Theme = saved === "light" ? "light" : "dark";
     document.documentElement.dataset.theme = initial;
     setBrowserColor(initial);
@@ -35,7 +35,7 @@ export default function ThemeToggle() {
     document.documentElement.dataset.theme = next;
     setBrowserColor(next);
     try {
-      localStorage.setItem("theme", next);
+      sessionStorage.setItem("theme", next);
     } catch {}
     setTheme(next);
   }
