@@ -2,14 +2,23 @@
 .donate-photo {
   position: absolute;
   inset: 0 0 auto 0;
-  height: 62svh;
+  /* On a phone the photo stops above the words (they take about 15rem at the bottom), so the heading never sits on the picture. */
+  height: max(14rem, calc(100svh - 17rem));
+}
+
+.donate-photo::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 3rem;
+  background: linear-gradient(to top, var(--bg), transparent);
+  pointer-events: none;
 }
 
 .donate-fade {
+  display: none;
   position: absolute;
   inset: 0;
-  /* On a phone the photo ends 38% up from the bottom of the screen; the page colour is solid from there, with only a very short fade just above it. */
-  background: linear-gradient(to top, var(--bg) 38%, color-mix(in srgb, var(--bg) 40%, transparent) 40.5%, transparent 43%);
   pointer-events: none;
 }
 
@@ -32,7 +41,9 @@
     -webkit-mask-image: none;
     mask-image: none;
   }
+  .donate-photo::after { display: none; }
   .donate-fade {
+    display: block;
     background: linear-gradient(to right, var(--bg) 0%, color-mix(in srgb, var(--bg) 78%, transparent) 38%, transparent 68%);
   }
 }
