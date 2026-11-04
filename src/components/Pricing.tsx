@@ -20,12 +20,13 @@ export default function Pricing() {
 
   return (
     <section
+      id="pricing"
       aria-label="Pricing"
       className="gutter relative z-10 pt-[calc(var(--spacing-section)*1.5)]"
     >
       <div>
         <h2 className="mb-[calc(64*var(--u))] max-sm:mb-[calc(24*var(--u))] text-center font-heading text-h2 max-sm:text-[min(var(--text-h2),calc((100vw-3.6rem)/16.5))] font-medium leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]">
-          Clear prices, Zero surprises
+          Know your costs upfront
         </h2>
         <div className="grid grid-cols-1 gap-[calc(16*var(--u))] sm:grid-cols-2 lg:grid-cols-3">
           {plans.map(({ ngn, description, featured }) => {

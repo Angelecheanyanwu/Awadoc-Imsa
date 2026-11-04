@@ -81,8 +81,8 @@ export default function Home() {
 
       <Pricing />
 
-
       <Faq />
+
 
       <Footer />
     </div>

@@ -14,7 +14,7 @@
   position: absolute;
   inset: -90px 0;
   z-index: -1;
-  background: #f3f8f5;
+  background: var(--bg);
   -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 90px, #000 calc(100% - 90px), transparent 100%);
   mask-image: linear-gradient(to bottom, transparent 0, #000 90px, #000 calc(100% - 90px), transparent 100%);
   content: '';
@@ -51,8 +51,8 @@
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(90deg, #f3f8f5 0%, rgb(243 248 245 / 92%) 47%, transparent 76%),
-    linear-gradient(0deg, rgb(243 248 245 / 70%) 0%, transparent 32%);
+    linear-gradient(90deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 92%, transparent) 47%, transparent 76%),
+    linear-gradient(0deg, color-mix(in srgb, var(--bg) 70%, transparent) 0%, transparent 32%);
   content: '';
   pointer-events: none;
 }
@@ -257,7 +257,7 @@
   padding: 10px 13px;
   border-right: 2px solid #59d6b4;
   color: #102019;
-  background: linear-gradient(90deg, transparent, rgb(243 248 245 / 85%));
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--bg) 85%, transparent));
   text-align: right;
 }
 
@@ -377,7 +377,7 @@
     inset: auto 0 -2px 0;
     z-index: 3;
     height: 52%;
-    background: linear-gradient(to top, #f3f8f5 8%, rgb(243 248 245 / 0%) 100%);
+    background: linear-gradient(to top, var(--bg) 8%, color-mix(in srgb, var(--bg) 0%, transparent) 100%);
     content: '';
   }
 
@@ -403,7 +403,14 @@
     padding: 0 4px 6px;
     font-size: var(--name-size);
   }
-  .showcase-credentials { grid-row: 2; margin: 14px 4px 0; font-size: 0.66rem; }
+  /* Each line stays on one line: the size follows the screen width, so the longest line ("Founder, Nisa Premier Hospital, Abuja") always fits. */
+  .showcase-credentials {
+    grid-row: 2;
+    margin: 14px 4px 0;
+    font-size: min(var(--text-hero-sub), calc((100vw - 40px) / 31));
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
   /* Same size as the other subtexts on the page (the hero line, the lab paragraph). */
   .showcase-bio {
     grid-row: 3;
@@ -428,14 +435,14 @@
 
 /* Dark theme: set by the toggle, or by the device when the toggle has not been used. */
 :root[data-theme="dark"] .expert-showcase::before {
-  background: #07130e;
+  background: var(--bg);
 }
 :root[data-theme="dark"] .expert-showcase-title { color: #edf8f4; }
 :root[data-theme="dark"] .expert-showcase-inner { color: #edf8f4; }
 :root[data-theme="dark"] .expert-showcase-inner::before {
   background:
-    linear-gradient(90deg, rgb(7 19 14 / 98%) 0%, rgb(7 19 14 / 80%) 45%, transparent 74%),
-    linear-gradient(0deg, rgb(4 12 8 / 62%) 0%, transparent 32%);
+    linear-gradient(90deg, color-mix(in srgb, var(--bg) 98%, transparent) 0%, color-mix(in srgb, var(--bg) 80%, transparent) 45%, transparent 74%),
+    linear-gradient(0deg, color-mix(in srgb, var(--bg) 62%, transparent) 0%, transparent 32%);
 }
 :root[data-theme="dark"] .showcase-kicker { color: #6addbb; }
 :root[data-theme="dark"] .showcase-copy h3 > span { color: #51ceb0; }
@@ -453,7 +460,7 @@
 }
 :root[data-theme="dark"] .portrait-caption {
   color: white;
-  background: linear-gradient(90deg, transparent, rgb(7 19 14 / 72%));
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--bg) 72%, transparent));
 }
 :root[data-theme="dark"] .portrait-caption span { color: #80cbb7; }
 :root[data-theme="dark"] .showcase-metrics {
@@ -464,7 +471,7 @@
 :root[data-theme="dark"] .showcase-metrics strong { color: #eff9f5; }
 :root[data-theme="dark"] .showcase-metrics span { color: #82978e; }
 @media (max-width: 700px) {
-:root[data-theme="dark"] .showcase-portrait::after { background: linear-gradient(to top, #07130e 8%, rgb(7 19 14 / 0%) 100%); }
+:root[data-theme="dark"] .showcase-portrait::after { background: linear-gradient(to top, var(--bg) 8%, color-mix(in srgb, var(--bg) 0%, transparent) 100%); }
 :root[data-theme="dark"] .portrait-halo {
   border: 1px solid rgb(85 211 176 / 15%);
   box-shadow: 0 0 0 38px rgb(51 180 146 / 3%), 0 0 90px rgb(38 192 151 / 11%);
@@ -472,14 +479,14 @@
 }
 @media (prefers-color-scheme: dark) {
 :root:not([data-theme="light"]) .expert-showcase::before {
-  background: #07130e;
+  background: var(--bg);
 }
 :root:not([data-theme="light"]) .expert-showcase-title { color: #edf8f4; }
 :root:not([data-theme="light"]) .expert-showcase-inner { color: #edf8f4; }
 :root:not([data-theme="light"]) .expert-showcase-inner::before {
   background:
-    linear-gradient(90deg, rgb(7 19 14 / 98%) 0%, rgb(7 19 14 / 80%) 45%, transparent 74%),
-    linear-gradient(0deg, rgb(4 12 8 / 62%) 0%, transparent 32%);
+    linear-gradient(90deg, color-mix(in srgb, var(--bg) 98%, transparent) 0%, color-mix(in srgb, var(--bg) 80%, transparent) 45%, transparent 74%),
+    linear-gradient(0deg, color-mix(in srgb, var(--bg) 62%, transparent) 0%, transparent 32%);
 }
 :root:not([data-theme="light"]) .showcase-kicker { color: #6addbb; }
 :root:not([data-theme="light"]) .showcase-copy h3 > span { color: #51ceb0; }
@@ -497,7 +504,7 @@
 }
 :root:not([data-theme="light"]) .portrait-caption {
   color: white;
-  background: linear-gradient(90deg, transparent, rgb(7 19 14 / 72%));
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--bg) 72%, transparent));
 }
 :root:not([data-theme="light"]) .portrait-caption span { color: #80cbb7; }
 :root:not([data-theme="light"]) .showcase-metrics {
@@ -509,9 +516,18 @@
 :root:not([data-theme="light"]) .showcase-metrics span { color: #82978e; }
 }
 @media (prefers-color-scheme: dark) and (max-width: 700px) {
-:root:not([data-theme="light"]) .showcase-portrait::after { background: linear-gradient(to top, #07130e 8%, rgb(7 19 14 / 0%) 100%); }
+:root:not([data-theme="light"]) .showcase-portrait::after { background: linear-gradient(to top, var(--bg) 8%, color-mix(in srgb, var(--bg) 0%, transparent) 100%); }
 :root:not([data-theme="light"]) .portrait-halo {
   border: 1px solid rgb(85 211 176 / 15%);
   box-shadow: 0 0 0 38px rgb(51 180 146 / 3%), 0 0 90px rgb(38 192 151 / 11%);
 }
+}
+
+/* On web the whole name is green; the credentials and titles under it stay dark (light on the dark theme). */
+@media (min-width: 701px) {
+  .showcase-copy h3 { color: #22b999; }
+  :root[data-theme="dark"] .showcase-copy h3 { color: #51ceb0; }
+}
+@media (min-width: 701px) and (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .showcase-copy h3 { color: #51ceb0; }
 }

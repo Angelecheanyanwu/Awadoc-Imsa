@@ -20,9 +20,6 @@ export interface Review {
 export const REVIEW: Review = {
  "title": "Preimplantation Genetic Testing for Monogenic Conditions (PGT-M) in the Prevention of Sickle Cell Disease: Epidemiology, Evidence and Outcomes",
  "by": [
-  "AwaDoc Clinical Research Team",
-  "AwaDoc, Nigeria · in partnership with the Institute of Medical Sciences Africa (IMSA), Abuja",
-  "Published: November 2026   ·   Evidence reviewed to: November 2026   ·   Correspondence: www.awadoc.com"
  ],
  "abstract": [
   [

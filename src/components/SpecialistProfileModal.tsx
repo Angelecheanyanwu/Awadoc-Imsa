@@ -7,6 +7,10 @@ import { useInProgressStore } from "@/store/useInProgressStore";
 
 const HIGHLIGHTS = [
   {
+    title: "Founder, Nisa Premier Hospital, Abuja",
+    text: "Founded the hospital in 1996 and grew it into one of Nigeria’s leading fertility and genetics centres.",
+  },
+  {
     title: "Nigeria’s first government authenticated IVF baby",
     text: "Led the team behind the birth in 1998, followed by Nigeria’s first IVF twins, triplets and babies from frozen embryos.",
   },
@@ -31,6 +35,7 @@ const CAREER = [
   "MBA, International Hospital and Healthcare Management, Frankfurt School of Finance & Management",
   "Clinical research fellow in reproductive medicine, Manchester Fertility Services and St Mary’s Hospital, Manchester (1989–1992)",
   "Consultant, Bourn Hall Clinic, Cambridge, the world’s first IVF clinic (1992–1994)",
+  "Founder, Nisa Premier Hospital, Abuja (1996)",
   "Former Chief Consultant and Chairman of the Medical Advisory Committee, National Hospital, Abuja",
 ];
 
@@ -108,18 +113,32 @@ export default function SpecialistProfileModal({ open, onClose }: { open: boolea
             <h2 id="profile-title" className="font-heading text-h2 font-medium leading-[1.08] [-webkit-text-stroke:0.03em_currentColor]">
               Dr Ibrahim Wada, OON
             </h2>
-            <p className="mt-[0.4em] text-label font-semibold uppercase tracking-[0.1em] text-accent max-sm:whitespace-nowrap max-sm:text-[min(var(--text-label),calc(100cqw/23))]">MBBS · FRCOG · FWACS · MBA</p>
+            {/* Beside the name from the small breakpoint up; on a phone it moves under the photo row, see below. */}
+            <p className="mt-[0.4em] text-label font-semibold uppercase leading-snug tracking-[0.1em] text-accent max-sm:hidden">
+              (MBBS, FRCOG, FWACS, MBA)
+              <span className="block">Chief Medical Advisor, AwaDoc</span>
+              <span className="block">Founder, Nisa Premier Hospital, Abuja</span>
+            </p>
           </div>
         </div>
 
+        {/* Phone: the full width of the card, each line on one line, the size following the card's width. */}
+        <div className="@container book-rise mt-[1.2em] sm:hidden" style={{ animationDelay: "230ms" }}>
+          <p className="whitespace-nowrap text-[length:min(var(--text-hero-sub),calc(100cqw/31))] font-semibold uppercase leading-snug tracking-[0.06em] text-accent">
+            (MBBS, FRCOG, FWACS, MBA)
+            <span className="block">Chief Medical Advisor, AwaDoc</span>
+            <span className="block">Founder, Nisa Premier Hospital, Abuja</span>
+          </p>
+        </div>
+
         <p className="book-rise mt-[1.4em] text-hero-sub font-medium leading-relaxed tracking-[-0.035em] text-muted" style={{ animationDelay: "280ms" }}>
-          Dr Wada is one of Nigeria’s pioneers of in vitro fertilisation. He has practised reproductive medicine for over 35 years and has
+          Dr Wada is the founder of Nisa Premier Hospital, Abuja, and one of Nigeria’s pioneers of in vitro fertilisation. He has practised reproductive medicine for over 35 years and has
           championed embryo testing (PGT-M) so that couples who carry the sickle cell gene can have children free of the disease.
         </p>
 
         <div className="book-rise mt-[1.6em] grid gap-3 sm:grid-cols-2" style={{ animationDelay: "380ms" }}>
-          {HIGHLIGHTS.map((h) => (
-            <section key={h.title} className="rounded-[20px] bg-ink/5 p-4">
+          {HIGHLIGHTS.map((h, i) => (
+            <section key={h.title} className={`rounded-[20px] bg-ink/5 p-4 ${i === 0 ? "sm:col-span-2" : ""}`}>
               <h3 className="text-hero-sub font-semibold leading-snug">{h.title}</h3>
               <p className="mt-[0.5em] text-[calc(var(--text-hero-sub)*0.92)] font-medium leading-relaxed tracking-[-0.03em] text-muted">{h.text}</p>
             </section>

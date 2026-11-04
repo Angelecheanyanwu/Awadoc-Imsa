@@ -3,12 +3,12 @@ import { FaApple, FaGooglePlay } from "react-icons/fa";
 // Padding, gaps and icon size are in em, relative to the button's own fluid font size
 // (text-store), so the whole button scales with it and the two always fit side by side.
 const storeButton =
-  "group flex min-w-0 items-center gap-[0.55em] rounded-[0.9em] bg-[#0f1a14] p-[0.65em] text-white ring-1 ring-white/10 transition-all duration-200 ease-out hover:-translate-y-0.5 hover:ring-brand/60 hover:shadow-[0_12px_30px_-10px_var(--color-brand)] active:translate-y-0 active:scale-[0.98] motion-reduce:transition-none motion-reduce:hover:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-500";
+  "group flex min-[1100px]:h-[var(--bh)] min-[1100px]:w-[var(--bw)] min-w-0 items-center gap-[0.55em] rounded-[0.9em] bg-[#0f1a14] p-[0.65em] text-white ring-1 ring-white/10 transition-all duration-200 ease-out hover:-translate-y-0.5 hover:ring-brand/60 hover:shadow-[0_12px_30px_-10px_var(--color-brand)] active:translate-y-0 active:scale-[0.98] motion-reduce:transition-none motion-reduce:hover:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-500";
 
 // The button text is the same responsive size as "in partnership with" (text-hero-sub), and also shrinks with the screen
 // on very narrow phones so the two buttons always fit, like the logos do. The padding is the same on all four sides
 // (0.65em), so the content has an equal gap from the left, right, top and bottom, and the height follows the text.
-const oneRow = "text-[min(var(--text-hero-sub),calc((100vw-2.5rem)/19.5))]";
+const oneRow = "text-[length:var(--pw,var(--text-hero-sub))]";
 
 const iconClass = "size-[1.5em] shrink-0";
 
@@ -25,7 +25,7 @@ export default function GetTheApp() {
         >
         </p>
 
-        <div className="grid grid-cols-[repeat(2,max-content)] justify-center gap-2">
+        <div className="grid grid-cols-[repeat(2,max-content)] justify-center gap-2 min-[798px]:grid-cols-[max-content]">
           <a
             href="https://apps.apple.com/ng/app/awadoc-your-health-assistant/id6769415874"
             target="_blank"

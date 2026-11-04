@@ -20,7 +20,11 @@ export default function Specialist() {
             Dr Ibrahim
             <span>Wada, OON</span>
           </h3>
-          <p className="showcase-credentials">MBBS · FRCOG · FWACS · MBA</p>
+          <p className="showcase-credentials">
+            (MBBS, FRCOG, FWACS, MBA)
+            <span style={{ display: "block", marginTop: "0.4em" }}>Chief Medical Advisor, AwaDoc</span>
+            <span style={{ display: "block", marginTop: "0.4em" }}>Founder, Nisa Premier Hospital, Abuja</span>
+          </p>
           <p className="showcase-bio">
             A pioneer of IVF in Nigeria for over 35 years. He led the team behind Nigeria’s first government authenticated IVF baby in 1998 and
             reported one of the country’s first sickle cell free births following embryo testing.

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import ContentsCard from "@/components/ContentsCard";
 import Footer from "@/components/Footer";
 import HomeButton from "@/components/HomeButton";
 import Logo from "@/components/Logo";
@@ -93,37 +94,16 @@ export default function PgtmPage() {
       </StickyNav>
 
       <main className="gutter relative z-10 pb-[calc(var(--spacing-section)*1.5)] pt-[calc(var(--spacing-section)*0.6)]">
-        <div className="mx-auto grid min-w-0 max-w-[76em] gap-x-[calc(64*var(--u))] gap-y-[calc(40*var(--u))] grid-cols-[minmax(0,1fr)] lg:grid-cols-[14em_minmax(0,1fr)]">
-          <nav aria-label="Table of contents" style={{ animationDelay: "200ms" }} className="book-rise hidden lg:sticky lg:top-28 lg:block lg:self-start">
-            <p className="text-label font-medium uppercase tracking-[0.18em] text-accent">Contents</p>
-            <ol className="mt-[1em] space-y-[0.2em] border-l border-ink/15 text-hero-sub font-medium tracking-[-0.035em]">
-              {sections.map((b) => (
-                <li key={b.k === "h1" ? b.t : ""}>
-                  <a
-                    href={`#${b.k === "h1" ? slug(b.t) : ""}`}
-                    className="-ml-px block border-l border-transparent py-[0.35em] pl-[1em] capitalize text-muted transition-colors hover:border-brand hover:text-brand focus-visible:border-brand focus-visible:text-brand focus-visible:outline-none"
-                  >
-                    {b.k === "h1" ? b.t : ""}
-                  </a>
-                </li>
-              ))}
-            </ol>
-          </nav>
+                <header className="book-rise mx-auto max-w-[56em] text-center" style={{ animationDelay: "120ms" }}>
+          <h1 className="font-heading text-[calc(var(--text-h2)*1.15)] font-medium leading-[1.1] [-webkit-text-stroke:0.04em_currentColor]">
+            {REVIEW.title}
+          </h1>
+        </header>
 
+        <div className="mx-auto mt-[calc(var(--spacing-section)*0.5)] grid min-w-0 max-w-[76em] grid-cols-[minmax(0,1fr)] gap-x-[calc(64*var(--u))] gap-y-[calc(40*var(--u))] lg:grid-cols-[minmax(0,1fr)_19em]">
           <article className="min-w-0">
             <div className="book-rise" style={{ animationDelay: "120ms" }}>
-              <h1 className="mt-[0.8em] font-heading text-[calc(var(--text-h2)*1.15)] font-medium leading-[1.1] [-webkit-text-stroke:0.04em_currentColor]">
-                {REVIEW.title}
-              </h1>
-              <div className="mt-[1.2em] space-y-[0.3em]">
-                {REVIEW.by.map((line, i) => (
-                  <p key={i} className={i === 0 ? "text-hero-sub font-semibold text-ink" : body}>
-                    <Linked t={line} />
-                  </p>
-                ))}
-              </div>
-
-              <section aria-label="Abstract" className="mt-[calc(var(--spacing-section)*0.6)] rounded-[calc(24*var(--u))] border border-ink/15 bg-ink/5 p-[calc(24*var(--u))] md:p-[calc(36*var(--u))]">
+              <section aria-label="Abstract" className="rounded-[calc(24*var(--u))] border border-ink/15 bg-ink/5 p-[calc(24*var(--u))] md:p-[calc(36*var(--u))]">
                 <h2 className="font-heading text-h3 font-medium uppercase tracking-[0.12em]">Abstract</h2>
                 {REVIEW.abstract.map((s, i) => (
                   <p key={i} className={`mt-[1em] ${body}`}>
@@ -227,6 +207,8 @@ export default function PgtmPage() {
               })}
             </div>
           </article>
+
+          <ContentsCard items={sections.map((b) => ({ href: `#${b.k === "h1" ? slug(b.t) : ""}`, label: b.k === "h1" ? b.t : "" }))} />
         </div>
       </main>
 

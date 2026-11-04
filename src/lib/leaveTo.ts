@@ -9,7 +9,8 @@ export function leaveTo(router: ReturnType<typeof useRouter>, href: string) {
     router.push(href);
     return;
   }
+  // The next page starts loading at once, while this one fades, instead of waiting for the fade to finish.
   page.classList.remove("book-fade");
   page.classList.add("book-leave");
-  window.setTimeout(() => router.push(href), 300);
+  router.push(href);
 }

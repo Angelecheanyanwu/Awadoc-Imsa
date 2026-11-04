@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import ContentsCard from "@/components/ContentsCard";
 import Footer from "@/components/Footer";
 import HomeButton from "@/components/HomeButton";
 import Logo from "@/components/Logo";
@@ -250,35 +251,19 @@ export default function PartnershipPage() {
       </StickyNav>
 
       <main className="gutter relative z-10 pb-[calc(var(--spacing-section)*1.5)] pt-[calc(var(--spacing-section)*0.6)]">
-        <div className="mx-auto grid max-w-[76em] gap-x-[calc(64*var(--u))] gap-y-[calc(40*var(--u))] lg:grid-cols-[14em_1fr]">
-          {/* Table of contents: on the left and following you down the page on wide screens, above the text otherwise. */}
-          <nav aria-label="Table of contents" style={{ animationDelay: "200ms" }} className="book-rise hidden lg:sticky lg:top-28 lg:block lg:self-start">
-            <p className="text-label font-medium uppercase tracking-[0.18em] text-accent">Contents</p>
-            <ol className="mt-[1em] space-y-[0.2em] border-l border-ink/15 text-hero-sub font-medium tracking-[-0.035em]">
-              {SECTIONS.map((section) => (
-                <li key={section.title}>
-                  <a
-                    href={`#${slug(section.title)}`}
-                    className="-ml-px block border-l border-transparent capitalize py-[0.35em] pl-[1em] text-muted transition-colors hover:border-brand hover:text-brand focus-visible:border-brand focus-visible:text-brand focus-visible:outline-none"
-                  >
-                    {section.title}
-                  </a>
-                </li>
-              ))}
-            </ol>
-          </nav>
-
-        <article className="min-w-0">
-          <div className="book-rise" style={{ animationDelay: "120ms" }}>
+        <header className="book-rise mx-auto max-w-[56em] text-center" style={{ animationDelay: "120ms" }}>
           <p className="text-label font-medium uppercase tracking-[0.18em] text-accent">About the partnership</p>
           <h1 className="mt-[0.8em] font-heading text-display font-medium leading-[1.05] [-webkit-text-stroke:0.06em_currentColor]">
             AwaDoc × IMSA Genotype Match Programme
           </h1>
-          </div>
+        </header>
+
+        <div className="mx-auto mt-[calc(var(--spacing-section)*0.5)] grid min-w-0 max-w-[76em] grid-cols-[minmax(0,1fr)] gap-x-[calc(64*var(--u))] gap-y-[calc(40*var(--u))] lg:grid-cols-[minmax(0,1fr)_19em]">
+        <article className="min-w-0">
           <div className="book-rise" style={{ animationDelay: "300ms" }}>
 
           {SECTIONS.map((section) => (
-            <section id={slug(section.title)} key={section.title} className="mt-[calc(var(--spacing-section)*0.9)] scroll-mt-28">
+            <section id={slug(section.title)} key={section.title} className="mt-[calc(var(--spacing-section)*0.9)] scroll-mt-28 first:mt-0">
               <h2 className="font-heading capitalize text-h2 font-medium leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]">
                 {section.title}
               </h2>
@@ -314,6 +299,8 @@ export default function PartnershipPage() {
           ))}
           </div>
         </article>
+
+          <ContentsCard items={SECTIONS.map((section) => ({ href: `#${slug(section.title)}`, label: section.title }))} />
         </div>
       </main>
 

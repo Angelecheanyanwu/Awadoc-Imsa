@@ -1,12 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { leaveTo } from "@/lib/leaveTo";
 
 // A round home button: a house in a circle, back to the home page. Same size as the sun / moon switch.
 export default function HomeButton() {
   const router = useRouter();
+  // Load the home page in the background, so it is ready when the button is pressed.
+  useEffect(() => {
+    router.prefetch("/");
+  }, [router]);
   return (
     <Link
       href="/"
