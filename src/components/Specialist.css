@@ -134,6 +134,30 @@
   color: #22b999;
 }
 
+.showcase-copy h3 > span {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.6em;
+}
+
+@media (min-width: 701px) {
+  .showcase-copy h3 { max-width: none; }
+  .showcase-copy h3 > span { flex-wrap: nowrap; }
+}
+
+.showcase-degrees-mobile { display: none; }
+
+.showcase-degrees {
+  color: #102019;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  -webkit-text-stroke: 0;
+  white-space: nowrap;
+}
+
 .showcase-credentials {
   margin-top: 20px;
   color: #102019;
@@ -146,7 +170,7 @@
   max-width: 555px;
   text-align: justify;
   text-justify: inter-word;
-  margin-top: 25px;
+  margin-top: 10px;
   color: #52665e;
   font-size: 0.92rem;
   line-height: 1.72;
@@ -333,7 +357,7 @@
 }
 
 /* Phones: his photo comes first with his name over the bottom of it, then the text, the tags, the button and a small row of figures. */
-@media (max-width: 700px) {
+@media (max-width: 970px) {
   .expert-showcase { padding-inline: 16px; }
   .expert-showcase-inner {
     --name-size: clamp(2.5rem, 12.5vw, 3.6rem);
@@ -392,7 +416,7 @@
     margin: 0 0 calc(var(--name-size) * 1.9 + 12px);
     padding: 0 4px;
     font-size: 0.58rem;
-    color: #102019;
+    color: #159879;
   }
   .showcase-copy h3 {
     position: relative;
@@ -404,6 +428,8 @@
     font-size: var(--name-size);
   }
   /* Each line stays on one line: the size follows the screen width, so the longest line ("Founder, Nisa Premier Hospital, Abuja") always fits. */
+  .showcase-degrees { display: none; }
+  .showcase-degrees-mobile { display: block; }
   .showcase-credentials {
     grid-row: 2;
     margin: 14px 4px 0;
@@ -446,7 +472,8 @@
 }
 :root[data-theme="dark"] .showcase-kicker { color: #6addbb; }
 :root[data-theme="dark"] .showcase-copy h3 > span { color: #51ceb0; }
-:root[data-theme="dark"] .showcase-credentials { color: #edf8f4; }
+:root[data-theme="dark"] .showcase-credentials,
+:root[data-theme="dark"] .showcase-degrees { color: #edf8f4; }
 :root[data-theme="dark"] .showcase-bio { color: #aebdb7; }
 :root[data-theme="dark"] .showcase-tags span {
   border-color: rgb(111 210 183 / 22%);
@@ -470,7 +497,7 @@
 :root[data-theme="dark"] .showcase-metrics > div + div { border-color: rgb(255 255 255 / 9%); }
 :root[data-theme="dark"] .showcase-metrics strong { color: #eff9f5; }
 :root[data-theme="dark"] .showcase-metrics span { color: #82978e; }
-@media (max-width: 700px) {
+@media (max-width: 970px) {
 :root[data-theme="dark"] .showcase-portrait::after { background: linear-gradient(to top, var(--bg) 8%, color-mix(in srgb, var(--bg) 0%, transparent) 100%); }
 :root[data-theme="dark"] .portrait-halo {
   border: 1px solid rgb(85 211 176 / 15%);
@@ -490,7 +517,8 @@
 }
 :root:not([data-theme="light"]) .showcase-kicker { color: #6addbb; }
 :root:not([data-theme="light"]) .showcase-copy h3 > span { color: #51ceb0; }
-:root:not([data-theme="light"]) .showcase-credentials { color: #d3e1dc; }
+:root:not([data-theme="light"]) .showcase-credentials,
+:root:not([data-theme="light"]) .showcase-degrees { color: #d3e1dc; }
 :root:not([data-theme="light"]) .showcase-bio { color: #aebdb7; }
 :root:not([data-theme="light"]) .showcase-tags span {
   border-color: rgb(111 210 183 / 22%);
@@ -515,7 +543,7 @@
 :root:not([data-theme="light"]) .showcase-metrics strong { color: #eff9f5; }
 :root:not([data-theme="light"]) .showcase-metrics span { color: #82978e; }
 }
-@media (prefers-color-scheme: dark) and (max-width: 700px) {
+@media (prefers-color-scheme: dark) and (max-width: 970px) {
 :root:not([data-theme="light"]) .showcase-portrait::after { background: linear-gradient(to top, var(--bg) 8%, color-mix(in srgb, var(--bg) 0%, transparent) 100%); }
 :root:not([data-theme="light"]) .portrait-halo {
   border: 1px solid rgb(85 211 176 / 15%);
@@ -530,4 +558,177 @@
 }
 @media (min-width: 701px) and (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .showcase-copy h3 { color: #51ceb0; }
+}
+
+
+.showcase-photo { display: none; }
+
+/* Wide screens: the panel is two equal halves, the text on the left and his photo in a framed box on the right. */
+@media (min-width: 971px) {
+  .expert-showcase { padding-inline: 5vw; }
+  .expert-showcase-inner {
+    max-width: none;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(32px, 5vw, 80px);
+    min-height: 0;
+    overflow: visible;
+  }
+  .expert-showcase-inner::before,
+  .showcase-orbit,
+  .showcase-quote-mark,
+  .portrait-halo,
+  .showcase-cutout { display: none; }
+  .showcase-copy { width: auto; min-height: 0; padding: 0; }
+  /* The name and his degrees run along one line. */
+  .showcase-copy h3 { max-width: none; font-size: clamp(1.9rem, 2.55vw, 3.4rem); white-space: nowrap; }
+  .showcase-copy h3 > span { display: inline; }
+  .showcase-degrees { margin-left: 0.9em; }
+  .showcase-portrait {
+    container-type: normal;
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: min(75%, 580px);
+    justify-self: end;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 28px;
+    border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+    box-shadow: 0 24px 60px -28px rgb(0 0 0 / 35%);
+  }
+  .showcase-portrait img.showcase-photo {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: center top;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+/* On wide screens the name is in the page's text colour (black in light mode, white in dark mode), not green. */
+@media (min-width: 701px) {
+  .showcase-copy h3,
+  .showcase-copy h3 > span,
+  :root[data-theme="dark"] .showcase-copy h3,
+  :root[data-theme="dark"] .showcase-copy h3 > span,
+  :root:not([data-theme="light"]) .showcase-copy h3,
+  :root:not([data-theme="light"]) .showcase-copy h3 > span { color: var(--ink); }
+}
+
+/* Phones: the same as the wide layout, with his photo in a framed box on top, then the text, and the name and his degrees on one line. */
+@media (max-width: 970px) {
+  .expert-showcase-inner { row-gap: 0; }
+  .showcase-portrait {
+    grid-area: auto;
+    grid-row: 1;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 24px;
+    border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+    box-shadow: 0 20px 48px -26px rgb(0 0 0 / 35%);
+  }
+  .showcase-portrait::after,
+  .portrait-halo,
+  .showcase-cutout { display: none; }
+  .showcase-portrait img.showcase-photo {
+    display: block;
+    position: absolute;
+    inset: 0;
+    right: auto;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    transform: none;
+    object-fit: cover;
+    object-position: center top;
+  }
+  .showcase-kicker { grid-area: auto; grid-row: 2; align-self: auto; margin: 22px 0 0; padding: 0; }
+  .showcase-copy h3 {
+    grid-area: auto;
+    grid-row: 3;
+    align-self: auto;
+    margin-top: 10px;
+    padding: 0;
+    white-space: nowrap;
+    font-size: clamp(0.8rem, calc((100vw - 2rem - 150px) / 10.3), var(--name-size));
+  }
+  .showcase-copy h3 > span { display: inline; }
+  .showcase-degrees { display: inline; margin-left: 0.9em; font-size: 0.5rem; letter-spacing: 0.06em; }
+  .showcase-degrees-mobile { display: none; }
+  .showcase-credentials { grid-row: 4; margin: 12px 0 0; }
+  .showcase-bio { grid-row: 5; margin: 10px 0 0; }
+  .showcase-action { grid-row: 6; margin: 18px 0 0; }
+}
+
+@media (max-width: 970px) {
+  .showcase-copy h3 > span,
+  :root[data-theme="dark"] .showcase-copy h3 > span,
+  :root:not([data-theme="light"]) .showcase-copy h3 > span { color: var(--ink); }
+}
+
+/* Tablets: the same stacked layout, with the photo box kept to a sensible size and the page's side margin. */
+@media (min-width: 701px) and (max-width: 970px) {
+  .expert-showcase { padding-inline: 5vw; }
+  .showcase-portrait { width: min(100%, 520px); justify-self: center; }
+  .showcase-copy h3 { font-size: clamp(0.8rem, calc((90vw - 150px) / 10.3), 3.4rem); }
+}
+
+/* Phones and tablets: a small photo beside his name, and the rest of the text under them. */
+@media (max-width: 970px) {
+  .expert-showcase-inner {
+    --pw: clamp(96px, 28vw, 150px);
+    grid-template-columns: var(--pw) minmax(0, 1fr);
+    grid-template-rows: 1fr auto auto 1fr auto auto auto;
+    column-gap: 14px;
+  }
+  .showcase-portrait {
+    grid-column: 1;
+    grid-row: 1 / span 4;
+    width: 100%;
+    justify-self: stretch;
+    border-radius: 18px;
+  }
+  .showcase-kicker { grid-column: 2; grid-row: 2; margin: 0 0 6px; font-size: 0.55rem; letter-spacing: 0.08em; white-space: normal; }
+  .showcase-copy h3 {
+    grid-column: 2;
+    grid-row: 3;
+    margin: 0;
+    font-size: clamp(0.8rem, calc((100vw - 2rem - var(--pw) - 14px) / 10.3), var(--name-size));
+  }
+  .showcase-degrees { display: block; margin: 8px 0 0; font-size: 0.55rem; }
+  .showcase-credentials { grid-column: 1 / -1; grid-row: 5; margin: 18px 0 0; }
+  .showcase-bio { grid-column: 1 / -1; grid-row: 6; }
+  .showcase-action { grid-column: 1 / -1; grid-row: 7; }
+}
+
+@media (min-width: 701px) and (max-width: 970px) {
+  .showcase-copy h3 { font-size: clamp(0.8rem, calc((90vw - var(--pw) - 14px) / 10.3), 3.4rem); }
+}
+
+/* "View full profile" is the same size as the "Start booking" button: its height, text size and side padding. */
+.showcase-action {
+  min-height: var(--spacing-btn);
+  padding: 0 1.4em;
+  font-size: var(--text-btn);
+  font-weight: 700;
+}
+
+/* Beside the small photo, "Nigeria's IVF pioneer in your corner" stays on one line: its size follows the room left of the photo. */
+@media (max-width: 970px) {
+  .showcase-kicker {
+    white-space: nowrap;
+    font-size: min(0.69rem, calc((100vw - 2rem - var(--pw) - 14px) / 25));
+  }
+}
+@media (min-width: 701px) and (max-width: 970px) {
+  .showcase-kicker { font-size: min(0.69rem, calc((90vw - var(--pw) - 14px) / 25)); }
 }

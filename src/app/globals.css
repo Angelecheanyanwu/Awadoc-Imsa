@@ -4,7 +4,7 @@
   /* A shared length unit (1px at 1440px wide) for NON-text sizes only: logo heights, icon
      and avatar sizes, widths. Text uses the fluid tokens in @theme below. */
   --u: clamp(0.8px, 0.0694vw, 1.35px);
-  --bg: #ffffff;
+  --bg: #f7faf9;
   --ink: #0f1a14;
   --muted: #4a5a51;
   --helix-o: 0.6; /* how strong the helix is on the hero (dimmed on the white theme) */
@@ -338,4 +338,23 @@ html {
     color-mix(in srgb, var(--bg) 55%, transparent) 65%,
     transparent
   );
+}
+
+/* The contact form's drop downs: one arrow, drawn the same way and in the same place in every drop down, in the theme's text colour,
+   and the list itself uses the page colours so it is readable in both themes. */
+.contact-select {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 2.6em;
+  background-repeat: no-repeat;
+  background-position: right 0.9em center;
+  background-size: 1.1em;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f1a14' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}
+:root[data-theme="dark"] .contact-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e8f3ec' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}
+.contact-select option {
+  background-color: var(--bg);
+  color: var(--ink);
 }

@@ -17,11 +17,13 @@ export default function Specialist() {
         <div className="showcase-copy">
           <p className="showcase-kicker">Nigeria’s IVF pioneer in your corner</p>
           <h3 id="expert-title">
-            Dr Ibrahim
-            <span>Wada, OON</span>
+            Dr Ibrahim{" "}
+            <span>
+              Wada, OON<small className="showcase-degrees">(MBBS, FRCOG, FWACS, MBA)</small>
+            </span>
           </h3>
           <p className="showcase-credentials">
-            (MBBS, FRCOG, FWACS, MBA)
+            <span className="showcase-degrees-mobile">(MBBS, FRCOG, FWACS, MBA)</span>
             <span style={{ display: "block", marginTop: "0.4em" }}>Chief Medical Advisor, AwaDoc</span>
             <span style={{ display: "block", marginTop: "0.4em" }}>Founder, Nisa Premier Hospital, Abuja</span>
           </p>
@@ -37,7 +39,17 @@ export default function Specialist() {
 
         <div className="showcase-portrait">
           <div className="portrait-halo" aria-hidden="true" />
+          {/* On a wide screen his photo sits in a framed box (this one); below that, the cut out photo is used. */}
           <Image
+            className="showcase-photo"
+            src="/team/wada.jpg"
+            alt="Dr Ibrahim Wada, fertility specialist and IVF pioneer"
+            width={720}
+            height={900}
+            sizes="(min-width: 971px) 40vw, 100vw"
+          />
+          <Image
+            className="showcase-cutout"
             src="/team/wada-portrait.png"
             alt="Dr Ibrahim Wada, fertility specialist and IVF pioneer"
             width={1072}

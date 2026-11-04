@@ -92,13 +92,13 @@ export default function SpecialistProfileModal({ open, onClose }: { open: boolea
         role="dialog"
         aria-modal="true"
         aria-labelledby="profile-title"
-        className={`[scrollbar-width:none] [&::-webkit-scrollbar]:hidden relative max-h-[min(88dvh,60rem)] w-full max-w-[44rem] origin-center overflow-y-auto rounded-[28px] border border-white/40 bg-linear-to-br from-bg/95 via-bg/92 to-bg/88 p-6 text-ink shadow-[0_24px_80px_-16px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.5)] outline-none backdrop-blur-md transition-[transform,opacity] duration-[650ms] ease-[cubic-bezier(0.16,0.8,0.24,1)] motion-reduce:transition-none sm:p-9 ${shown ? "translate-y-0 scale-100 opacity-100" : "translate-y-5 scale-[0.95] opacity-0"}`}
+        className={`scrollbar-none [&::-webkit-scrollbar]:hidden relative max-h-[min(88dvh,60rem)] w-full max-w-176 origin-center overflow-y-auto rounded-[28px] border border-white/40 bg-linear-to-br from-bg/95 via-bg/92 to-bg/88 p-6 text-ink shadow-[0_24px_80px_-16px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.5)] outline-none backdrop-blur-md transition-[transform,opacity] duration-650 ease-[cubic-bezier(0.16,0.8,0.24,1)] motion-reduce:transition-none sm:p-9 ${shown ? "translate-y-0 scale-100 opacity-100" : "translate-y-5 scale-[0.95] opacity-0"}`}
       >
         <button
           type="button"
           onClick={onClose}
           aria-label="Close profile"
-          className="absolute right-4 top-4 grid size-10 cursor-pointer place-items-center rounded-full border border-ink/20 bg-bg/70 transition-colors hover:border-brand hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+          className="absolute right-4 top-4 z-10 grid size-10 cursor-pointer place-items-center rounded-full border border-ink/20 bg-bg/70 transition-colors hover:border-brand hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
         >
           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="size-4">
             <path d="M6 6l12 12M18 6 6 18" />
@@ -110,12 +110,17 @@ export default function SpecialistProfileModal({ open, onClose }: { open: boolea
             <Image src="/team/wada-portrait.png" alt="" width={1072} height={1976} sizes="80px" className="absolute left-1/2 top-[6%] h-[190%] w-auto max-w-none -translate-x-1/2 object-cover object-top" />
           </div>
           <div className="@container min-w-0 flex-1">
-            <h2 id="profile-title" className="font-heading text-h2 font-medium leading-[1.08] [-webkit-text-stroke:0.03em_currentColor]">
-              Dr Ibrahim Wada, OON
+            <h2
+              id="profile-title"
+              className="font-heading text-h2 font-medium leading-[1.08] [-webkit-text-stroke:0.03em_currentColor] sm:text-[length:clamp(1.1rem,calc((100cqw-14rem)/10.9),var(--text-h2))]"
+            >
+              <span className="sm:whitespace-nowrap">Dr Ibrahim Wada, OON</span>
+              <span className="block sm:inline-block mt-[0.5em] sm:mt-0 sm:ml-[0.9em] align-baseline font-sans whitespace-nowrap text-[0.62rem] font-semibold uppercase tracking-widest text-ink [-webkit-text-stroke:0]">
+                (MBBS, FRCOG, FWACS, MBA)
+              </span>
             </h2>
             {/* Beside the name from the small breakpoint up; on a phone it moves under the photo row, see below. */}
-            <p className="mt-[0.4em] text-label font-semibold uppercase leading-snug tracking-[0.1em] text-accent max-sm:hidden">
-              (MBBS, FRCOG, FWACS, MBA)
+            <p className="mt-[0.4em] text-label font-semibold uppercase leading-snug tracking-widest text-accent max-sm:hidden">
               <span className="block">Chief Medical Advisor, AwaDoc</span>
               <span className="block">Founder, Nisa Premier Hospital, Abuja</span>
             </p>
@@ -124,8 +129,7 @@ export default function SpecialistProfileModal({ open, onClose }: { open: boolea
 
         {/* Phone: the full width of the card, each line on one line, the size following the card's width. */}
         <div className="@container book-rise mt-[1.2em] sm:hidden" style={{ animationDelay: "230ms" }}>
-          <p className="whitespace-nowrap text-[length:min(var(--text-hero-sub),calc(100cqw/31))] font-semibold uppercase leading-snug tracking-[0.06em] text-accent">
-            (MBBS, FRCOG, FWACS, MBA)
+          <p className="whitespace-nowrap text-[min(var(--text-hero-sub),calc(100cqw/31))] font-semibold uppercase leading-snug tracking-[0.06em] text-accent">
             <span className="block">Chief Medical Advisor, AwaDoc</span>
             <span className="block">Founder, Nisa Premier Hospital, Abuja</span>
           </p>

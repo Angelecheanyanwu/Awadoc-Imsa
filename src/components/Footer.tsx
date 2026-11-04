@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTiktok, FaXTwitter, FaYoutube } from "react-icons/fa6";
-import FooterAskNoura from "@/components/FooterAskNoura";
 import FooterWhyTrust from "@/components/FooterWhyTrust";
 import GetTheApp from "@/components/GetTheApp";
 import Partnership from "@/components/Partnership";
@@ -15,8 +14,7 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
   {
     title: "Explore",
     links: [
-      { label: "FAQ", href: "/#faq" },
-      { label: "Ask Noura", noura: true },
+      { label: "FAQs", href: "/#faq" },
     ],
   },
   {
@@ -28,7 +26,7 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
   },
   {
     title: "Support",
-    links: [{ label: "Contact us", href: "https://www.awadoc.com", external: true }, { label: "Donate", href: "https://paystack.shop/pay/w7dn37dhe9", external: true }],
+    links: [{ label: "Contact us", href: "/contact" }, { label: "Donate", href: "/donate" }],
   },
   {
     title: "Legal",
@@ -46,7 +44,7 @@ const SOCIALS = [
 ];
 
 const linkClass =
-  "text-[length:var(--pw)] font-medium tracking-[-0.035em] text-muted transition-colors hover:text-brand focus-visible:text-brand focus-visible:outline-none";
+  "text-(length:--pw) font-medium tracking-[-0.035em] text-muted transition-colors hover:text-brand focus-visible:text-brand focus-visible:outline-none";
 
 // The footer uses the page's own colors, so it follows the sun/moon switch.
 export default function Footer() {
@@ -72,16 +70,14 @@ export default function Footer() {
             // On a phone the first column (Explore, Support) is as wide as the AwaDoc logo, with its text centred on the logo's centre.
             <div key={col.title} className={i % 2 === 0 ? "max-[797px]:w-[calc(6.57*var(--m))]" : ""}>
               <div className={i % 2 === 0 ? "max-[797px]:mx-auto max-[797px]:w-[calc(7.6*var(--pw))]" : ""}>
-              <h2 className="font-heading text-[length:var(--pw)] font-medium [-webkit-text-stroke:0.03em_currentColor]">{col.title}</h2>
+              <h2 className="font-heading text-(length:--pw) font-medium [-webkit-text-stroke:0.03em_currentColor]">{col.title}</h2>
               <ul className="mt-[0.8em] space-y-[0.55em] min-[1100px]:space-y-[0.95em]">
                 {col.links.map((l) => (
                   <li key={l.label}>
                     {l.trust ? (
                       <FooterWhyTrust className={linkClass} />
-                    ) : l.noura ? (
-                      <FooterAskNoura className={linkClass} />
                     ) : !l.href ? (
-                      <span className="text-[length:var(--pw)] font-medium tracking-[-0.035em] text-muted">{l.label}</span>
+                      <span className="text-(length:--pw) font-medium tracking-[-0.035em] text-muted">{l.label}</span>
                     ) : l.external ? (
                       <a href={l.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
                         {l.label}
@@ -114,12 +110,7 @@ export default function Footer() {
           ))}
         </ul>
         <p className="text-justify min-[798px]:order-first text-[calc(var(--text-hero-sub)*0.7)] font-medium leading-relaxed tracking-[-0.02em] text-muted min-[798px]:text-left">
-          © 2026 AwaDoc · In partnership with IMSA<span className="min-[798px]:hidden"> · </span>
-          <br className="max-[797px]:hidden" />
-          General information, not a diagnosis. Your data is handled under the Nigeria Data Protection Act 2023. <br className="max-[797px]:hidden" />
-          <a href={TERMS} target="_blank" rel="noopener noreferrer" className="underline-offset-2 transition-colors hover:text-brand hover:underline">Terms</a>
-          {" · "}
-          <Link href={PRIVACY} className="underline-offset-2 transition-colors hover:text-brand hover:underline">Privacy</Link>
+          © 2026 AwaDoc · In partnership with IMSA
         </p>
       </div>
 

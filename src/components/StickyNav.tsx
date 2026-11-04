@@ -1,20 +1,8 @@
-"use client";
-
-import { useEffect, useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 // The nav is fixed to the top of the screen, so it follows you as you scroll. A spacer of the
-// same height keeps the hero exactly where it was. At the top the nav is see-through; once the
-// page scrolls it gets a frosted background so the content passing under it stays readable.
+// same height keeps the hero exactly where it was. It has no background of its own: nothing fades or blurs over the page behind it.
 export default function StickyNav({ children, spacer = true }: { children: ReactNode; spacer?: boolean }) {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   const padding = "pb-6 pt-[max(1.5rem,env(safe-area-inset-top))]";
 
   return (
@@ -27,9 +15,7 @@ export default function StickyNav({ children, spacer = true }: { children: React
       )}
 
       <nav
-        className={`gutter fixed inset-x-0 top-0 z-30 grid grid-cols-[1fr_auto_1fr] items-center gap-x-[calc(8*var(--u))] text-nav transition-opacity duration-200 motion-reduce:transition-none ${padding} ${
-          scrolled ? "bg-linear-to-b from-bg/90 via-bg/60 to-transparent" : ""
-        }`}
+        className={`gutter fixed inset-x-0 top-0 z-30 grid grid-cols-[1fr_auto_1fr] items-center gap-x-[calc(8*var(--u))] text-nav transition-opacity duration-200 motion-reduce:transition-none ${padding}`}
       >
         {children}
       </nav>
