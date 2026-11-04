@@ -6,7 +6,6 @@ import { useFaqStore } from "@/store/useFaqStore";
 
 // Amounts are in naira; they are converted for display when another currency is chosen.
 const plans = [
-  { ngn: 50_000, description: "Virtual counselling, any country", featured: false },
   { ngn: 80_000, description: "In person counselling", featured: false },
   { ngn: 7_500_000, description: "Full treatment package", featured: true },
 ];
@@ -28,7 +27,7 @@ export default function Pricing() {
         <h2 className="mb-[calc(64*var(--u))] max-sm:mb-[calc(24*var(--u))] text-center font-heading text-h2 max-sm:text-[min(var(--text-h2),calc((100vw-3.6rem)/16.5))] font-medium leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]">
           Know your costs upfront
         </h2>
-        <div className="grid grid-cols-1 gap-[calc(16*var(--u))] sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-[calc(16*var(--u))] sm:grid-cols-2">
           {plans.map(({ ngn, description, featured }) => {
             const { symbol, digits } = formatPrice(ngn, currency);
             return (
@@ -36,7 +35,7 @@ export default function Pricing() {
               key={ngn}
               className={
                 featured
-                  ? `${cardBase} sm:col-span-2 lg:col-span-1 bg-[#0f1a14] text-[#e8f3ec] shadow-[0_16px_36px_-14px_rgba(0,0,0,0.5)] ring-1 ring-white/10`
+                  ? `${cardBase} bg-[#0f1a14] text-[#e8f3ec] shadow-[0_16px_36px_-14px_rgba(0,0,0,0.5)] ring-1 ring-white/10`
                   : `${cardBase} border border-ink/10 bg-bg/50 shadow-[0_1px_2px_rgba(0,0,0,0.04)]`
               }
             >
