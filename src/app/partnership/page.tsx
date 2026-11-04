@@ -226,7 +226,9 @@ const SECTIONS: { title: string; blocks: Block[] }[] = [
 
 const slug = (t: string) => t.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim().replace(/ /g, "");
 
-const body = "text-hero-sub font-medium leading-relaxed tracking-[-0.035em] text-muted";
+// The text under the page title (centred) and the body text; the body text is justified on a phone.
+const bodyPlain = "text-hero-sub font-medium leading-relaxed tracking-[-0.035em] text-muted";
+const body = `${bodyPlain} max-sm:text-justify`;
 
 function Lead({ item }: { item: Item }) {
   return (

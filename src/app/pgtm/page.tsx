@@ -16,7 +16,9 @@ export const metadata: Metadata = {
 };
 
 const slug = (t: string) => t.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim().replace(/ /g, "");
-const body = "text-hero-sub font-medium leading-relaxed tracking-[-0.035em] text-muted";
+// The text under the page title (centred) and the body text; the body text is justified on a phone.
+const bodyPlain = "text-hero-sub font-medium leading-relaxed tracking-[-0.035em] text-muted";
+const body = `${bodyPlain} max-sm:text-justify`;
 
 // Text with its superscript reference numbers (the small raised 1, 2,5 and so on).
 function Segs({ s }: { s: Seg[] }) {

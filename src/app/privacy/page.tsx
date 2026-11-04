@@ -139,7 +139,9 @@ const SECTIONS: { title: string; blocks: Block[] }[] = [
 
 const slug = (t: string) => t.toLowerCase().replace(/[^a-z0-9]+/g, "");
 
-const body = "text-hero-sub font-medium leading-relaxed tracking-[-0.035em] text-muted";
+// The text under the page title (centred) and the body text; the body text is justified on a phone.
+const bodyPlain = "text-hero-sub font-medium leading-relaxed tracking-[-0.035em] text-muted";
+const body = `${bodyPlain} max-sm:text-justify`;
 
 // A paragraph, with the data protection officer's email as a link.
 function Text({ t }: { t: string }) {
@@ -173,7 +175,7 @@ export default function PrivacyPage() {
       <main className="gutter relative z-10 pb-[calc(var(--spacing-section)*1.5)] pt-[calc(var(--spacing-section)*0.6)]">
                 <header className="book-rise mx-auto max-w-[56em] text-center" style={{ animationDelay: "120ms" }}>
           <h1 className="font-heading text-display font-medium leading-[1.05] [-webkit-text-stroke:0.06em_currentColor]">Privacy policy</h1>
-          <p className={`mt-[1em] ${body}`}>Last updated 3 November 2026</p>
+          <p className={`mt-[1em] ${bodyPlain}`}>Last updated 3 November 2026</p>
         </header>
 
         <div className="mx-auto mt-[calc(var(--spacing-section)*0.5)] grid min-w-0 max-w-[76em] grid-cols-[minmax(0,1fr)] gap-x-[calc(64*var(--u))] gap-y-[calc(40*var(--u))] lg:grid-cols-[minmax(0,1fr)_19em]">

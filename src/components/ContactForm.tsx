@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 const EMAIL = "genomics@awadoc.com";
 
-const CATEGORIES = ["Couple or individual", "Doctor or clinic", "Partner or organisation", "Researcher", "Media", "Other"];
+const CATEGORIES = ["Client interested in PGT-M", "Donor or investor", "Researcher", "Organisation or company", "NGO", "Other"];
 
 const COUNTRIES = [
   "Nigeria", "Ghana", "Kenya", "South Africa", "Cameroon", "Senegal", "Ivory Coast", "Egypt", "Ethiopia", "Uganda", "Tanzania",
@@ -53,7 +53,7 @@ function Dropdown({ name, options, placeholder, invalid, onPick }: { name: strin
   }
 
   return (
-    <div ref={box} className="relative" onKeyDown={onKey}>
+    <div ref={box} className="relative text-hero-sub" onKeyDown={onKey}>
       <input type="hidden" name={name} value={value} />
       <button
         type="button"
@@ -63,7 +63,7 @@ function Dropdown({ name, options, placeholder, invalid, onPick }: { name: strin
           setActive(Math.max(0, options.indexOf(value)));
           setOpen((o) => !o);
         }}
-        className={`${field} contact-select block cursor-pointer text-left ${value ? "" : "text-muted/70"} ${invalid ? "border-red-500" : ""}`}
+        className={`${field} contact-select block cursor-pointer text-left ${value ? "" : "text-muted/70"} ${invalid ? "border-red-500" : ""} ${open ? "border-brand shadow-[0_0_0_4px_rgba(34,187,155,0.2)]" : ""}`}
       >
         {value || placeholder}
       </button>
@@ -136,6 +136,7 @@ export default function ContactForm() {
       <div className="grid flex-1 gap-[0.6em] sm:grid-cols-2 sm:grid-rows-[repeat(4,auto)_1fr]">
         <label className={`${label} sm:col-span-2`}>
           I am a *
+          {/* A styled list that always opens downwards, under the field ("Select a category" is only the prompt, not a choice). */}
           <Dropdown name="category" options={CATEGORIES} placeholder="Select a category" invalid={noCategory} onPick={() => setNoCategory(false)} />
           {noCategory && <span className="mt-[0.3em] block text-label font-semibold text-red-500">Please choose one.</span>}
         </label>

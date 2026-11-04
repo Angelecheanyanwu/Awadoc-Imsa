@@ -193,7 +193,9 @@ const SOURCES_TITLE = "Sources";
 
 const slug = (t: string) => t.toLowerCase().replace(/[^a-z0-9]+/g, "");
 
-const body = "text-hero-sub font-medium leading-relaxed tracking-[-0.035em] text-muted";
+// The text under the page title (centred) and the body text; the body text is justified on a phone.
+const bodyPlain = "text-hero-sub font-medium leading-relaxed tracking-[-0.035em] text-muted";
+const body = `${bodyPlain} max-sm:text-justify`;
 
 // Text with ^12 turned into a superscript reference number that links to that source.
 function Text({ t }: { t: string }) {
@@ -264,7 +266,7 @@ export default function EvidencePage() {
           <h1 className="font-heading text-display font-medium leading-[1.05] [-webkit-text-stroke:0.06em_currentColor]">
             The evidence behind sickle cell free pregnancies
           </h1>
-          <p className={`mt-[1em] ${body}`}>
+          <p className={`mt-[1em] ${bodyPlain}`}>
             How common sickle cell disease is, how embryo testing (PGT-M) works, and what published studies have recorded about its success and
             accuracy. Reviewed November 2026.
           </p>

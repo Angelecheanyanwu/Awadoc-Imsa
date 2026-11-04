@@ -732,3 +732,39 @@
 @media (min-width: 701px) and (max-width: 970px) {
   .showcase-kicker { font-size: min(0.69rem, calc((90vw - var(--pw) - 14px) / 25)); }
 }
+
+/* The section sits in a bordered box that lines up with the box above it ("First clinical research lab in Africa"): the same side margin
+   (12px on a phone, 5% of the screen from 640px up), border, corners and shadow. */
+.expert-showcase { padding-inline: 12px; }
+@media (min-width: 640px) {
+  .expert-showcase { padding-inline: 5vw; }
+}
+.expert-showcase-inner {
+  max-width: none;
+  padding: calc(20 * var(--u));
+  border: 1px solid rgb(255 255 255 / 40%);
+  border-radius: calc(32 * var(--u));
+  box-shadow: 0 24px 60px -16px rgb(0 0 0 / 40%), inset 0 1px 0 rgb(255 255 255 / 50%);
+}
+@media (min-width: 768px) {
+  .expert-showcase-inner { padding: calc(48 * var(--u)); }
+}
+
+/* The text sizes follow the room left inside the box. */
+@media (max-width: 970px) {
+  .showcase-copy h3 { font-size: clamp(0.8rem, calc((100vw - 5rem - var(--pw) - 14px) / 10.3), var(--name-size)); }
+  .showcase-kicker { font-size: min(0.69rem, calc((100vw - 5rem - var(--pw) - 14px) / 25)); }
+}
+@media (min-width: 701px) and (max-width: 970px) {
+  .showcase-copy h3 { font-size: clamp(0.8rem, calc((90vw - 4.5rem - var(--pw) - 14px) / 10.3), 3.4rem); }
+  .showcase-kicker { font-size: min(0.69rem, calc((90vw - 4.5rem - var(--pw) - 14px) / 25)); }
+}
+@media (min-width: 971px) {
+  .showcase-copy h3 { font-size: clamp(1.6rem, 2.1vw, 3.2rem); }
+}
+
+/* Phones and tablets: his photo beside the name is cropped to his head and shoulders (a wide frame, the top of the picture), not shown full length. */
+@media (max-width: 970px) {
+  .showcase-portrait { aspect-ratio: 1.35 / 1; align-self: center; }
+  .showcase-portrait img.showcase-photo { object-position: center top; transform: translateY(6%) scale(1.5); transform-origin: 46% 14%; }
+}
