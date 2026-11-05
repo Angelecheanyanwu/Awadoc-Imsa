@@ -189,9 +189,6 @@ export default function ContactForm() {
       >
         Send message
       </button>
-      <p className="mt-[0.6em] text-[calc(var(--text-hero-sub)*0.85)] font-medium leading-relaxed text-muted lg:text-center lg:text-[calc(var(--text-hero-sub)*0.68)]">
-        Not for medical emergencies. If you need urgent care, contact your local emergency services.
-      </p>
     </form>
   );
 }

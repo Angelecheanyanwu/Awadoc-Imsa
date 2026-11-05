@@ -117,9 +117,7 @@ export default function ContactPage() {
           </div>
 
           <div className="book-rise flex flex-col max-lg:order-1" style={{ animationDelay: "300ms" }}>
-            <h2 className="font-heading text-[calc(var(--text-h2)*0.8)] font-medium leading-[1.12] lg:text-[calc(var(--text-h2)*0.62)] [-webkit-text-stroke:0.03em_currentColor]">Send message</h2>
-            <p className={`mt-[0.4em] ${small}`}>Please fill out the form below. Fields marked * are required.</p>
-            <div id="message" className="mt-[0.9em] flex-1 scroll-mt-28">
+            <div id="message" className="flex-1 scroll-mt-28">
               <ContactForm />
             </div>
           </div>

@@ -110,7 +110,7 @@ export default function Footer() {
           ))}
         </ul>
         <p className="text-justify min-[798px]:order-first text-[calc(var(--text-hero-sub)*0.7)] font-medium leading-relaxed tracking-[-0.02em] text-muted min-[798px]:text-left">
-          © 2026 AwaDoc · In partnership with IMSA
+          © 2026 AwaDoc
         </p>
       </div>
 

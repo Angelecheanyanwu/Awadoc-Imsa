@@ -6,7 +6,7 @@ import { useFaqStore } from "@/store/useFaqStore";
 
 // Amounts are in naira; they are converted for display when another currency is chosen.
 const plans = [
-  { ngn: 80_000, description: "In person counselling", featured: false },
+  { ngn: 50_000, description: "Virtual counselling, any country", featured: false },
   { ngn: 7_500_000, description: "Full treatment package", featured: true },
 ];
 
