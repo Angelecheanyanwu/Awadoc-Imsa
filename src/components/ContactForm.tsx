@@ -131,7 +131,7 @@ export default function ContactForm() {
     );
 
   return (
-    <form onSubmit={onSubmit} className="flex h-full flex-col lg:rounded-3xl lg:border lg:border-brand lg:p-[1em] [[data-theme=dark]_&]:lg:border-white">
+    <form onSubmit={onSubmit} className="flex h-full flex-col lg:rounded-3xl lg:border lg:border-brand lg:p-[1em] in-data-[theme=dark]:lg:border-white">
 
       <div className="grid flex-1 gap-[0.6em] sm:grid-cols-2 sm:grid-rows-[repeat(4,auto)_1fr]">
         <label className={`${label} sm:col-span-2`}>

@@ -28,8 +28,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "IMSA",
-  description: "IMSA",};
+  title: "AwaDoc Genomics",
+  description: "AwaDoc Genomics helps couples who carry the sickle cell gene have children free of the disease.",
+};
 
 export default function RootLayout({
   children,
