@@ -174,7 +174,7 @@ export default function PrivacyPage() {
 
       <main className="gutter relative z-10 pb-[calc(var(--spacing-section)*1.5)] pt-[calc(var(--spacing-section)*0.6)]">
                 <header className="book-rise mx-auto max-w-[56em] text-center" style={{ animationDelay: "120ms" }}>
-          <h1 className="font-heading text-display font-medium leading-[1.05] [-webkit-text-stroke:0.06em_currentColor]">Privacy policy</h1>
+          <h1 className="font-heading text-display font-medium leading-[1.05] [-webkit-text-stroke:0.015em_currentColor]">Privacy policy</h1>
           <p className={`mt-[1em] ${bodyPlain}`}>Last updated 3 November 2026</p>
         </header>
 
@@ -183,7 +183,7 @@ export default function PrivacyPage() {
             <div className="book-rise" style={{ animationDelay: "300ms" }}>
               {SECTIONS.map((section, i) => (
                 <section id={slug(section.title)} key={section.title} className="mt-[calc(var(--spacing-section)*0.9)] scroll-mt-28 first:mt-0">
-                  <h2 className="font-heading text-h2 font-medium leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]">
+                  <h2 className="font-heading text-h2 font-medium leading-[1.06] [-webkit-text-stroke:0.015em_currentColor]">
                     {i + 1}. {section.title}
                   </h2>
                   {section.blocks.map((block, j) =>

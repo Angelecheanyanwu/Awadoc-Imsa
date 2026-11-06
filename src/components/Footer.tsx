@@ -70,7 +70,7 @@ export default function Footer() {
             // On a phone the first column (Explore, Support) is as wide as the AwaDoc logo, with its text centred on the logo's centre.
             <div key={col.title} className={i % 2 === 0 ? "max-[797px]:w-[calc(6.57*var(--m))]" : ""}>
               <div className={i % 2 === 0 ? "max-[797px]:mx-auto max-[797px]:w-[calc(7.6*var(--pw))]" : ""}>
-              <h2 className="font-heading text-(length:--pw) font-medium [-webkit-text-stroke:0.03em_currentColor]">{col.title}</h2>
+              <h2 className="font-heading text-(length:--pw) font-medium [-webkit-text-stroke:0.015em_currentColor]">{col.title}</h2>
               <ul className="mt-[0.8em] space-y-[0.55em] min-[1100px]:space-y-[0.95em]">
                 {col.links.map((l) => (
                   <li key={l.label}>

@@ -56,7 +56,7 @@ export default function InProgressModal() {
         aria-labelledby="in-progress-title"
         className={`w-full max-w-[24rem] origin-center rounded-[28px] border border-white/40 bg-linear-to-br from-bg/90 via-bg/82 to-bg/75 p-6 text-center text-ink shadow-[0_24px_80px_-16px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.5)] outline-none backdrop-blur-[12px] transition-[transform,opacity] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${shown ? "scale-100 opacity-100" : "scale-[0.94] opacity-0"}`}
       >
-        <h2 id="in-progress-title" className="font-heading text-h2 font-medium leading-tight [-webkit-text-stroke:0.03em_currentColor]">
+        <h2 id="in-progress-title" className="font-heading text-h2 font-medium leading-tight [-webkit-text-stroke:0.015em_currentColor]">
           Booking is in progress
         </h2>
         <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-center">

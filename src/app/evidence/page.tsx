@@ -263,7 +263,7 @@ export default function EvidencePage() {
 
       <main className="gutter relative z-10 pb-[calc(var(--spacing-section)*1.5)] pt-[calc(var(--spacing-section)*0.6)]">
                 <header className="book-rise mx-auto max-w-[56em] text-center" style={{ animationDelay: "120ms" }}>
-          <h1 className="font-heading text-display font-medium leading-[1.05] [-webkit-text-stroke:0.06em_currentColor]">
+          <h1 className="font-heading text-display font-medium leading-[1.05] [-webkit-text-stroke:0.015em_currentColor]">
             The evidence behind sickle cell free pregnancies
           </h1>
           <p className={`mt-[1em] ${bodyPlain}`}>
@@ -277,7 +277,7 @@ export default function EvidencePage() {
             <div className="book-rise" style={{ animationDelay: "300ms" }}>
               {SECTIONS.map((section, i) => (
                 <section id={slug(section.title)} key={section.title} className="mt-[calc(var(--spacing-section)*0.9)] scroll-mt-28 first:mt-0">
-                  <h2 className="font-heading text-h2 font-medium leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]">
+                  <h2 className="font-heading text-h2 font-medium leading-[1.06] [-webkit-text-stroke:0.015em_currentColor]">
                     {i + 1}. {section.title}
                   </h2>
                   {section.blocks.map((block, j) => {
@@ -298,7 +298,7 @@ export default function EvidencePage() {
                         <div key={j} className="mt-[1.2em] grid gap-3 sm:grid-cols-2">
                           {block.stats.map(([value, text]) => (
                             <div key={value} className="rounded-[20px] bg-ink/5 p-[1.1em]">
-                              <p className="font-heading text-h2 font-medium leading-none text-accent [-webkit-text-stroke:0.03em_currentColor]">{value}</p>
+                              <p className="font-heading text-h2 font-medium leading-none text-accent [-webkit-text-stroke:0.015em_currentColor]">{value}</p>
                               <p className={`mt-[0.6em] ${body}`}>
                                 <Text t={text} />
                               </p>
@@ -324,7 +324,7 @@ export default function EvidencePage() {
               ))}
 
               <section id={slug(SOURCES_TITLE)} className="mt-[calc(var(--spacing-section)*0.9)] scroll-mt-28">
-                <h2 className="font-heading text-h2 font-medium leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]">
+                <h2 className="font-heading text-h2 font-medium leading-[1.06] [-webkit-text-stroke:0.015em_currentColor]">
                   {all.length}. {SOURCES_TITLE}
                 </h2>
                 <p className={`mt-[1em] ${body}`}>Figures are quoted as published. Where a source gave a range, the range is shown.</p>

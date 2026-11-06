@@ -93,7 +93,7 @@ export default function FooterWhyTrust({ className }: { className: string }) {
                 </svg>
               </button>
 
-              <h2 id="trust-title" className="book-rise pr-12 font-heading text-h2 font-medium leading-[1.08] [-webkit-text-stroke:0.03em_currentColor]" style={{ animationDelay: "180ms" }}>
+              <h2 id="trust-title" className="book-rise pr-12 font-heading text-h2 font-medium leading-[1.08] [-webkit-text-stroke:0.015em_currentColor]" style={{ animationDelay: "180ms" }}>
                 Why trust us
               </h2>
 

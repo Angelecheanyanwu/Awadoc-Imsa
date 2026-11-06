@@ -260,7 +260,7 @@ export default function HelixStory({ children }: { children: ReactNode }) {
                 <div className="mb-[1.1em] flex items-center gap-[0.6rem] text-label font-medium uppercase tracking-[0.18em] text-accent after:block after:h-px after:w-8 after:bg-current after:opacity-60 after:content-['']">
                   {step.number}
                 </div>
-                <h2 className="mb-[0.5em] font-heading text-h2 font-medium leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]">
+                <h2 className="mb-[0.5em] font-heading text-h2 font-medium leading-[1.06] [-webkit-text-stroke:0.015em_currentColor]">
                   {step.title}
                 </h2>
                 <p className="max-w-[26em] text-hero-sub font-semibold leading-relaxed text-muted">{step.text}</p>

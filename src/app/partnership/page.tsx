@@ -255,7 +255,7 @@ export default function PartnershipPage() {
       <main className="gutter relative z-10 pb-[calc(var(--spacing-section)*1.5)] pt-[calc(var(--spacing-section)*0.6)]">
         <header className="book-rise mx-auto max-w-[56em] text-center" style={{ animationDelay: "120ms" }}>
           <p className="text-label font-medium uppercase tracking-[0.18em] text-accent">About the partnership</p>
-          <h1 className="mt-[0.8em] font-heading text-display font-medium leading-[1.05] [-webkit-text-stroke:0.06em_currentColor]">
+          <h1 className="mt-[0.8em] font-heading text-display font-medium leading-[1.05] [-webkit-text-stroke:0.015em_currentColor]">
             AwaDoc × IMSA Genotype Match Programme
           </h1>
         </header>
@@ -266,7 +266,7 @@ export default function PartnershipPage() {
 
           {SECTIONS.map((section) => (
             <section id={slug(section.title)} key={section.title} className="mt-[calc(var(--spacing-section)*0.9)] scroll-mt-28 first:mt-0">
-              <h2 className="font-heading capitalize text-h2 font-medium leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]">
+              <h2 className="font-heading capitalize text-h2 font-medium leading-[1.06] [-webkit-text-stroke:0.015em_currentColor]">
                 {section.title}
               </h2>
               {section.blocks.map((block, i) => {

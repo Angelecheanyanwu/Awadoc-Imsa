@@ -24,7 +24,7 @@ export default function Pricing() {
       className="gutter relative z-10 pt-[calc(var(--spacing-section)*1.5)]"
     >
       <div>
-        <h2 className="mb-[calc(64*var(--u))] max-sm:mb-[calc(24*var(--u))] text-center font-heading text-h2 max-sm:text-[min(var(--text-h2),calc((100vw-3.6rem)/16.5))] font-medium leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]">
+        <h2 className="mb-[calc(64*var(--u))] max-sm:mb-[calc(24*var(--u))] text-center font-heading text-h2 max-sm:text-[min(var(--text-h2),calc((100vw-3.6rem)/16.5))] font-medium leading-[1.06] [-webkit-text-stroke:0.015em_currentColor]">
           Know your costs upfront
         </h2>
         <div className="grid grid-cols-1 gap-[calc(16*var(--u))] sm:grid-cols-2">
@@ -41,7 +41,7 @@ export default function Pricing() {
             >
               {/* Price row: the "View breakdown" button sits on this same line, at the right. */}
               <div className="flex flex-nowrap items-center justify-between gap-[calc(12*var(--u))]">
-                <p className="whitespace-nowrap font-heading text-price font-medium leading-none [-webkit-text-stroke:0.03em_currentColor]">
+                <p className="whitespace-nowrap font-heading text-price font-medium leading-none [-webkit-text-stroke:0.015em_currentColor]">
                   {/* Nohemi's naira sign is malformed (it renders as a dot), so the symbol uses Poppins. */}
                   <span className="font-sans font-semibold [-webkit-text-stroke:0]">{symbol}</span>
                   {digits}

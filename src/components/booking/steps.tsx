@@ -398,7 +398,7 @@ function Slots() {
         {SLOT_GROUPS.map((g) => (
           <div key={g.name}>
             <div className="mb-2 flex items-baseline justify-between gap-3 border-b border-ink/10 pb-2">
-              <h4 className="font-sans text-hero-sub font-semibold">{g.name}</h4>
+              <h4 className="font-heading text-hero-sub font-semibold">{g.name}</h4>
               <span className="text-hero-sub text-muted">{g.range}</span>
             </div>
             <div className="grid grid-cols-3 gap-2 @min-[401px]:grid-cols-4">
@@ -458,7 +458,7 @@ export function StepBook() {
     <div className="grid gap-[calc(26*var(--u))]">
       {/* Counselling */}
       <section className="grid gap-[calc(12*var(--u))]">
-        <h3 className="flex items-center gap-[0.6em] font-sans text-hero-sub font-semibold">
+        <h3 className="flex items-center gap-[0.6em] font-heading text-hero-sub font-semibold">
           <span>
             Counselling<span className="text-[#e5532d]"> *</span>
           </span>
@@ -505,7 +505,7 @@ export function StepBook() {
       {/* Procedures */}
       <section className="grid gap-[calc(12*var(--u))]">
         <div className="flex flex-wrap items-center justify-between gap-[calc(10*var(--u))]">
-          <h3 className="flex items-center gap-[0.6em] font-sans text-hero-sub font-semibold">
+          <h3 className="flex items-center gap-[0.6em] font-heading text-hero-sub font-semibold">
             Procedures
             <span className="rounded-full border border-ink/10 px-[0.7em] py-[0.1em] text-hero-sub font-normal text-muted">Optional</span>
           </h3>
@@ -564,7 +564,7 @@ export function StepBook() {
 
       {/* Date and time: the calendar on the left, the day's time slots on the right. */}
       <section className="grid gap-3">
-        <h3 className="font-sans text-hero-sub font-semibold">
+        <h3 className="font-heading text-hero-sub font-semibold">
           {data.counselling === "none" ? "Choose a date and time" : "Choose a date and time for counselling"}
           <span className="text-[#e5532d]"> *</span>
         </h3>
@@ -580,7 +580,7 @@ export function StepBook() {
 
       {/* Consent */}
       <section className="grid gap-[calc(10*var(--u))]">
-        <h3 className="font-sans text-hero-sub font-semibold">
+        <h3 className="font-heading text-hero-sub font-semibold">
           Consent<span className="text-[#e5532d]"> *</span>
         </h3>
         <Toggle on={data.consentCare} onChange={(v) => set({ consentCare: v })}>
@@ -716,7 +716,7 @@ export function StepLabs() {
   return (
     <div className="grid gap-[calc(18*var(--u))]">
       <section className="grid gap-[calc(12*var(--u))]">
-        <h3 className="flex flex-wrap items-center gap-[0.6em] font-sans text-hero-sub font-semibold">
+        <h3 className="flex flex-wrap items-center gap-[0.6em] font-heading text-hero-sub font-semibold">
           Genotype lab reports
           <span className="rounded-full border border-ink/10 px-[0.7em] py-[0.1em] text-hero-sub font-normal text-muted">Recommended</span>
         </h3>
@@ -773,7 +773,7 @@ export function StepPay() {
     <div className="grid gap-[calc(22*var(--u))]">
       <div className="overflow-hidden rounded-[14px] bg-[#0b1511] p-[calc(20*var(--u))] text-white shadow-[inset_0_0_80px_-30px_#0a7a5a]">
         <div className="text-hero-sub font-bold uppercase tracking-[0.14em] text-brand">Amount due</div>
-        <div className="mt-[0.3em] font-heading text-display font-medium leading-none [-webkit-text-stroke:0.03em_currentColor]">
+        <div className="mt-[0.3em] font-heading text-display font-medium leading-none [-webkit-text-stroke:0.015em_currentColor]">
           <Money ngn={total} />
         </div>
         <dl className="mt-[1em] grid divide-y divide-white/12 border-t border-white/12 text-hero-sub">
@@ -799,7 +799,7 @@ export function StepPay() {
       </div>
 
       <section className="grid gap-[calc(10*var(--u))]">
-        <h3 className="font-sans text-hero-sub font-semibold">
+        <h3 className="font-heading text-hero-sub font-semibold">
           Pay with<span className="text-[#e5532d]"> *</span>
         </h3>
         <div role="radiogroup" aria-label="Pay with" className="grid gap-[calc(10*var(--u))]">

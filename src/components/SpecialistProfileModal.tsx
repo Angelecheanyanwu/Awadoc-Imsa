@@ -112,7 +112,7 @@ export default function SpecialistProfileModal({ open, onClose }: { open: boolea
           <div className="@container min-w-0 flex-1">
             <h2
               id="profile-title"
-              className="font-heading text-h2 font-medium leading-[1.08] [-webkit-text-stroke:0.03em_currentColor] sm:text-[length:clamp(1.1rem,calc((100cqw-14rem)/10.9),var(--text-h2))]"
+              className="font-heading text-h2 font-medium leading-[1.08] [-webkit-text-stroke:0.015em_currentColor] sm:text-[length:clamp(1.1rem,calc((100cqw-14rem)/10.9),var(--text-h2))]"
             >
               <span className="sm:whitespace-nowrap">Dr Ibrahim Wada, OON</span>
               <span className="block sm:inline-block mt-[0.5em] sm:mt-0 sm:ml-[0.9em] align-baseline font-sans whitespace-nowrap text-[0.62rem] font-semibold uppercase tracking-widest text-ink [-webkit-text-stroke:0]">
@@ -149,7 +149,7 @@ export default function SpecialistProfileModal({ open, onClose }: { open: boolea
           ))}
         </div>
 
-        <h3 style={{ animationDelay: "480ms" }} className="book-rise mt-[1.8em] font-heading text-h3 font-medium [-webkit-text-stroke:0.03em_currentColor]">Training and career</h3>
+        <h3 style={{ animationDelay: "480ms" }} className="book-rise mt-[1.8em] font-heading text-h3 font-medium [-webkit-text-stroke:0.015em_currentColor]">Training and career</h3>
         <ul className="book-rise mt-[0.8em] space-y-[0.7em]" style={{ animationDelay: "540ms" }}>
           {CAREER.map((line) => (
             <li key={line} className="flex gap-3 text-[calc(var(--text-hero-sub)*0.95)] font-medium leading-relaxed tracking-[-0.03em] text-muted">

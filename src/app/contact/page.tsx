@@ -81,7 +81,7 @@ export default function ContactPage() {
 
       {/* The whole page fits one screen on a wide display: the name, then two halves, how to reach us on the left and the form on the right. */}
       <main className="gutter relative z-10 flex flex-col pb-[calc(var(--spacing-section)*0.6)] pt-[calc(var(--spacing-section)*0.2)] lg:min-h-[calc(100svh-6rem)]">
-        <h1 className="book-rise text-center font-heading text-display font-medium leading-[1.05] [-webkit-text-stroke:0.06em_currentColor]" style={{ animationDelay: "120ms" }}>
+        <h1 className="book-rise text-center font-heading text-display font-medium leading-[1.05] [-webkit-text-stroke:0.015em_currentColor]" style={{ animationDelay: "120ms" }}>
           Contact us
         </h1>
         <div className="mt-[calc(var(--spacing-section)*0.2)] grid flex-1 gap-x-[calc(80*var(--u))] gap-y-[calc(48*var(--u))] lg:grid-cols-2">

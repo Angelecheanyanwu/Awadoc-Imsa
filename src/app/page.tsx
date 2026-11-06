@@ -52,7 +52,7 @@ export default function Home() {
                 zero-width and overflows, and the paragraph and buttons fill the block, so the subtext
                 never goes past "marry.". Below 780px line one breaks after "genotype". */}
             <div className="w-fit">
-              <h1 className="mb-[0.35em] text-display font-heading font-medium [-webkit-text-stroke:0.06em_currentColor] leading-[1.05] tracking-normal">
+              <h1 className="mb-[0.35em] text-display font-heading font-medium [-webkit-text-stroke:0.015em_currentColor] leading-[1.05] tracking-normal">
                 <span className="block w-0 whitespace-nowrap">
                   Your genotype{" "}
                   <br className="min-[780px]:hidden" />

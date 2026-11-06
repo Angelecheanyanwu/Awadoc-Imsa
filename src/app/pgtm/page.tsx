@@ -97,7 +97,7 @@ export default function PgtmPage() {
 
       <main className="gutter relative z-10 pb-[calc(var(--spacing-section)*1.5)] pt-[calc(var(--spacing-section)*0.6)]">
                 <header className="book-rise mx-auto max-w-[56em] text-center" style={{ animationDelay: "120ms" }}>
-          <h1 className="font-heading text-[calc(var(--text-h2)*1.15)] font-medium leading-[1.1] [-webkit-text-stroke:0.04em_currentColor]">
+          <h1 className="font-heading text-[calc(var(--text-h2)*1.15)] font-medium leading-[1.1] [-webkit-text-stroke:0.015em_currentColor]">
             {REVIEW.title}
           </h1>
         </header>
@@ -123,7 +123,7 @@ export default function PgtmPage() {
                       <h2
                         key={i}
                         id={slug(b.t)}
-                        className="mt-[calc(var(--spacing-section)*0.9)] scroll-mt-28 font-heading text-h2 font-medium capitalize leading-[1.06] [-webkit-text-stroke:0.03em_currentColor]"
+                        className="mt-[calc(var(--spacing-section)*0.9)] scroll-mt-28 font-heading text-h2 font-medium capitalize leading-[1.06] [-webkit-text-stroke:0.015em_currentColor]"
                       >
                         {b.t}
                       </h2>
